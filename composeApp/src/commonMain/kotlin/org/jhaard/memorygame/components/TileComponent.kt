@@ -36,6 +36,11 @@ import kotlinx.coroutines.withContext
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 
+/**
+ * A Memory Tile Component
+ * @param tile The data of the tile.
+ * @param onClick The click event of the tile.
+ */
 @Composable
 fun TileComponent(
     tile: TileData,
@@ -88,25 +93,5 @@ fun TileComponent(
         ) {
             TileContent(text = tile.name, showContent = showContent)
         }
-    }
-}
-
-@Composable
-fun TileContent(text: String, showContent: Boolean) {
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-            .graphicsLayer {
-                rotationY = 180f
-            }
-    ) {
-        Text(
-            text = if (showContent) text else "",
-            color = Color.Black,
-            fontSize = 24.sp,
-            textAlign = TextAlign.Center,
-        )
     }
 }
