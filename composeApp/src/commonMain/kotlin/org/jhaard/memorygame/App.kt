@@ -1,44 +1,49 @@
 package org.jhaard.memorygame
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import memorygame.composeapp.generated.resources.Res
 import memorygame.composeapp.generated.resources.compose_multiplatform
+import memorygame.composeapp.generated.resources.tile_backside
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jhaard.memorygame.components.TileComponent
+import org.jhaard.memorygame.models.TileData
+import org.jhaard.memorygame.models.TileState
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(
-            modifier = Modifier
-                .safeContentPadding()
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
+        var currentState by remember { mutableStateOf(TileState.IDLE) }
+        var isContentVisible by remember { mutableStateOf(false) }
+        val painterContent = painterResource(resource = Res.drawable.compose_multiplatform)
+        val painterBackside = painterResource(resource = Res.drawable.tile_backside)
+        val tileData = TileData(
+            id = 0,
+            imageContent = painterContent,
+            backsideImage = painterBackside,
+            tileState = currentState,
+            isContentVisible = isContentVisible
+        )
+
+        TileComponent(
+            tile = tileData,
+            onClick = {
+                if (tileData.tileState == TileState.IDLE) {
+                    currentState = TileState.FLIP
+                    isContentVisible = true
+                }
+                if (tileData.tileState == TileState.FLIP) {
+                    currentState = TileState.IDLE
+                    isContentVisible = false
+
                 }
             }
-        }
+        )
     }
 }
