@@ -58,13 +58,9 @@ fun TileComponent(
     var showContent by remember { mutableStateOf(false) }
 
     LaunchedEffect(tile.isContentVisible) {
-        if (tile.isContentVisible) {
-            withContext(Dispatchers.IO) {
-                delay(400)
-                showContent = true
-            }
-        } else {
-            showContent = false
+        withContext(Dispatchers.IO) {
+            delay(200)
+            showContent = tile.isContentVisible
         }
     }
 
