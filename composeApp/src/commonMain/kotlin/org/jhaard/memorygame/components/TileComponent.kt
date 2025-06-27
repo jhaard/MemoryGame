@@ -67,13 +67,13 @@ fun TileComponent(
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
         Card(
             modifier = Modifier
-                .size(250.dp)
+                .size(120.dp)
                 .padding(20.dp)
                 .clickable(onClick = onClick)
                 .graphicsLayer {
                     rotationY = rotate
                 },
-            shape = RoundedCornerShape(20.dp),
+            shape = RoundedCornerShape(10.dp),
             colors = CardColors(
                 containerColor = if (showContent) Color.White else Color.Gray,
                 contentColor = if (showContent) Color.White else Color.Gray,
