@@ -13,8 +13,8 @@ import androidx.compose.ui.layout.ContentScale
 
 /**
  * The content to be paired.
- * TODO change content
  * @param imageContent The image content.
+ * @param backsideImage The default backside image of the tile.
  * @param showContent showing the content after a slight delay of the animation.
  */
 @Composable
