@@ -82,11 +82,11 @@ fun TileComponent(
             ),
             elevation = CardDefaults.cardElevation(7.dp),
             border = if (showContent) BorderStroke(4.dp, Color.Blue) else BorderStroke(
-                2.dp,
-                Color.LightGray
+                4.dp,
+                Color.Gray
             )
         ) {
-            TileContent(text = tile.name, showContent = showContent)
+            TileContent(imageContent = tile.imageContent, backsideImage = tile.backsideImage, showContent = showContent)
         }
     }
 }
