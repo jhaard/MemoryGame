@@ -59,7 +59,7 @@ fun TileComponent(
 
     LaunchedEffect(tile.isContentVisible) {
         withContext(Dispatchers.IO) {
-            delay(200)
+            delay(150)
             showContent = tile.isContentVisible
         }
     }
@@ -86,7 +86,11 @@ fun TileComponent(
                 Color.Gray
             )
         ) {
-            TileContent(imageContent = tile.imageContent, backsideImage = tile.backsideImage, showContent = showContent)
+            TileContent(
+                imageContent = tile.imageContent,
+                backsideImage = tile.backsideImage,
+                showContent = showContent
+            )
         }
     }
 }

@@ -8,8 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
 
 /**
  * The content to be paired.
@@ -18,7 +19,11 @@ import androidx.compose.ui.layout.ContentScale
  * @param showContent showing the content after a slight delay of the animation.
  */
 @Composable
-fun TileContent(imageContent: Painter, backsideImage: Painter, showContent: Boolean) {
+fun TileContent(
+    imageContent: DrawableResource,
+    backsideImage: DrawableResource,
+    showContent: Boolean
+) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -29,7 +34,9 @@ fun TileContent(imageContent: Painter, backsideImage: Painter, showContent: Bool
             }
     ) {
         Image(
-            painter = if (showContent) imageContent else backsideImage,
+            painter = if (showContent) painterResource(imageContent) else painterResource(
+                backsideImage
+            ),
             contentDescription = "Tile content",
             alignment = Alignment.Center,
             contentScale = ContentScale.Crop,
