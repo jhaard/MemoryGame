@@ -1,9 +1,22 @@
 package org.jhaard.memorygame.viewModels
 
+import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import org.jhaard.memorygame.dummyData.TileListDummyData
 import org.jhaard.memorygame.gameLogic.GameLogic
+import org.jhaard.memorygame.models.TileData
 
+class GameViewModel(private val gameLogic: GameLogic) : ViewModel() {
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-expect class GameViewModel(gameLogic: GameLogic) {
-    fun printMessage(): String
+    private val _tileList = MutableStateFlow<List<TileData>>(emptyList())
+    val tileList: StateFlow<List<TileData>> = _tileList
+
+    init {
+        _tileList.value = TileListDummyData.tileList
+    }
+
+    fun printMessage() : String {
+        return gameLogic.printMessage()
+    }
 }
