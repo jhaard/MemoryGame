@@ -4,9 +4,8 @@ class GameLogic {
 
     // Implement logic
 
-    fun printAnotherMessage(): String {
+    fun printMessage() : String {
         return "This is a test message"
-
     }
 
 

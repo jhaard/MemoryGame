@@ -5,11 +5,8 @@ import org.jhaard.memorygame.viewModels.GameViewModel
 
 object ModuleDI {
 
-    val gameViewModel: GameViewModel by lazy {
-        initGameViewModel()
-    }
-    val gameLogic: GameLogic = GameLogic()
+    private val gameLogic: GameLogic = GameLogic()
+
+    val gameViewModel = GameViewModel(gameLogic)
 
 }
-
-expect fun initGameViewModel(): GameViewModel
