@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,13 +17,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.jhaard.memorygame.models.TileData
+import org.jhaard.memorygame.viewModels.GameViewModel
 
 /**
  * The GameBoard of tiles
  */
 @Composable
-fun GameBoard(tiles: List<TileData>) {
+fun GameBoard(gameViewModel: GameViewModel) {
 
     Column(
         modifier = Modifier
@@ -37,6 +36,7 @@ fun GameBoard(tiles: List<TileData>) {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalArrangement = Arrangement.SpaceAround,
         ) {
+
             item(span = { GridItemSpan(this.maxLineSpan) }) {
                 Text(
                     text = "MEMORY GAME",
@@ -47,13 +47,21 @@ fun GameBoard(tiles: List<TileData>) {
                     modifier = Modifier.padding(50.dp)
                 )
             }
-            items(tiles) { tile ->
-                TileComponent(tile = tile, onClick = {
 
-                    println(tile.id)
 
-                })
-            }
+
+
+//            items(tiles) { tile ->
+//                TileComponent(tile = tile, onClick = {
+//
+//                    println(tile.id)
+//
+//                })
+//            }
+        }
+
+        Column {
+            Text(text = gameViewModel.printMessage(), color = Color.White)
         }
     }
 
