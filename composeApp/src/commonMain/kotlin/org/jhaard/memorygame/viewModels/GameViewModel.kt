@@ -16,7 +16,7 @@ class GameViewModel(private val gameLogic: GameLogic) : ViewModel() {
         _tileList.value = TileListDummyData.tileList
     }
 
-    fun printMessage() : String {
-        return gameLogic.printMessage()
+    fun changeTileState(tile: TileData) {
+
     }
 }

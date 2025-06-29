@@ -56,7 +56,7 @@ fun GameBoard(gameViewModel: GameViewModel) {
             items(tileList) { tile ->
                 TileComponent(tile = tile, onClick = {
 
-                    println(tile.id)
+                    gameViewModel.changeTileState(tile = tile)
 
                 })
             }
