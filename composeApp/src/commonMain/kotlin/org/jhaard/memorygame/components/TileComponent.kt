@@ -24,10 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 
@@ -58,10 +55,8 @@ fun TileComponent(
     var showContent by remember { mutableStateOf(false) }
 
     LaunchedEffect(tile.isContentVisible) {
-        withContext(Dispatchers.IO) {
-            delay(150)
-            showContent = tile.isContentVisible
-        }
+        delay(150)
+        showContent = tile.isContentVisible
     }
 
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
