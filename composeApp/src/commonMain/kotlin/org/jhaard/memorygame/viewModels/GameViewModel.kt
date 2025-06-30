@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 import org.jhaard.memorygame.dummyData.TileListDummyData
 import org.jhaard.memorygame.gameLogic.GameLogic
 import org.jhaard.memorygame.models.TileData
+import org.jhaard.memorygame.models.TileState
 
 class GameViewModel(private val gameLogic: GameLogic) : ViewModel() {
 
@@ -16,7 +17,25 @@ class GameViewModel(private val gameLogic: GameLogic) : ViewModel() {
         _tileList.value = TileListDummyData.tileList
     }
 
-    fun changeTileState(tile: TileData) {
+    fun changeTileState(id: Int) {
+        _tileList.value = _tileList.value.map { tile ->
+            if (tile.id == id && !checkTileState(tile)) tile.copy(
+                tileState = TileState.FLIP,
+                isContentVisible = true
+            )
+            else if (tile.id == id && checkTileState(tile)) tile.copy(
+                tileState = TileState.IDLE,
+                isContentVisible = false
+            )
+            else tile
+
+        }
 
     }
+
+    private fun checkTileState(tile: TileData): Boolean {
+        return tile.tileState == TileState.FLIP
+
+    }
+
 }
