@@ -7,44 +7,31 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
-import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import org.jhaard.memorygame.models.TileData
+import org.jhaard.memorygame.models.TileState
 
 /**
  * The content to be paired.
- * @param imageContent The image content.
- * @param backsideImage The default backside image of the tile.
- * @param showContent showing the content after a slight delay of the animation.
+ * @param tile The tile data.
  */
 @Composable
 fun TileContent(
-    imageContent: DrawableResource,
-    backsideImage: DrawableResource,
-    showContent: Boolean
+    tile: TileData
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .graphicsLayer {
-                rotationY = 180f
-            }
+
     ) {
         Image(
-            painter = if (showContent) painterResource(imageContent) else painterResource(
-                backsideImage
-            ),
+            painter = if (tile.tileState == TileState.FLIP) painterResource(tile.imageContent) else painterResource(tile.backsideImage),
             contentDescription = "Tile content",
             alignment = Alignment.Center,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .graphicsLayer {
-                    rotationY = 180f
-                }
+            contentScale = ContentScale.Crop
         )
-
     }
 }

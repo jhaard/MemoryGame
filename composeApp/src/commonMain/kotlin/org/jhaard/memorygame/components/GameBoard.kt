@@ -36,7 +36,7 @@ fun GameBoard(gameViewModel: GameViewModel) {
             .background(Color.Black)
     ) {
         LazyVerticalGrid(
-            columns = GridCells.FixedSize(120.dp),
+            columns = GridCells.FixedSize(100.dp),
             state = rememberLazyGridState(),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalArrangement = Arrangement.SpaceAround,

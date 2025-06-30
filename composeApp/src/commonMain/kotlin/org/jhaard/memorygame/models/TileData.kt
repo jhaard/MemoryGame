@@ -9,6 +9,5 @@ data class TileData(
     val id: Int,
     val imageContent: DrawableResource,
     val backsideImage: DrawableResource,
-    val tileState: TileState,
-    val isContentVisible: Boolean
+    val tileState: TileState
 )

@@ -19,18 +19,12 @@ class GameViewModel(private val gameLogic: GameLogic) : ViewModel() {
 
     fun changeTileState(id: Int) {
         _tileList.value = _tileList.value.map { tile ->
-            if (tile.id == id && !checkTileState(tile)) tile.copy(
-                tileState = TileState.FLIP,
-                isContentVisible = true
-            )
-            else if (tile.id == id && checkTileState(tile)) tile.copy(
-                tileState = TileState.IDLE,
-                isContentVisible = false
-            )
+            if (tile.id == id && !checkTileState(tile))
+                tile.copy(tileState = TileState.FLIP)
+            else if (tile.id == id && checkTileState(tile))
+                tile.copy(tileState = TileState.IDLE)
             else tile
-
         }
-
     }
 
     private fun checkTileState(tile: TileData): Boolean {
