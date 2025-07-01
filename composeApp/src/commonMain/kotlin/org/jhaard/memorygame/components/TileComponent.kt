@@ -14,20 +14,12 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 
@@ -43,50 +35,44 @@ fun TileComponent(
 ) {
     val transition = updateTransition(tile.tileState, label = "transition")
 
-    val rotate by transition.animateFloat(
+    val scale by transition.animateFloat(
         transitionSpec = {
-            tween(500)
+            tween(200)
         },
-        label = "rotate"
+        label = "scale"
     ) { state ->
         when (state) {
-            TileState.IDLE -> 0f
-            TileState.FLIP -> 180f
-        }
-    }
-
-    var showContent by remember { mutableStateOf(false) }
-
-    LaunchedEffect(tile.isContentVisible) {
-        withContext(Dispatchers.IO) {
-            delay(200)
-            showContent = tile.isContentVisible
+            TileState.IDLE -> 1f
+            TileState.FLIP -> 1.25f
         }
     }
 
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
         Card(
             modifier = Modifier
-                .size(250.dp)
+                .size(100.dp)
                 .padding(20.dp)
                 .clickable(onClick = onClick)
                 .graphicsLayer {
-                    rotationY = rotate
+                    scaleX = scale
+                    scaleY = scale
                 },
-            shape = RoundedCornerShape(20.dp),
+            shape = RoundedCornerShape(10.dp),
             colors = CardColors(
-                containerColor = if (showContent) Color.White else Color.Gray,
-                contentColor = if (showContent) Color.White else Color.Gray,
+                containerColor = if (tile.tileState == TileState.FLIP) Color.White else Color.Gray,
+                contentColor = if (tile.tileState == TileState.FLIP) Color.White else Color.Gray,
                 disabledContainerColor = Color.Gray,
                 disabledContentColor = Color.LightGray
             ),
             elevation = CardDefaults.cardElevation(7.dp),
-            border = if (showContent) BorderStroke(4.dp, Color.Blue) else BorderStroke(
+            border = if (tile.tileState == TileState.FLIP) BorderStroke(4.dp, Color.Blue) else BorderStroke(
                 4.dp,
-                Color.Gray
+                Color.White
             )
         ) {
-            TileContent(imageContent = tile.imageContent, backsideImage = tile.backsideImage, showContent = showContent)
+            TileContent(
+                tile = tile
+            )
         }
     }
 }
