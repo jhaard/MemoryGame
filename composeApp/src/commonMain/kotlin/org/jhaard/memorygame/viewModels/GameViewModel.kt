@@ -8,6 +8,11 @@ import org.jhaard.memorygame.gameLogic.GameLogic
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 
+/**
+ * The viewmodel for the game.
+ *
+ * @param gameLogic Inserting a GameLogic-klass to separate some core logic to keep files smaller.
+ */
 class GameViewModel(private val gameLogic: GameLogic) : ViewModel() {
 
     private val _tileList = MutableStateFlow<List<TileData>>(emptyList())

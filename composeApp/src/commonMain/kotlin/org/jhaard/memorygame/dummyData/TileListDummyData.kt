@@ -6,7 +6,10 @@ import memorygame.composeapp.generated.resources.tile_backside
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 
-
+/**
+ * DummyData for testing with a board of tiles
+ * TODO Remove this object file.
+ */
 object TileListDummyData {
     private val painterContent = Res.drawable.compose_multiplatform
     private val painterBackside = Res.drawable.tile_backside
