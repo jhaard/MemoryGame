@@ -18,12 +18,12 @@
 Basic workflow: Feature-branches will be merged into a develop-branch when finished. Main branch
 will be updated at certain stable points.
 
-`:white_check_mark: feature/tile-component` is focused on creating a component for the tile and at click, the tile
+:white_check_mark: `feature/tile-component` is focused on creating a component for the tile and at click, the tile
 should change it's state and show the content. It will also involve an animation when changing state.
 
-`:white_check_mark: feature/ui-bord` will be a simple board implementing a list of tile components.
+:white_check_mark: `feature/ui-bord` will be a simple board implementing a list of tile components.
 Also, since I will be using MVVM, an early structure must be formed.
 
-`:construction: feature/ next feature...`
+:construction: `feature/ next feature...`
 
 </details>
