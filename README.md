@@ -9,6 +9,7 @@
 * #### Git structure and reflections of the work without the use of AI-generated code.
 * #### Documentation in Code / README.
 * #### Game logic, design and responsive UI.
+* #### Unit testing when time is given.
 
 
 ### Progress of the game
@@ -24,6 +25,7 @@ should change it's state and show the content. It will also involve an animation
 :white_check_mark: `feature/ui-bord` will be a simple board implementing a list of tile components.
 Also, since I will be using MVVM, an early structure must be formed.
 
-:construction: `feature/ next feature...`
+:construction: `feature/icons-from-api` will implement icons to a collection to be used as content
+for the tiles.
 
 </details>
