@@ -1,14 +1,13 @@
 package org.jhaard.memorygame.models
 
-import androidx.compose.ui.graphics.painter.Painter
+import org.jetbrains.compose.resources.DrawableResource
 
 /**
  * Model of the tile data.
  */
 data class TileData(
     val id: Int,
-    val imageContent: Painter,
-    val backsideImage: Painter,
-    val tileState: TileState,
-    val isContentVisible: Boolean
+    val imageContent: DrawableResource,
+    val backsideImage: DrawableResource,
+    val tileState: TileState
 )
