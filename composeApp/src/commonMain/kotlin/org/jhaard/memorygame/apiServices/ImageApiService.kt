@@ -17,6 +17,12 @@ import org.jhaard.memorygame.models.values.StringValues
  */
 class ImageApiService(private val client: HttpClient = createHttpClient()) {
 
+    /**
+     * Get the icons from the proxy server and return the response.
+     *
+     * @param key The searchWord added to the params.
+     * @return The response body.
+     */
     suspend fun getImageIcons(key: String): IconImageResponse {
 
         val url: String = StringValues.BASE_URL + StringValues.QUERY_ADDITION + key

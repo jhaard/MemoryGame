@@ -5,7 +5,9 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-
+/**
+ * The HTTP-client to be initiated.
+ */
 fun createHttpClient(): HttpClient {
     return HttpClient {
         install(ContentNegotiation) {
