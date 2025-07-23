@@ -3,9 +3,6 @@ package org.jhaard.memorygame.apiServices
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
-import io.ktor.http.ContentType
-import io.ktor.http.HttpMethod
-import io.ktor.http.contentType
 import org.jhaard.memorygame.httpClient.createHttpClient
 import org.jhaard.memorygame.models.iconImageModels.IconImageResponse
 import org.jhaard.memorygame.models.values.StringValues
@@ -20,18 +17,17 @@ class ImageApiService(private val client: HttpClient = createHttpClient()) {
     /**
      * Get the icons from the proxy server and return the response.
      *
-     * @param key The searchWord added to the params.
+     * @param key The search-word added to the params.
      * @return The response body.
+     *
+     * TODO Handle exceptions.
      */
     suspend fun getImageIcons(key: String): IconImageResponse {
 
         val url: String = StringValues.BASE_URL + StringValues.QUERY_ADDITION + key
 
         return try {
-            val response = client.get(url) {
-                method = HttpMethod.Get
-                contentType(ContentType.Application.Json)
-            }
+            val response = client.get(url)
 
             response.body()
 

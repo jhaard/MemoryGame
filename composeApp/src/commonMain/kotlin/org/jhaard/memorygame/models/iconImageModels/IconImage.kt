@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class IconImage(
-    @SerialName("icon_id") val iconId: Int,
-    @SerialName("raster_sizes") val rasterSizes: List<SizeFormat>
-    )
+    @SerialName("icon_id") val iconId: Int?,
+    @SerialName("raster_sizes") val rasterSizes: List<SizeFormat>?
+)

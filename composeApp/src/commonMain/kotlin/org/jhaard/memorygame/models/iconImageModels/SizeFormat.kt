@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SizeFormat(
-    val size: Int,
-    val formats: List<ImagePreview>
+    val size: Int?,
+    val formats: List<ImagePreview>?
 )

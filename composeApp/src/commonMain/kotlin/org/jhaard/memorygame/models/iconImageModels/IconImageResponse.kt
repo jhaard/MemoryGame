@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class IconImageResponse(
-    val icons: List<IconImage>
+    val icons: List<IconImage>?
 )
