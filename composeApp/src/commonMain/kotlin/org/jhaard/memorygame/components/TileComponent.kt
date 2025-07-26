@@ -24,7 +24,8 @@ import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 
 /**
- * A Memory Tile Component
+ * A Memory Tile Component.
+ *
  * @param tile The data of the tile.
  * @param onClick The click event of the tile.
  */
@@ -44,6 +45,7 @@ fun TileComponent(
         when (state) {
             TileState.IDLE -> 1f
             TileState.FLIP -> 1.25f
+            TileState.MATCHED -> 1f
         }
     }
 
