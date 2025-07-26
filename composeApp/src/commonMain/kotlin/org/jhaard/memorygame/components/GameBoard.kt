@@ -23,7 +23,9 @@ import androidx.compose.ui.unit.sp
 import org.jhaard.memorygame.viewModels.GameViewModel
 
 /**
- * The GameBoard of tiles
+ * The GameBoard of tiles.
+ *
+ * @param gameViewModel The viewmodel for the game flow to this view.
  */
 @Composable
 fun GameBoard(gameViewModel: GameViewModel) {

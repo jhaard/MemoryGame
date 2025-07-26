@@ -13,7 +13,7 @@ import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 
 /**
- * The content to be paired.
+ * The image contents of a tile.
  * @param tile The tile data.
  */
 @Composable
