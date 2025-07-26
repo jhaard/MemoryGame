@@ -5,6 +5,7 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import org.jhaard.memorygame.httpClient.createHttpClient
 import org.jhaard.memorygame.models.iconImageModels.IconImageResponse
+import org.jhaard.memorygame.models.values.StringValues
 
 /**
  * Fetching icons to the memory tiles from proxy server url.
@@ -23,7 +24,7 @@ class ImageApiService(private val client: HttpClient = createHttpClient()) {
      */
     suspend fun getImageIcons(key: String): IconImageResponse {
 
-        val url: String = ""
+        val url: String = StringValues.BASE_URL + StringValues.QUERY_ADDITION + key
 
         return try {
             val response = client.get(url)
