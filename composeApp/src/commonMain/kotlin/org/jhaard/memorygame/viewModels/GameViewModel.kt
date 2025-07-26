@@ -1,19 +1,36 @@
 package org.jhaard.memorygame.viewModels
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import org.jhaard.memorygame.apiServices.ImageApiService
 import org.jhaard.memorygame.dummyData.TileListDummyData
 import org.jhaard.memorygame.gameLogic.GameLogic
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 
-class GameViewModel(private val gameLogic: GameLogic) : ViewModel() {
+
+/**
+ * The viewmodel for the game.
+ *
+ * @param gameLogic Inserting a GameLogic-klass to separate some core logic to keep files smaller.
+ */
+class GameViewModel(gameLogic: GameLogic, imageApiService: ImageApiService) : ViewModel() {
 
     private val _tileList = MutableStateFlow<List<TileData>>(emptyList())
     val tileList: StateFlow<List<TileData>> = _tileList
 
     init {
+      
+        viewModelScope.launch {
+            val imageResponse = imageApiService.getImageIcons("cat")
+
+            println("Testing fetch from viewmodel: $imageResponse")
+
+        }
+
         _tileList.value = TileListDummyData.tileList
     }
 
