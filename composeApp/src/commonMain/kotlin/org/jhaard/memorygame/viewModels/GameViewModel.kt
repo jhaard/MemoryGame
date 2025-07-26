@@ -11,6 +11,7 @@ import org.jhaard.memorygame.gameLogic.GameLogic
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 
+
 /**
  * The viewmodel for the game.
  *
@@ -22,6 +23,7 @@ class GameViewModel(gameLogic: GameLogic, imageApiService: ImageApiService) : Vi
     val tileList: StateFlow<List<TileData>> = _tileList
 
     init {
+      
         viewModelScope.launch {
             val imageResponse = imageApiService.getImageIcons("cat")
 

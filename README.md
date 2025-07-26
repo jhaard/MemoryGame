@@ -12,6 +12,7 @@
 * #### Unit testing when time is given.
 
 
+
 ### Progress of the game
 <details>
 <summary>Branches and Progress</summary><br>
@@ -30,4 +31,5 @@ with 10 icons of a certain keyword. The request is made to a render-url using a 
 for this simple purpose. The proxy server has been a side-project to the game to handle API security.
 
 :construction: `feature/next-feature` ...
+
 </details>
