@@ -29,6 +29,20 @@ Also, since I will be using MVVM, an early structure must be formed.
 :white_check_mark: `feature/icons-from-api`. This feature is fetching a response from IconFinder 
 with 10 icons of a certain keyword. The request is made to a render-url using a proxy server 
 for this simple purpose. The proxy server has been a side-project to the game to handle API security.
+```kotlin
+// Extensions in Application.
+import io.ktor.server.application.*
+
+fun main(args: Array<String>) {
+    io.ktor.server.netty.EngineMain.main(args)
+}
+
+fun Application.module() {
+    configureRateLimit()
+    configureSerialization()
+    configureHTTP()
+}
+````
 
 :construction: `feature/load-tiles-from-start-screen` Since we have a JSON-response from the proxy server,
 handle the response and set the tile images. The render service is using a free version with longer 
