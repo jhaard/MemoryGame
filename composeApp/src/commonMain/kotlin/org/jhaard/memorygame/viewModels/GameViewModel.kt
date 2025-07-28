@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.jhaard.memorygame.dummyData.TileListDummyData
 import org.jhaard.memorygame.gameLogic.GameLogic
+import org.jhaard.memorygame.localStorage.SettingsRepository
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 
@@ -13,8 +14,10 @@ import org.jhaard.memorygame.models.TileState
  * The viewmodel for the game.
  *
  * @param gameLogic Inserting a GameLogic-klass to separate some core logic to keep files smaller.
+ * @param localStorage Getting saved data, for example image-url's.
  */
-class GameViewModel(gameLogic: GameLogic) : ViewModel() {
+class GameViewModel(gameLogic: GameLogic, private val localStorage: SettingsRepository) :
+    ViewModel() {
 
     private val _tileList = MutableStateFlow<List<TileData>>(emptyList())
     val tileList: StateFlow<List<TileData>> = _tileList
@@ -36,6 +39,10 @@ class GameViewModel(gameLogic: GameLogic) : ViewModel() {
     private fun checkTileState(tile: TileData): Boolean {
         return tile.tileState == TileState.FLIP
 
+    }
+
+    fun getImageList(): List<String> {
+        return localStorage.getUrlList()
     }
 
 }
