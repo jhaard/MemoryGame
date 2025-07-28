@@ -10,7 +10,6 @@ import org.jhaard.memorygame.screens.GameBoard
 import org.jhaard.memorygame.screens.StartScreen
 import org.jhaard.memorygame.viewModels.StartViewModel
 
-
 /**
  * Navigation with NavHost to the screen routes of the game.
  *

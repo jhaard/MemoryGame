@@ -56,7 +56,6 @@ kotlin {
 
             implementation(libs.navigation.compose)
 
-
         }
 
         iosMain.dependencies {
