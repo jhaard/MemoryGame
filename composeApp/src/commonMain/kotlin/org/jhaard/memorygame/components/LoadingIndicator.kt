@@ -3,6 +3,7 @@ package org.jhaard.memorygame.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -27,6 +28,7 @@ fun LoadingIndicator() {
     ) {
         CircularProgressIndicator(
             modifier = Modifier
+                .padding(10.dp)
                 .size(80.dp),
             color = Color.Black,
             trackColor = Color.Gray,
@@ -34,7 +36,7 @@ fun LoadingIndicator() {
         )
         Text(
             text = "Service may be inactive.\nFetching new images...",
-            fontSize = 14.sp,
+            fontSize = 18.sp,
             color = Color.Gray,
             textAlign = TextAlign.Center
         )

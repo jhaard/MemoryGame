@@ -54,6 +54,9 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.ktor.client.content.negotiation)
 
+            implementation(libs.navigation.compose)
+
+
         }
 
         iosMain.dependencies {

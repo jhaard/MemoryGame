@@ -1,4 +1,4 @@
-package org.jhaard.memorygame.components
+package org.jhaard.memorygame.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +20,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import org.jhaard.memorygame.components.TileComponent
 import org.jhaard.memorygame.viewModels.GameViewModel
 
 /**
@@ -28,7 +30,7 @@ import org.jhaard.memorygame.viewModels.GameViewModel
  * @param gameViewModel The viewmodel for the game flow to this view.
  */
 @Composable
-fun GameBoard(gameViewModel: GameViewModel) {
+fun GameBoard(navController: NavController, gameViewModel: GameViewModel) {
 
     val tileList by gameViewModel.tileList.collectAsState(initial = emptyList())
 
