@@ -6,7 +6,7 @@ package org.jhaard.memorygame.navigation
  *
  * @param route The string route to navigate to.
  */
-open class Screens(val route: String) {
-    object StartScreen: Screens("start_screen")
-    object GameScreen: Screens("game_screen")
+sealed class Screens(val route: String) {
+    data object StartScreen: Screens("start_screen")
+    data object GameScreen: Screens("game_screen")
 }
