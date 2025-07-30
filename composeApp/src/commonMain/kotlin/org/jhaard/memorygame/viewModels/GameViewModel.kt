@@ -22,7 +22,10 @@ class GameViewModel(gameLogic: GameLogic, private val localStorage: SettingsRepo
     val tileList: StateFlow<List<TileData>> = _tileList
 
     init {
-        _tileList.value = createTileList()
+        val listA = createTileList(0)
+        val listB = createTileList(10)
+
+        _tileList.value = listA + listB
     }
 
     fun changeTileState(id: Int) {
@@ -43,7 +46,7 @@ class GameViewModel(gameLogic: GameLogic, private val localStorage: SettingsRepo
         return localStorage.getUrlList()
     }
 
-    private fun createTileList(): List<TileData> {
+    private fun createTileList(startIndex: Int): List<TileData> {
         val listOfTiles: MutableList<TileData> = mutableListOf()
         val listOfUrls = getImageList()
 
@@ -51,7 +54,7 @@ class GameViewModel(gameLogic: GameLogic, private val localStorage: SettingsRepo
             listOfUrls.forEachIndexed { index, url ->
                 listOfTiles.add(
                     TileData(
-                        id = index,
+                        id = startIndex+index,
                         imageContent = url,
                         TileState.IDLE
                     )
