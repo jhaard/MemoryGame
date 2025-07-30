@@ -3,7 +3,8 @@ package org.jhaard.memorygame.viewModels
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import org.jhaard.memorygame.dummyData.TileListDummyData
+import memorygame.composeapp.generated.resources.Res
+import memorygame.composeapp.generated.resources.tile_backside
 import org.jhaard.memorygame.gameLogic.GameLogic
 import org.jhaard.memorygame.localStorage.SettingsRepository
 import org.jhaard.memorygame.models.TileData
@@ -23,7 +24,7 @@ class GameViewModel(gameLogic: GameLogic, private val localStorage: SettingsRepo
     val tileList: StateFlow<List<TileData>> = _tileList
 
     init {
-        _tileList.value = TileListDummyData.tileList
+        _tileList.value = createTileList()
     }
 
     fun changeTileState(id: Int) {
@@ -41,8 +42,26 @@ class GameViewModel(gameLogic: GameLogic, private val localStorage: SettingsRepo
 
     }
 
-    fun getImageList(): List<String> {
+    private fun getImageList(): List<String> {
         return localStorage.getUrlList()
+    }
+
+    private fun createTileList(): List<TileData> {
+        val listOfTiles: MutableList<TileData> = mutableListOf()
+        val listOfUrls = getImageList()
+
+        if (listOfUrls.isNotEmpty()) {
+            listOfUrls.forEachIndexed { index, url ->
+                listOfTiles.add(
+                    TileData(
+                        id = index,
+                        imageContent = url,
+                        TileState.IDLE
+                    )
+                )
+            }
+        }
+        return listOfTiles
     }
 
 }

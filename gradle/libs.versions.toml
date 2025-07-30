@@ -13,6 +13,7 @@ androidx-testExt = "1.2.1"
 composeMultiplatform = "1.8.2"
 jetbrainsNavigationCompose = "2.7.0-alpha07"
 junit = "4.13.2"
+kamelImageDefault = "1.0.7"
 kotlin = "2.2.0"
 kotlinxCoroutinesCore = "1.10.2"
 kotlinxSerializationJson = "1.8.1"
@@ -22,6 +23,7 @@ multiplatformSettings = "1.1.1"
 
 [libraries]
 
+kamel-image-default = { module = "media.kamel:kamel-image-default", version.ref = "kamelImageDefault" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { module = "junit:junit", version.ref = "junit" }

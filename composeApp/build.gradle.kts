@@ -56,6 +56,8 @@ kotlin {
 
             implementation(libs.navigation.compose)
 
+            implementation(libs.kamel.image.default)
+
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.no.arg)
 
