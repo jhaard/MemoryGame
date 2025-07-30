@@ -1,12 +1,13 @@
 package org.jhaard.memorygame.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import org.jhaard.memorygame.ModuleDI
-import org.jhaard.memorygame.screens.GameBoard
+import org.jhaard.memorygame.Modules
+import org.jhaard.memorygame.screens.GameScreen
 import org.jhaard.memorygame.screens.StartScreen
 import org.jhaard.memorygame.viewModels.StartViewModel
 
@@ -32,9 +33,9 @@ fun Navigation(startViewModel: StartViewModel) {
             )
         }
         composable(route = Screens.GameScreen.route) {
-            GameBoard(
+            GameScreen(
                 navController = navController,
-                gameViewModel = ModuleDI.gameViewModel
+                gameViewModel = remember { Modules.gameViewModel() }
             )
         }
 

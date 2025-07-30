@@ -3,8 +3,6 @@ package org.jhaard.memorygame.viewModels
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import memorygame.composeapp.generated.resources.Res
-import memorygame.composeapp.generated.resources.tile_backside
 import org.jhaard.memorygame.gameLogic.GameLogic
 import org.jhaard.memorygame.localStorage.SettingsRepository
 import org.jhaard.memorygame.models.TileData
@@ -39,7 +37,6 @@ class GameViewModel(gameLogic: GameLogic, private val localStorage: SettingsRepo
 
     private fun checkTileState(tile: TileData): Boolean {
         return tile.tileState == TileState.FLIP
-
     }
 
     private fun getImageList(): List<String> {

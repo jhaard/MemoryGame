@@ -30,7 +30,7 @@ import org.jhaard.memorygame.viewModels.GameViewModel
  * @param gameViewModel The viewmodel for the game flow to this view.
  */
 @Composable
-fun GameBoard(navController: NavController, gameViewModel: GameViewModel) {
+fun GameScreen(navController: NavController, gameViewModel: GameViewModel) {
 
     val tileList by gameViewModel.tileList.collectAsState(initial = emptyList())
 

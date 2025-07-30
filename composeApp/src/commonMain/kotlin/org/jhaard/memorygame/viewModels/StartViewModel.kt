@@ -25,7 +25,7 @@ class StartViewModel(
         viewModelScope.launch {
             _isLoading.value = true
 
-            val imageResponse = imageApiService.getImageIcons("cat")
+            val imageResponse = imageApiService.getImageIcons("unicorn")
 
             if (imageResponse.icons != null) {
                 val sizeFormats = imageResponse.icons
