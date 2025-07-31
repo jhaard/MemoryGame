@@ -49,6 +49,7 @@ activation time, therefore, show the user a start screen loading the service and
 
 ![Preview](assets/preview.png)
 
-:construction: `next feature...` Next feature...
+:construction: `feature/compare-tiles-and-match` Compare the tiles. If they match, change
+their state and appearance.
 
 </details>
