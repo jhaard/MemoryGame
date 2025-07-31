@@ -1,8 +1,11 @@
 package org.jhaard.memorygame.viewModels
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import org.jhaard.memorygame.gameLogic.GameLogic
 import org.jhaard.memorygame.localStorage.SettingsRepository
 import org.jhaard.memorygame.models.TileData
@@ -89,6 +92,26 @@ class GameViewModel(
                 }
             }
         }
+    }
+
+    fun checkForNumberOfFlip() {
+        val newList = _tileList.value.filter { it.tileState == TileState.FLIP }
+
+        viewModelScope.launch {
+            if (newList.size > 1) {
+                delay(1000)
+                _tileList.value = _tileList.value.map { tile ->
+                    if (tile.tileState == TileState.FLIP) {
+                        tile.copy(tileState = TileState.IDLE)
+                    } else {
+                        tile
+                    }
+                }
+            }
+
+        }
+
+
     }
 
     /**

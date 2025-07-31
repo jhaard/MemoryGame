@@ -33,7 +33,9 @@ import org.jhaard.memorygame.models.TileState
 fun TileComponent(
     tile: TileData,
     onClick: () -> Unit,
+    enabled: Boolean
 ) {
+
     val transition = updateTransition(tile.tileState, label = "transition")
 
     val scale by transition.animateFloat(
@@ -54,7 +56,7 @@ fun TileComponent(
             modifier = Modifier
                 .size(100.dp)
                 .padding(20.dp)
-                .clickable(onClick = onClick, enabled = tile.tileState != TileState.MATCHED)
+                .clickable(onClick = onClick, enabled = enabled)
                 .graphicsLayer {
                     scaleX = scale
                     scaleY = scale

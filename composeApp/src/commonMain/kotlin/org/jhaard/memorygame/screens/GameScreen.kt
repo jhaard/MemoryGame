@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.jhaard.memorygame.components.TileComponent
+import org.jhaard.memorygame.models.TileState
 import org.jhaard.memorygame.viewModels.GameViewModel
 
 /**
@@ -63,8 +64,9 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel) {
 
                     gameViewModel.changeTileState(id = tile.id)
                     gameViewModel.checkForMatchedPair(id = tile.id, url = tile.imageContent)
+                    gameViewModel.checkForNumberOfFlip()
 
-                })
+                }, enabled = tile.tileState == TileState.IDLE)
             }
         }
     }
