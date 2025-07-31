@@ -17,8 +17,7 @@
 <details>
 <summary>Branches and Progress</summary><br>
 
-Basic workflow: Feature-branches will be merged into a develop-branch when finished. Main branch
-will be updated at certain stable points.
+##### Currently working on: `feature/load-tiles-from-start-screen`
 
 :white_check_mark: `feature/tile-component`. Is focused on creating a component for the tile and at click, the tile
 should change it's state and show the content. It will also involve an animation when changing state.
@@ -26,10 +25,30 @@ should change it's state and show the content. It will also involve an animation
 :white_check_mark: `feature/ui-board`. Will be a simple board implementing a list of tile components.
 Also, since I will be using MVVM, an early structure must be formed.
 
-:white_check_mark: `feature/icons-from-api`. This feature is fetching a response from Iconfinder 
+:white_check_mark: `feature/icons-from-api`. This feature is fetching a response from IconFinder 
 with 10 icons of a certain keyword. The request is made to a render-url using a proxy server 
 for this simple purpose. The proxy server has been a side-project to the game to handle API security.
+```kotlin
+// Extensions in Application.
+import io.ktor.server.application.*
 
-:construction: `feature/next-feature` ...
+fun main(args: Array<String>) {
+    io.ktor.server.netty.EngineMain.main(args)
+}
+
+fun Application.module() {
+    configureRateLimit()
+    configureSerialization()
+    configureHTTP()
+}
+````
+
+:white_check_mark: `feature/load-tiles-from-start-screen` Since we have a JSON-response from the proxy server,
+handle the response and set the tile images. The render service is using a free version with longer 
+activation time, therefore, show the user a start screen loading the service and response.
+
+![Preview](assets/preview.png)
+
+:construction: `next feature...` Next feature...
 
 </details>
