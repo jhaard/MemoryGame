@@ -28,6 +28,7 @@ import org.jhaard.memorygame.viewModels.GameViewModel
 /**
  * The GameBoard of tiles.
  *
+ * @param navController For navigation.
  * @param gameViewModel The viewmodel for the game flow to this view.
  */
 @Composable

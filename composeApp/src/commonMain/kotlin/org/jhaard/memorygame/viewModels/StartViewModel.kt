@@ -12,6 +12,7 @@ import org.jhaard.memorygame.localStorage.SettingsRepository
  * The viewModel for the StartScreen, loading the images from the api.
  *
  * @param imageApiService The class for fetching images.
+ * @param localStorage Saving the image urls locally.
  */
 class StartViewModel(
     private val imageApiService: ImageApiService,
@@ -21,17 +22,22 @@ class StartViewModel(
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
-    fun fetchImages() {
+    /**
+     * Fetching the images from API proxy server with a key word.
+     * @param key The key to search for.
+     */
+    fun fetchImages(key: String) {
         viewModelScope.launch {
             _isLoading.value = true
 
-            val imageResponse = imageApiService.getImageIcons("unicorn")
+            val imageResponse = imageApiService.getImageIcons(key = key)
 
             if (imageResponse.icons != null) {
+
                 val sizeFormats = imageResponse.icons
                     .flatMap { it.rasterSizes!! }
 
-                val sizes = sizeFormats.filter { it.size == 48 }
+                val sizes = sizeFormats.filter { it.size == 64 }
 
                 val previews = sizes
                     .flatMap { it.formats!! }

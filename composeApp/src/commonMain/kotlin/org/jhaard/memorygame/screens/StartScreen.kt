@@ -25,6 +25,10 @@ import org.jhaard.memorygame.viewModels.StartViewModel
 
 /**
  * Start screen of the game. Load images here.
+ *
+ * @param navController For navigation.
+ * @param startViewModel The viewmodel for the start screen.
+ *
  * TODO Restrict fetches.
  * TODO Adjust composable to custom theme.
  */
@@ -37,7 +41,7 @@ fun StartScreen(
     val loading by startViewModel.isLoading.collectAsState(false)
 
     LaunchedEffect(Unit) {
-        startViewModel.fetchImages()
+        startViewModel.fetchImages("vehicle")
     }
 
     Column(

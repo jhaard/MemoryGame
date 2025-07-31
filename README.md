@@ -17,8 +17,7 @@
 <details>
 <summary>Branches and Progress</summary><br>
 
-Basic workflow: Feature-branches will be merged into a develop-branch when finished. Main branch
-will be updated at certain stable points.
+##### Currently working on: `feature/load-tiles-from-start-screen`
 
 :white_check_mark: `feature/tile-component`. Is focused on creating a component for the tile and at click, the tile
 should change it's state and show the content. It will also involve an animation when changing state.
@@ -44,8 +43,13 @@ fun Application.module() {
 }
 ````
 
-:construction: `feature/load-tiles-from-start-screen` Since we have a JSON-response from the proxy server,
+:white_check_mark: `feature/load-tiles-from-start-screen` Since we have a JSON-response from the proxy server,
 handle the response and set the tile images. The render service is using a free version with longer 
-activation time, therefore, show the user a start screen loading the service and response. 
+activation time, therefore, show the user a start screen loading the service and response.
+
+
+
+:construction: `next feature...` Next feature...
+
 
 </details>

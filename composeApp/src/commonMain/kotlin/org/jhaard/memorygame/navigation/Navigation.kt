@@ -14,12 +14,11 @@ import org.jhaard.memorygame.viewModels.StartViewModel
 /**
  * Navigation with NavHost to the screen routes of the game.
  *
- * @param startViewModel The passed viewModel to start with.
+ * @param startViewModel The passed startViewModel.
  */
 @Composable
 fun Navigation(startViewModel: StartViewModel) {
     val navController = rememberNavController()
-
 
     NavHost(
         navController = navController,
