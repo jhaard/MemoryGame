@@ -47,7 +47,7 @@ fun Application.module() {
 handle the response and set the tile images. The render service is using a free version with longer 
 activation time, therefore, show the user a start screen loading the service and response.
 
-![Preview](assets/preview.pdf)
+![Preview](assets/preview.png)
 
 :construction: `next feature...` Next feature...
 
