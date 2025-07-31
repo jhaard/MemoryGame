@@ -54,6 +54,13 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.ktor.client.content.negotiation)
 
+            implementation(libs.navigation.compose)
+
+            implementation(libs.kamel.image.default)
+
+            implementation(libs.multiplatform.settings)
+            implementation(libs.multiplatform.settings.no.arg)
+
         }
 
         iosMain.dependencies {

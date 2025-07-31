@@ -3,20 +3,20 @@ package org.jhaard.memorygame
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.jhaard.memorygame.components.GameBoard
-import org.jhaard.memorygame.viewModels.GameViewModel
+import org.jhaard.memorygame.navigation.Navigation
+import org.jhaard.memorygame.viewModels.StartViewModel
 
 /**
  * Starting composable function for the applications.
  *
- * @param gameViewModel The GameViewModel for game flow.
+ * @param startViewModel The startViewModel for the StartScreen.
  */
 @Composable
 @Preview
-fun App(gameViewModel: GameViewModel) {
+fun App(startViewModel: StartViewModel) {
 
     MaterialTheme {
-        GameBoard(gameViewModel = gameViewModel)
+        Navigation(startViewModel = startViewModel)
     }
 
 }
