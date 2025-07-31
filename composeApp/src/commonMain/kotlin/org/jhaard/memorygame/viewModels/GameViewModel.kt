@@ -69,6 +69,28 @@ class GameViewModel(
         return listOfTiles
     }
 
+    private fun compareTileToUrl(id: Int, url: String): Boolean {
+        _tileList.value.forEach { tile ->
+            if (checkTileState(tile) && tile.imageContent == url && tile.id != id) {
+                println("URL MATCH")
+                return true
+            }
+        }
+        return false
+    }
+
+    fun checkForMatchedPair(id: Int, url: String) {
+        if (compareTileToUrl(id = id, url = url)) {
+            _tileList.value = _tileList.value.map { tile ->
+                if(tile.imageContent == url) {
+                    tile.copy(tileState = TileState.MATCHED)
+                } else {
+                    tile
+                }
+            }
+        }
+    }
+
     /**
      * Checking if the tile is flipped.
      * @param tile The tile to check.

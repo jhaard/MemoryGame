@@ -38,7 +38,7 @@ fun TileContent(
         val painterFront = asyncPainterResource(tile.imageContent)
         val painterBack = painterResource(Res.drawable.tile_backside)
 
-        if (tile.tileState == TileState.FLIP) {
+        if (tile.tileState == TileState.FLIP || tile.tileState == TileState.MATCHED) {
             KamelImage({ painterFront },
                 contentDescription = "Tile Content",
                 contentScale = ContentScale.Crop,

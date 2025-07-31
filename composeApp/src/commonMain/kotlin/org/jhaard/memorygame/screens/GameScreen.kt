@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -35,10 +34,6 @@ import org.jhaard.memorygame.viewModels.GameViewModel
 fun GameScreen(navController: NavController, gameViewModel: GameViewModel) {
 
     val tileList by gameViewModel.tileList.collectAsState(initial = emptyList())
-
-    LaunchedEffect(Unit) {
-        println(tileList)
-    }
 
     Column(
         modifier = Modifier
@@ -67,6 +62,7 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel) {
                 TileComponent(tile = tile, onClick = {
 
                     gameViewModel.changeTileState(id = tile.id)
+                    gameViewModel.checkForMatchedPair(id = tile.id, url = tile.imageContent)
 
                 })
             }
