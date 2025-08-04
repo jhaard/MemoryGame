@@ -56,7 +56,7 @@ class GameViewModel(
      */
     private fun createTileList(startIndex: Int): List<TileData> {
         val listOfTiles: MutableList<TileData> = mutableListOf()
-        val listOfUrls = getImageList()
+        val listOfUrls = randomizedListOfTiles(imageList = getImageList())
 
         if (listOfUrls.isNotEmpty()) {
             listOfUrls.forEachIndexed { index, url ->
@@ -70,6 +70,11 @@ class GameViewModel(
             }
         }
         return listOfTiles
+    }
+
+    private fun randomizedListOfTiles(imageList: List<String>): List<String> {
+        return imageList.shuffled()
+
     }
 
     private fun compareTileToUrl(id: Int, url: String): Boolean {
