@@ -30,61 +30,56 @@ class GameViewModel(
             val listB = gameLogic.createTileList(lastIndex)
 
             _tileList.value = listA + listB
-
         }
-
     }
 
     fun runGameFlow(id: Int, url: String) {
-        flipTile(id = id)
+        updateTileList(
+            predicate = {it.tileState == TileState.IDLE && it.id == id },
+            transform = { it.copy(tileState = TileState.FLIP) }
+        )
         setStateIfMatched(url = url)
-
-        if (onMaximumFlippedTiles()) {
-            viewModelScope.launch {
-                delay(500)
-                _tileList.value = _tileList.value.map { tile ->
-                    if (tile.tileState == TileState.FLIP) {
-                        tile.copy(tileState = TileState.IDLE)
-                    } else {
-                        tile
-                    }
-                }
-            }
-        }
+        checkIfMaximumTilesAreFlipped()
     }
 
-    private fun flipTile(id: Int) {
+    private fun updateTileList(
+        predicate: (TileData) -> Boolean,
+        transform: (TileData) -> TileData
+    ) {
         _tileList.value = _tileList.value.map { tile ->
-            if (tile.id == id && !gameLogic.checkTileState(tile))
-                tile.copy(tileState = TileState.FLIP)
-            else tile
+            if (predicate(tile)) transform(tile) else tile
         }
     }
 
     private fun onMatched(url: String): Boolean {
-        val newList = filterFlippedTiles(_tileList.value)
+        val newList = getCurrentlyFlippedTiles(_tileList.value)
         val values = newList.map { it.imageContent }
         return values.all { it == url } && values.size > 1
     }
 
     private fun setStateIfMatched(url: String) {
         if (onMatched(url)) {
-            _tileList.value = _tileList.value.map { tile ->
-                if (tile.imageContent == url) {
-                    tile.copy(tileState = TileState.MATCHED)
-                } else {
-                    tile
-                }
+            updateTileList(
+                predicate = {it.tileState == TileState.FLIP},
+                transform = {it.copy(tileState = TileState.MATCHED)}
+            )
+        }
+    }
+
+    private fun checkIfMaximumTilesAreFlipped() {
+        val newList = getCurrentlyFlippedTiles(_tileList.value)
+        if (newList.size > 1) {
+            viewModelScope.launch {
+                delay(500)
+                updateTileList(
+                    predicate = { it.tileState == TileState.FLIP },
+                    transform = { it.copy(tileState = TileState.IDLE) }
+                )
             }
         }
     }
 
-    private fun onMaximumFlippedTiles(): Boolean {
-        val newList = filterFlippedTiles(_tileList.value)
-        return newList.size > 1
-    }
-
-    private fun filterFlippedTiles(tileList: List<TileData>): List<TileData> {
+    private fun getCurrentlyFlippedTiles(tileList: List<TileData>): List<TileData> {
         return tileList.filter { it.tileState == TileState.FLIP }
     }
 
