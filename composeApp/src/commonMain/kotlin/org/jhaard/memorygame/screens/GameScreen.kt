@@ -62,9 +62,7 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel) {
             items(tileList) { tile ->
                 TileComponent(tile = tile, onClick = {
 
-                    gameViewModel.changeTileState(id = tile.id)
-                    gameViewModel.checkForMatchedPair(id = tile.id, url = tile.imageContent)
-                    gameViewModel.checkForNumberOfFlip()
+                    gameViewModel.runGameFlow(tile.id, tile.imageContent)
 
                 }, enabled = tile.tileState == TileState.IDLE)
             }

@@ -13,16 +13,17 @@ import org.jhaard.memorygame.viewModels.StartViewModel
 sealed class Modules {
 
     companion object {
-        private val gameLogic by lazy { GameLogic() }
+
         private val imageApiService by lazy { ImageApiService() }
         private val localStorage by lazy { SettingsRepository() }
+        private val gameLogic by lazy { GameLogic(localStorage = localStorage) }
 
         fun startViewModel() =
             StartViewModel(imageApiService = imageApiService, localStorage = localStorage)
 
 
         fun gameViewModel() =
-            GameViewModel(gameLogic = gameLogic, localStorage = localStorage)
+            GameViewModel(gameLogic = gameLogic)
 
     }
 
