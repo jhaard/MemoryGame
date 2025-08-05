@@ -17,7 +17,7 @@
 <details>
 <summary>Branches and Progress</summary><br>
 
-##### Currently working on: `feature/load-tiles-from-start-screen`
+##### Currently working on: `feature/compare-tiles-and-match`
 
 :white_check_mark: `feature/tile-component`. Is focused on creating a component for the tile and at click, the tile
 should change it's state and show the content. It will also involve an animation when changing state.
@@ -49,6 +49,11 @@ activation time, therefore, show the user a start screen loading the service and
 
 ![Preview](assets/preview.png)
 
-:construction: `next feature...` Next feature...
+:white_check_mark: `feature/compare-tiles-and-match` Compare the tiles. If they match, change
+their state and appearance.
+
+![Matched Preview](assets/matched_preview.png)
+
+:construction: `feature/next-feature...`
 
 </details>

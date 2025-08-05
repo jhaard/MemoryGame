@@ -12,9 +12,11 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -23,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.jhaard.memorygame.components.TileComponent
+import org.jhaard.memorygame.models.TileState
 import org.jhaard.memorygame.viewModels.GameViewModel
 
 /**
@@ -35,10 +38,7 @@ import org.jhaard.memorygame.viewModels.GameViewModel
 fun GameScreen(navController: NavController, gameViewModel: GameViewModel) {
 
     val tileList by gameViewModel.tileList.collectAsState(initial = emptyList())
-
-    LaunchedEffect(Unit) {
-        println(tileList)
-    }
+    var clickCount by remember { mutableStateOf(0) }
 
     Column(
         modifier = Modifier
@@ -66,9 +66,19 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel) {
             items(tileList) { tile ->
                 TileComponent(tile = tile, onClick = {
 
-                    gameViewModel.changeTileState(id = tile.id)
+                    clickCount++
 
-                })
+                    gameViewModel.runGameFlow(
+                        tileId = tile.id,
+                        imageUrl = tile.imageContent,
+                        clickCount = clickCount
+                    )
+
+                    if (clickCount == 2) {
+                        clickCount = 0
+                    }
+
+                }, enabled = tile.tileState == TileState.IDLE)
             }
         }
     }
