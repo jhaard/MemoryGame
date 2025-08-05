@@ -33,7 +33,9 @@ import org.jhaard.memorygame.models.TileState
 fun TileComponent(
     tile: TileData,
     onClick: () -> Unit,
+    enabled: Boolean
 ) {
+
     val transition = updateTransition(tile.tileState, label = "transition")
 
     val scale by transition.animateFloat(
@@ -45,7 +47,7 @@ fun TileComponent(
         when (state) {
             TileState.IDLE -> 1f
             TileState.FLIP -> 1.25f
-            TileState.MATCHED -> 1f
+            TileState.MATCHED -> 1.25f
         }
     }
 
@@ -54,7 +56,7 @@ fun TileComponent(
             modifier = Modifier
                 .size(100.dp)
                 .padding(20.dp)
-                .clickable(onClick = onClick)
+                .clickable(onClick = onClick, enabled = enabled)
                 .graphicsLayer {
                     scaleX = scale
                     scaleY = scale
@@ -63,18 +65,35 @@ fun TileComponent(
             colors = CardColors(
                 containerColor = if (tile.tileState == TileState.FLIP) Color.White else Color.Gray,
                 contentColor = if (tile.tileState == TileState.FLIP) Color.White else Color.Gray,
-                disabledContainerColor = Color.Gray,
+                disabledContainerColor = Color.LightGray,
                 disabledContentColor = Color.LightGray
             ),
             elevation = CardDefaults.cardElevation(7.dp),
-            border = if (tile.tileState == TileState.FLIP) BorderStroke(4.dp, Color.Blue) else BorderStroke(
-                4.dp,
-                Color.White
-            )
+            border = getBorder(tile.tileState)
         ) {
             TileContent(
                 tile = tile
             )
         }
+    }
+
+}
+
+fun getBorder(tileState: TileState): BorderStroke {
+    return when (tileState) {
+        TileState.IDLE -> BorderStroke(
+            width = 4.dp,
+            color = Color.White
+        )
+
+        TileState.FLIP -> BorderStroke(
+            width = 4.dp,
+            color = Color.Blue
+        )
+
+        TileState.MATCHED -> BorderStroke(
+            width = 4.dp,
+            color = Color.Green
+        )
     }
 }
