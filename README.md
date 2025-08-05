@@ -1,23 +1,22 @@
-## Memory Game Portfolio App.
+### Memory Game Portfolio App.
 
-### `A MemoryGame`  with the purpose to display use of the following:
+#### `A MemoryGame`  with the purpose to display use of the following:
 
-* #### Kotlin Multiplatform with shared UI in Jetpack Compose
-* #### MVVM architecture in an intermediate project.
-* #### Kotlin, Jetpack Compose and Swift/SwiftUI where it will be needed. 
-* #### REST-API with Authorization. 
-* #### Git structure and reflections of the work without the use of AI-generated code.
-* #### Documentation in Code / README.
-* #### Game logic, design and responsive UI.
-* #### Unit testing when time is given.
+* ##### Kotlin Multiplatform with shared UI in Jetpack Compose
+* ##### MVVM architecture.
+* ##### Kotlin, Jetpack Compose and Swift/SwiftUI where it will be needed. 
+* ##### Async icon fetches from REST-API via my own proxy server for deploy. 
+* ##### Git workflow.
+* ##### Documentation in Code / README.
+* ##### Game logic, design and responsive UI.
+* ##### Unit testing when time is given.
 
 
-
-### Progress of the game
+#### Progress of the game
 <details>
 <summary>Branches and Progress</summary><br>
 
-##### Currently working on: `feature/compare-tiles-and-match`
+###### Currently working on: `feature/score-from-timer-gameplay`
 
 :white_check_mark: `feature/tile-component`. Is focused on creating a component for the tile and at click, the tile
 should change it's state and show the content. It will also involve an animation when changing state.
@@ -47,13 +46,24 @@ fun Application.module() {
 handle the response and set the tile images. The render service is using a free version with longer 
 activation time, therefore, show the user a start screen loading the service and response.
 
+<details>
+<summary>Preview image</summary>
+
 ![Preview](assets/preview.png)
+
+</details>
 
 :white_check_mark: `feature/compare-tiles-and-match` Compare the tiles. If they match, change
 their state and appearance.
 
+<details>
+<summary>Preview image</summary>
+
 ![Matched Preview](assets/matched_preview.png)
 
-:construction: `feature/next-feature...`
+</details>
+
+:construction: `feature/score-from-timer-gameplay` Start the game with a timer and let
+the score be based on how fast you solve the entire board.
 
 </details>
