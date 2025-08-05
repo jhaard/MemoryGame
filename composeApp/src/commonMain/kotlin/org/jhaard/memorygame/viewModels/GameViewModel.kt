@@ -6,7 +6,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.jhaard.memorygame.gameLogic.GameLogic
+import org.jhaard.memorygame.gameService.GameService
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 
@@ -14,34 +14,47 @@ import org.jhaard.memorygame.models.TileState
 /**
  * The viewmodel for the game.
  *
- * @param gameLogic Inserting a GameLogic-klass to separate some core logic.
+ * @param gameService Inserting a GameService-klass to separate some functions
+ * where UI is not involved.
  */
 class GameViewModel(
-    private val gameLogic: GameLogic
+    private val gameService: GameService
 ) : ViewModel() {
 
+    // The UI tile list.
     private val _tileList = MutableStateFlow<List<TileData>>(emptyList())
     val tileList: StateFlow<List<TileData>> = _tileList
 
     init {
         viewModelScope.launch {
-            val listA = gameLogic.createTileList(0)
+            val listA = gameService.createTileList(0)
             val lastIndex = listA.lastIndex + 1
-            val listB = gameLogic.createTileList(lastIndex)
+            val listB = gameService.createTileList(lastIndex)
 
             _tileList.value = listA + listB
         }
     }
 
-    fun runGameFlow(id: Int, url: String) {
+    /**
+     * The public game flow function of clicks and states.
+     * @param tileId The id of the clicked tile.
+     * @param imageUrl The image url of the clicked tile.
+     * @param clickCount Counter of clicks.
+     */
+    fun runGameFlow(tileId: Int, imageUrl: String, clickCount: Int) {
         updateTileList(
-            predicate = {it.tileState == TileState.IDLE && it.id == id },
+            predicate = { it.tileState == TileState.IDLE && it.id == tileId },
             transform = { it.copy(tileState = TileState.FLIP) }
         )
-        setStateIfMatched(url = url)
-        checkIfMaximumTilesAreFlipped()
+        setStateIfMatched(url = imageUrl)
+        checkIfMaximumTilesAreFlipped(clickCount = clickCount)
     }
 
+    /**
+     * The function to update the tile list.
+     * @param predicate The predicate to evaluate.
+     * @param transform The tile to be replaced with different state.
+     */
     private fun updateTileList(
         predicate: (TileData) -> Boolean,
         transform: (TileData) -> TileData
@@ -51,24 +64,36 @@ class GameViewModel(
         }
     }
 
+    /**
+     * Checks if the image content urls are identical.
+     * @param url The image url.
+     * @return Returns true if both flipped tiles have the same urls.
+     */
     private fun onMatched(url: String): Boolean {
-        val newList = getCurrentlyFlippedTiles(_tileList.value)
+        val newList = _tileList.value.filter { it.tileState == TileState.FLIP }
         val values = newList.map { it.imageContent }
         return values.all { it == url } && values.size > 1
     }
 
+    /**
+     * Sets matched state if matched.
+     * @param url The image url to check.
+     */
     private fun setStateIfMatched(url: String) {
         if (onMatched(url)) {
             updateTileList(
-                predicate = {it.tileState == TileState.FLIP},
-                transform = {it.copy(tileState = TileState.MATCHED)}
+                predicate = { it.tileState == TileState.FLIP },
+                transform = { it.copy(tileState = TileState.MATCHED) }
             )
         }
     }
 
-    private fun checkIfMaximumTilesAreFlipped() {
-        val newList = getCurrentlyFlippedTiles(_tileList.value)
-        if (newList.size > 1) {
+    /**
+     * Counting clicks to determine if two tiles are flipped.
+     * @param clickCount The click counter.
+     */
+    private fun checkIfMaximumTilesAreFlipped(clickCount: Int) {
+        if (clickCount == 2) {
             viewModelScope.launch {
                 delay(500)
                 updateTileList(
@@ -77,10 +102,6 @@ class GameViewModel(
                 )
             }
         }
-    }
-
-    private fun getCurrentlyFlippedTiles(tileList: List<TileData>): List<TileData> {
-        return tileList.filter { it.tileState == TileState.FLIP }
     }
 
 }

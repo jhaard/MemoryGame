@@ -1,4 +1,4 @@
-package org.jhaard.memorygame.gameLogic
+package org.jhaard.memorygame.gameService
 
 import org.jhaard.memorygame.localStorage.SettingsRepository
 import org.jhaard.memorygame.models.TileData
@@ -6,13 +6,13 @@ import org.jhaard.memorygame.models.TileState
 
 
 /**
- * GameLogic class.
+ * GameService class.
  */
-class GameLogic(private val localStorage: SettingsRepository){
+class GameService(private val localStorage: SettingsRepository) {
 
     /**
-     * Changing the state of a tile based on id.
-     * @param id The tile id.
+     * Creating the list of randomized tiles with the fetched image-urls.
+     * @param startIndex The starting index if using multiple lists. (Test)
      */
     fun createTileList(startIndex: Int): List<TileData> {
         val listOfTiles: MutableList<TileData> = mutableListOf()
@@ -32,11 +32,14 @@ class GameLogic(private val localStorage: SettingsRepository){
         return listOfTiles
     }
 
+    /**
+     * Randomized order of image-urls.
+     * @return The shuffled list of url strings.
+     */
     private fun randomizedListOfTiles(imageList: List<String>): List<String> {
         return imageList.shuffled()
 
     }
-
 
     /**
      * Fetch the locally saved image urls.
@@ -44,14 +47,6 @@ class GameLogic(private val localStorage: SettingsRepository){
      */
     private fun getImageList(): List<String> {
         return localStorage.getUrlList()
-    }
-
-    /**
-     * Checking if the tile is flipped.
-     * @param tile The tile to check.
-     */
-    fun checkTileState(tile: TileData): Boolean {
-        return tile.tileState == TileState.FLIP
     }
 
 }
