@@ -2,7 +2,7 @@
 
 #### `A MemoryGame`  with the purpose to display use of the following:
 
-* ##### Kotlin Multiplatform with shared UI in Jetpack Compose
+* ##### Kotlin Multiplatform with shared UI in Jetpack Compose.
 * ##### MVVM architecture.
 * ##### Kotlin, Jetpack Compose and Swift/SwiftUI where it will be needed. 
 * ##### Async icon fetches from REST-API via my own proxy server for deploy. 
@@ -27,6 +27,10 @@ Also, since I will be using MVVM, an early structure must be formed.
 :white_check_mark: `feature/icons-from-api`. This feature is fetching a response from IconFinder 
 with 10 icons of a certain keyword. The request is made to a render-url using a proxy server 
 for this simple purpose. The proxy server has been a side-project to the game to handle API security.
+
+<details>
+<summary>Preview code snippet</summary>
+
 ```kotlin
 // Extensions in Application.
 import io.ktor.server.application.*
@@ -41,6 +45,8 @@ fun Application.module() {
     configureHTTP()
 }
 ````
+
+</details>
 
 :white_check_mark: `feature/load-tiles-from-start-screen` Since we have a JSON-response from the proxy server,
 handle the response and set the tile images. The render service is using a free version with longer 
