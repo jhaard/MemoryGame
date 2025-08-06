@@ -14,7 +14,7 @@ import org.jhaard.memorygame.models.TileState
 /**
  * The viewmodel for the game.
  *
- * @param gameService Inserting a GameService-klass to separate some functions
+ * @param gameService Inserting a GameService class to separate some functions
  * where UI is not involved.
  */
 class GameViewModel(
@@ -85,6 +85,7 @@ class GameViewModel(
     private fun setStateIfMatched(url: String) {
         if (onMatched(url)) {
             updateScore()
+            updateTimer()
             updateTileList(
                 predicate = { it.tileState == TileState.FLIP },
                 transform = { it.copy(tileState = TileState.MATCHED) }
@@ -108,9 +109,14 @@ class GameViewModel(
         }
     }
 
-    //Start the timer.
+    // Start the timer.
     private fun startTimer() {
         gameService.startTimer(60, viewModelScope)
+    }
+
+    // Update the timer.
+    private fun updateTimer() {
+        gameService.updateTimer(10)
     }
 
     // Update the score.

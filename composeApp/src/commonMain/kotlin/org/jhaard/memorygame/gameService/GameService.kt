@@ -14,7 +14,7 @@ import org.jhaard.memorygame.models.TileState
 /**
  * GameService class.
  */
-class GameService(private val localStorage: SettingsRepository) : ScoreSystem {
+class GameService(private val localStorage: SettingsRepository) : ScoreManager, TimeManager {
 
     private val _score = MutableStateFlow(0)
     override val score: StateFlow<Int> = _score.asStateFlow()
@@ -65,7 +65,6 @@ class GameService(private val localStorage: SettingsRepository) : ScoreSystem {
     }
 
     // region ScoreSystem implementation
-
     override fun updateScore(points: Int) {
         _score.value += points
     }
@@ -90,6 +89,10 @@ class GameService(private val localStorage: SettingsRepository) : ScoreSystem {
         _isRunning.value = false
     }
 
+    override fun updateTimer(seconds: Int) {
+        _timer.value += seconds
+
+    }
     // endregion
 
 }
