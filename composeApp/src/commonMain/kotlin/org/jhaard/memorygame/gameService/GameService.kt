@@ -1,14 +1,29 @@
 package org.jhaard.memorygame.gameService
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.StateFlow
 import org.jhaard.memorygame.localStorage.SettingsRepository
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
 
 /**
  * GameService class.
  */
-class GameService(private val localStorage: SettingsRepository) {
+class GameService(private val localStorage: SettingsRepository) : ScoreSystem {
+
+    private val _score = MutableStateFlow(0)
+    override val score: StateFlow<Int> = _score.asStateFlow()
+
+    private val _timer = MutableStateFlow(0)
+    override val timer: StateFlow<Int> = _timer.asStateFlow()
+
+    private val _isRunning = MutableStateFlow(false)
+    override val isRunning: StateFlow<Boolean> = _isRunning.asStateFlow()
 
     /**
      * Creating the list of randomized tiles with the fetched image-urls.
@@ -48,5 +63,33 @@ class GameService(private val localStorage: SettingsRepository) {
     private fun getImageList(): List<String> {
         return localStorage.getUrlList()
     }
+
+    // region ScoreSystem implementation
+
+    override fun updateScore(points: Int) {
+        _score.value += points
+    }
+
+    override fun resetScore() {
+        _score.value = 0
+    }
+
+    override fun startTimer(seconds: Int, scope: CoroutineScope) {
+        scope.launch {
+            _isRunning.value = true
+            for (i in seconds downTo 0) {
+                _timer.value = i
+                delay(1000)
+            }
+            _isRunning.value = false
+        }
+
+    }
+
+    override fun stopTimer() {
+        _isRunning.value = false
+    }
+
+    // endregion
 
 }
