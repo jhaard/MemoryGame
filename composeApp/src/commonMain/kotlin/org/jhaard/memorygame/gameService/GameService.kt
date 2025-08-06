@@ -1,6 +1,8 @@
 package org.jhaard.memorygame.gameService
 
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
 import org.jhaard.memorygame.localStorage.SettingsRepository
@@ -39,7 +41,7 @@ class GameService(private val localStorage: SettingsRepository) : ScoreSystem {
                     TileData(
                         id = startIndex + index,
                         imageContent = url,
-                        TileState.IDLE
+                        tileState = TileState.IDLE
                     )
                 )
             }

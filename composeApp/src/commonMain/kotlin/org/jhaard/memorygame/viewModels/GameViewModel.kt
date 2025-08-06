@@ -21,6 +21,10 @@ class GameViewModel(
     private val gameService: GameService
 ) : ViewModel() {
 
+    // Score and Timer
+    val score = gameService.score
+    val timer = gameService.timer
+
     // The UI tile list.
     private val _tileList = MutableStateFlow<List<TileData>>(emptyList())
     val tileList: StateFlow<List<TileData>> = _tileList
@@ -31,6 +35,7 @@ class GameViewModel(
         val listB = gameService.createTileList(lastIndex)
 
         _tileList.value = listA + listB
+        startTimer()
     }
 
     /**
@@ -79,6 +84,7 @@ class GameViewModel(
      */
     private fun setStateIfMatched(url: String) {
         if (onMatched(url)) {
+            updateScore()
             updateTileList(
                 predicate = { it.tileState == TileState.FLIP },
                 transform = { it.copy(tileState = TileState.MATCHED) }
@@ -100,6 +106,16 @@ class GameViewModel(
                 )
             }
         }
+    }
+
+    //Start the timer.
+    private fun startTimer() {
+        gameService.startTimer(60, viewModelScope)
+    }
+
+    // Update the score.
+    private fun updateScore() {
+        gameService.updateScore(points = 10)
     }
 
 }

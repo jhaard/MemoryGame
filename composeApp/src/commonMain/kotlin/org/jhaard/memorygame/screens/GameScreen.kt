@@ -3,6 +3,8 @@ package org.jhaard.memorygame.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -17,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -37,6 +40,8 @@ import org.jhaard.memorygame.viewModels.GameViewModel
 @Composable
 fun GameScreen(navController: NavController, gameViewModel: GameViewModel) {
 
+    val score by gameViewModel.score.collectAsState()
+    val timer by gameViewModel.timer.collectAsState()
     val tileList by gameViewModel.tileList.collectAsState(initial = emptyList())
     var clickCount by remember { mutableStateOf(0) }
 
@@ -53,14 +58,25 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel) {
         ) {
 
             item(span = { GridItemSpan(this.maxLineSpan) }) {
-                Text(
-                    text = "MEMORY GAME",
-                    textAlign = TextAlign.Center,
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White,
-                    modifier = Modifier.padding(50.dp)
-                )
+                Row(verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    modifier = Modifier.padding(vertical = 20.dp)) {
+                    Text(
+                        text = "Time: $timer",
+                        textAlign = TextAlign.Start,
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Red,
+                        modifier = Modifier
+                    )
+                    Text(
+                        text = "Score: $score",
+                        textAlign = TextAlign.Start,
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
+                    )
+                }
             }
 
             items(tileList) { tile ->
