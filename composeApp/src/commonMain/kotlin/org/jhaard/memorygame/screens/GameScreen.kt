@@ -5,12 +5,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -41,59 +44,84 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel) {
 
     val score by gameViewModel.score.collectAsState()
     val timer by gameViewModel.timer.collectAsState()
+    val isRunning by gameViewModel.isRunning.collectAsState()
+
     val tileList by gameViewModel.tileList.collectAsState(initial = emptyList())
+
     var clickCount by remember { mutableStateOf(0) }
 
     Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
     ) {
-        LazyVerticalGrid(
-            columns = GridCells.FixedSize(100.dp),
-            state = rememberLazyGridState(),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalArrangement = Arrangement.SpaceAround,
-        ) {
+        if (isRunning) {
+            LazyVerticalGrid(
+                columns = GridCells.FixedSize(100.dp),
+                state = rememberLazyGridState(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalArrangement = Arrangement.SpaceAround,
+            ) {
 
-            item(span = { GridItemSpan(this.maxLineSpan) }) {
-                Row(verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    modifier = Modifier.padding(vertical = 20.dp)) {
-                    Text(
-                        text = "Time: $timer",
-                        textAlign = TextAlign.Start,
-                        fontSize = 28.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Red,
-                        modifier = Modifier
-                    )
-                    Text(
-                        text = "Score: $score",
-                        textAlign = TextAlign.Start,
-                        fontSize = 28.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White,
-                    )
+                item(span = { GridItemSpan(this.maxLineSpan) }) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        modifier = Modifier.padding(top = 40.dp)
+                    ) {
+                        Text(
+                            text = "Time: $timer",
+                            textAlign = TextAlign.Center,
+                            fontSize = 28.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color.Red,
+                            modifier = Modifier
+                        )
+                    }
+                }
+
+                items(tileList) { tile ->
+                    TileComponent(tile = tile, onClick = {
+
+                        clickCount++
+
+                        gameViewModel.runGameFlow(
+                            tileId = tile.id,
+                            imageUrl = tile.imageContent,
+                            clickCount = clickCount
+                        )
+
+                        if (clickCount == 2) {
+                            clickCount = 0
+                        }
+
+                    }, enabled = tile.tileState == TileState.IDLE)
                 }
             }
-
-            items(tileList) { tile ->
-                TileComponent(tile = tile, onClick = {
-
-                    clickCount++
-
-                    gameViewModel.runGameFlow(
-                        tileId = tile.id,
-                        imageUrl = tile.imageContent,
-                        clickCount = clickCount
-                    )
-
-                    if (clickCount == 2) {
-                        clickCount = 0
-                    }
-
-                }, enabled = tile.tileState == TileState.IDLE)
+        } else {
+            Text(text = "GAME OVER", textAlign = TextAlign.Center, color = Color.Green)
+            Text(text = "Your Score: $score", textAlign = TextAlign.Center, color = Color.LightGray)
+            Button(
+                onClick = ({
+                    navController.navigate("game_screen")
+                }),
+                colors = ButtonColors(
+                    containerColor = Color.White,
+                    contentColor = Color.Gray,
+                    disabledContainerColor = Color.LightGray,
+                    disabledContentColor = Color.Gray
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    text = "Retry",
+                    fontSize = 18.sp,
+                    color = Color.Gray,
+                    textAlign = TextAlign.Center
+                )
             }
         }
     }

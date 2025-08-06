@@ -24,6 +24,7 @@ class GameViewModel(
     // Score and Timer
     val score = gameService.score
     val timer = gameService.timer
+    val isRunning = gameService.isRunning
 
     // The UI tile list.
     private val _tileList = MutableStateFlow<List<TileData>>(emptyList())
@@ -35,6 +36,8 @@ class GameViewModel(
         val listB = gameService.createTileList(lastIndex)
 
         _tileList.value = listA + listB
+
+        resetScore()
         startTimer()
     }
 
@@ -111,7 +114,7 @@ class GameViewModel(
 
     // Start the timer.
     private fun startTimer() {
-        gameService.startTimer(60, viewModelScope)
+        gameService.startTimer(10, viewModelScope)
     }
 
     // Update the timer.
@@ -122,6 +125,11 @@ class GameViewModel(
     // Update the score.
     private fun updateScore() {
         gameService.updateScore(points = 10)
+    }
+
+    // Reset the score.
+    private fun resetScore() {
+        gameService.resetScore()
     }
 
 }
