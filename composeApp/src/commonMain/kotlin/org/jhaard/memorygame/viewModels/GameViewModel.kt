@@ -87,12 +87,12 @@ class GameViewModel(
      */
     private fun setStateIfMatched(url: String) {
         if (onMatched(url)) {
-            updateScore()
-            updateTimer()
             updateTileList(
                 predicate = { it.tileState == TileState.FLIP },
                 transform = { it.copy(tileState = TileState.MATCHED) }
             )
+            updateTimer()
+            updateScore()
         }
     }
 
