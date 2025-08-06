@@ -26,13 +26,11 @@ class GameViewModel(
     val tileList: StateFlow<List<TileData>> = _tileList
 
     init {
-        viewModelScope.launch {
-            val listA = gameService.createTileList(0)
-            val lastIndex = listA.lastIndex + 1
-            val listB = gameService.createTileList(lastIndex)
+        val listA = gameService.createTileList(0)
+        val lastIndex = listA.lastIndex + 1
+        val listB = gameService.createTileList(lastIndex)
 
-            _tileList.value = listA + listB
-        }
+        _tileList.value = listA + listB
     }
 
     /**
