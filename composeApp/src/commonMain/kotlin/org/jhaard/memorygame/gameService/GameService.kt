@@ -74,12 +74,16 @@ class GameService(private val localStorage: SettingsRepository) : ScoreManager, 
     }
 
     override fun startTimer(seconds: Int, scope: CoroutineScope) {
+
         scope.launch {
             _isRunning.value = true
-            for (i in seconds downTo 0) {
-                _timer.value = i
+            _timer.value = seconds
+
+            do {
                 delay(1000)
-            }
+                _timer.value--
+            } while (_timer.value > 0)
+
             _isRunning.value = false
         }
 
