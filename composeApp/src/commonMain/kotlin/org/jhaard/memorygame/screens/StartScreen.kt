@@ -4,10 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -20,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import org.jhaard.memorygame.components.GameButton
 import org.jhaard.memorygame.components.LoadingIndicator
 import org.jhaard.memorygame.viewModels.StartViewModel
 
@@ -61,26 +59,7 @@ fun StartScreen(
                 color = Color.White,
                 textAlign = TextAlign.Center
             )
-            Button(
-                onClick = ({
-                    navController.navigate("game_screen")
-                }),
-                colors = ButtonColors(
-                    containerColor = Color.White,
-                    contentColor = Color.Gray,
-                    disabledContainerColor = Color.LightGray,
-                    disabledContentColor = Color.Gray
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                Text(
-                    text = "PLAY",
-                    fontSize = 18.sp,
-                    color = Color.Gray,
-                    textAlign = TextAlign.Center
-                )
-            }
+            GameButton(navController = navController, route = "game_screen", buttonText = "PLAY")
         }
     }
 
