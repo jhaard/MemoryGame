@@ -32,10 +32,10 @@ import org.jhaard.memorygame.models.TileState
 @Composable
 fun TileBoard(onClick: (TileData) -> Unit, tileList: List<TileData>, timer: String) {
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(80.dp),
+        columns = GridCells.Fixed(5),
         state = rememberLazyGridState(),
         horizontalArrangement = Arrangement.Start,
-        verticalArrangement = Arrangement.Top,
+        verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxSize()
     ) {
