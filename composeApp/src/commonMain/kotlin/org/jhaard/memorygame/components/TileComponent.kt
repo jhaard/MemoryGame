@@ -1,8 +1,5 @@
 package org.jhaard.memorygame.components
 
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -14,7 +11,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,6 +18,8 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
+import org.jhaard.memorygame.rotateTile
+import org.jhaard.memorygame.scaleTile
 
 /**
  * A Memory Tile Component.
@@ -36,31 +34,20 @@ fun TileComponent(
     enabled: Boolean
 ) {
 
-    val transition = updateTransition(tile.tileState, label = "transition")
-
-    val scale by transition.animateFloat(
-        transitionSpec = {
-            tween(200)
-        },
-        label = "scale"
-    ) { state ->
-        when (state) {
-            TileState.IDLE -> 1f
-            TileState.FLIP -> 1.25f
-            TileState.MATCHED -> 1.25f
-        }
-    }
+    val scaleAnimation = scaleTile(tile)
+    val rotateAnimation = rotateTile(tile)
 
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
         Card(
             modifier = Modifier
-                .size(100.dp)
-                .padding(20.dp)
+                .size(80.dp)
                 .clickable(onClick = onClick, enabled = enabled)
                 .graphicsLayer {
-                    scaleX = scale
-                    scaleY = scale
-                },
+                    scaleX = scaleAnimation
+                    scaleY = scaleAnimation
+                    rotationZ = rotateAnimation
+                }
+                .padding(10.dp),
             shape = RoundedCornerShape(10.dp),
             colors = CardColors(
                 containerColor = if (tile.tileState == TileState.FLIP) Color.White else Color.Gray,

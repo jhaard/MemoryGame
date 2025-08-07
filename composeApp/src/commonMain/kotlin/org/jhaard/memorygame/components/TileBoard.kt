@@ -2,6 +2,7 @@ package org.jhaard.memorygame.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -31,23 +32,34 @@ import org.jhaard.memorygame.models.TileState
 @Composable
 fun TileBoard(onClick: (TileData) -> Unit, tileList: List<TileData>, timer: String) {
     LazyVerticalGrid(
-        columns = GridCells.FixedSize(100.dp),
+        columns = GridCells.Adaptive(80.dp),
         state = rememberLazyGridState(),
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalArrangement = Arrangement.SpaceAround,
+        horizontalArrangement = Arrangement.Start,
+        verticalArrangement = Arrangement.Top,
+        modifier = Modifier
+            .fillMaxSize()
     ) {
 
         item(span = { GridItemSpan(this.maxLineSpan) }) {
 
             Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier.padding(top = 40.dp)
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.padding(top = 50.dp, bottom = 10.dp, start = 20.dp, end = 20.dp)
             ) {
                 Text(
-                    text = "Time: $timer",
-                    textAlign = TextAlign.Center,
-                    fontSize = 28.sp,
+                    text = "Time left:",
+                    textAlign = TextAlign.End,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.LightGray,
+                    modifier = Modifier
+
+                )
+                Text(
+                    text = timer,
+                    textAlign = TextAlign.End,
+                    fontSize = 22.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = Color.Red,
                     modifier = Modifier
