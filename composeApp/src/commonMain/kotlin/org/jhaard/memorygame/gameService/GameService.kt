@@ -1,5 +1,11 @@
 package org.jhaard.memorygame.gameService
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import org.jhaard.memorygame.localStorage.SettingsRepository
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
@@ -8,7 +14,16 @@ import org.jhaard.memorygame.models.TileState
 /**
  * GameService class.
  */
-class GameService(private val localStorage: SettingsRepository) {
+class GameService(private val localStorage: SettingsRepository) : ScoreManager, TimeManager {
+
+    private val _score = MutableStateFlow(0)
+    override val score: StateFlow<Int> = _score.asStateFlow()
+
+    private val _timer = MutableStateFlow(0)
+    override val timer: StateFlow<Int> = _timer.asStateFlow()
+
+    private val _isRunning = MutableStateFlow(false)
+    override val isRunning: StateFlow<Boolean> = _isRunning.asStateFlow()
 
     /**
      * Creating the list of randomized tiles with the fetched image-urls.
@@ -24,7 +39,7 @@ class GameService(private val localStorage: SettingsRepository) {
                     TileData(
                         id = startIndex + index,
                         imageContent = url,
-                        TileState.IDLE
+                        tileState = TileState.IDLE
                     )
                 )
             }
@@ -38,7 +53,6 @@ class GameService(private val localStorage: SettingsRepository) {
      */
     private fun randomizedListOfTiles(imageList: List<String>): List<String> {
         return imageList.shuffled()
-
     }
 
     /**
@@ -48,5 +62,44 @@ class GameService(private val localStorage: SettingsRepository) {
     private fun getImageList(): List<String> {
         return localStorage.getUrlList()
     }
+
+    // region ScoreSystem implementation
+    override fun updateScore(): Int {
+        when (_timer.value) {
+            in 120 downTo 100 -> _score.value += 20
+            in 99 downTo 70 -> _score.value += 12
+            in 69 downTo 50 -> _score.value += 10
+            in 49 downTo 30 -> _score.value += 8
+            in 29 downTo 10 -> _score.value += 5
+            in 9 downTo 0 -> _score.value += 2
+        }
+        return _score.value
+    }
+
+    override fun resetScore() {
+        _score.value = 0
+    }
+
+    override fun startTimer(seconds: Int, scope: CoroutineScope) {
+
+        scope.launch {
+            _isRunning.value = true
+            _timer.value = seconds
+
+            do {
+                delay(1000)
+                _timer.value--
+            } while (_timer.value > 0)
+
+            _isRunning.value = false
+        }
+
+    }
+
+    override fun stopGame() {
+        _isRunning.value = false
+    }
+
+    // endregion
 
 }
