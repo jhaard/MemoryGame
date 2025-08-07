@@ -46,13 +46,13 @@ class GameViewModel(
      * @param tileId The id of the clicked tile.
      * @param imageUrl The image url of the clicked tile.
      */
-    fun runGameFlow(tileId: Int, imageUrl: String) {
+    fun runGameFlow(tileId: Int, imageUrl: String, clickCount: Int) {
         updateTileList(
             predicate = { it.tileState == TileState.IDLE && it.id == tileId },
             transform = { it.copy(tileState = TileState.FLIP) }
         )
         setConditionsWhenMatched(imageUrl = imageUrl)
-        checkIfMaximumTilesAreFlipped()
+        checkIfMaximumTilesAreFlipped(clickCount = clickCount)
     }
 
     /**
@@ -99,9 +99,8 @@ class GameViewModel(
      * Filter tiles that are flipped and if they are greater than 2, update the tiles.
      * Changed back to this since the application only have small lists.
      */
-    private fun checkIfMaximumTilesAreFlipped() {
-        val newList = _tileList.value.filter { it.tileState == TileState.FLIP }
-        if (newList.size == 2) {
+    private fun checkIfMaximumTilesAreFlipped(clickCount: Int) {
+        if (clickCount == 2) {
             viewModelScope.launch {
                 delay(200)
                 updateTileList(
