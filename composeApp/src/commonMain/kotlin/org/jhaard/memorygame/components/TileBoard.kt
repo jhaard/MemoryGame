@@ -22,7 +22,7 @@ import org.jhaard.memorygame.models.TileState
 
 /**
  * The TileBoard composable.
- * @param onClick The tile onClick.
+ * @param onClick The tile at onClick.
  * @param tileList The tile list to use.
  * @param timer The visible timer.
  */

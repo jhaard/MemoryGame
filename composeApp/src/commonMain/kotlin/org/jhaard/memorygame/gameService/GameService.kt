@@ -53,7 +53,6 @@ class GameService(private val localStorage: SettingsRepository) : ScoreManager, 
      */
     private fun randomizedListOfTiles(imageList: List<String>): List<String> {
         return imageList.shuffled()
-
     }
 
     /**

@@ -12,7 +12,7 @@ import org.jhaard.memorygame.models.TileState
 
 
 /**
- * The viewmodel for the game.
+ * The viewmodel for the GameScreen.
  *
  * @param gameService Inserting a GameService class to separate some functions
  * where UI is not involved.
@@ -52,7 +52,7 @@ class GameViewModel(
             predicate = { it.tileState == TileState.IDLE && it.id == tileId },
             transform = { it.copy(tileState = TileState.FLIP) }
         )
-        setStateIfMatched(url = imageUrl)
+        setConditionsWhenMatched(imageUrl = imageUrl)
         checkIfMaximumTilesAreFlipped(clickCount = clickCount)
     }
 
@@ -72,21 +72,21 @@ class GameViewModel(
 
     /**
      * Checks if the image content urls are identical.
-     * @param url The image url.
+     * @param imageUrl The image url.
      * @return Returns true if both flipped tiles have the same urls.
      */
-    private fun onMatched(url: String): Boolean {
+    private fun isMatched(imageUrl: String): Boolean {
         val newList = _tileList.value.filter { it.tileState == TileState.FLIP }
         val values = newList.map { it.imageContent }
-        return values.all { it == url } && values.size > 1
+        return values.all { it == imageUrl } && values.size > 1
     }
 
     /**
-     * Sets matched state if matched.
-     * @param url The image url to check.
+     * If tiles are matched, update the state, timer and score.
+     * @param imageUrl The image url to check.
      */
-    private fun setStateIfMatched(url: String) {
-        if (onMatched(url)) {
+    private fun setConditionsWhenMatched(imageUrl: String) {
+        if (isMatched(imageUrl = imageUrl)) {
             updateTileList(
                 predicate = { it.tileState == TileState.FLIP },
                 transform = { it.copy(tileState = TileState.MATCHED) }
@@ -98,6 +98,8 @@ class GameViewModel(
 
     /**
      * Counting clicks to determine if two tiles are flipped.
+     * At first I iterated through a list, but changed to click count
+     * to minimize list iterations.
      * @param clickCount The click counter.
      */
     private fun checkIfMaximumTilesAreFlipped(clickCount: Int) {
@@ -112,22 +114,18 @@ class GameViewModel(
         }
     }
 
-    // Start the timer.
     private fun startTimer() {
         gameService.startTimer(10, viewModelScope)
     }
 
-    // Update the timer.
     private fun updateTimer() {
         gameService.updateTimer(10)
     }
 
-    // Update the score.
     private fun updateScore() {
         gameService.updateScore(points = 10)
     }
 
-    // Reset the score.
     private fun resetScore() {
         gameService.resetScore()
     }

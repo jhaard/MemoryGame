@@ -19,7 +19,7 @@ import org.jhaard.memorygame.components.TileBoard
 import org.jhaard.memorygame.viewModels.GameViewModel
 
 /**
- * The GameBoard of tiles.
+ * The GameScreen with the TileBoard.
  *
  * @param navController For navigation.
  * @param gameViewModel The viewmodel for the game flow to this view.
