@@ -38,6 +38,7 @@ fun TileBoard(onClick: (TileData) -> Unit, tileList: List<TileData>, timer: Stri
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxSize()
+            .padding(5.dp)
     ) {
 
         item(span = { GridItemSpan(this.maxLineSpan) }) {
@@ -45,7 +46,7 @@ fun TileBoard(onClick: (TileData) -> Unit, tileList: List<TileData>, timer: Stri
             Row(
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.padding(top = 50.dp, bottom = 10.dp, start = 20.dp, end = 20.dp)
+                modifier = Modifier.padding(horizontal = 20.dp)
             ) {
                 Text(
                     text = "Time left:",

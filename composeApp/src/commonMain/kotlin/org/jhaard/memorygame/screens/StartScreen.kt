@@ -41,7 +41,7 @@ fun StartScreen(
     val loading by startViewModel.isLoading.collectAsState(false)
 
     LaunchedEffect(Unit) {
-        startViewModel.fetchImages("animal")
+        startViewModel.fetchImages("vehicle")
     }
 
     Column(
@@ -49,7 +49,7 @@ fun StartScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.Black)
+            .background(Color(0xFF232323))
             .padding(20.dp)
     ) {
         if (loading) {

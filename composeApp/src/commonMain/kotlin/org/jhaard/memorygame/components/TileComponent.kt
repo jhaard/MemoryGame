@@ -40,7 +40,7 @@ fun TileComponent(
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
         Card(
             modifier = Modifier
-                .size(80.dp)
+                .size(70.dp)
                 .clickable(onClick = onClick, enabled = enabled)
                 .graphicsLayer {
                     scaleX = scaleAnimation

@@ -36,7 +36,7 @@ fun GameScreen(navController: NavController, navOptions: NavOptions, gameViewMod
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(Color(0xFF232323))
     ) {
         if (isRunning) {
             TileBoard(onClick = { tile ->

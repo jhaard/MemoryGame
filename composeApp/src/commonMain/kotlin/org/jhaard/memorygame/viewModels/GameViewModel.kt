@@ -119,7 +119,7 @@ class GameViewModel(
     }
 
     private fun startTimer() {
-        gameService.startTimer(60, viewModelScope)
+        gameService.startTimer(120, viewModelScope)
     }
 
     private fun updateScore() {
