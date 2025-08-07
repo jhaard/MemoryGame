@@ -16,7 +16,7 @@
 <details>
 <summary>Branches and Progress</summary><br>
 
-###### Currently working on: `feature/score-from-timer-gameplay`
+###### Currently working on: `feature/sound-implementaion`
 
 :white_check_mark: `feature/tile-component`. Is focused on creating a component for the tile and at click, the tile
 should change it's state and show the content. It will also involve an animation when changing state.
@@ -70,13 +70,16 @@ their state and appearance.
 </details>
 
 :white_check_mark: `feature/score-from-timer-gameplay` Start the game with a timer and let
-the score be based on how fast you solve the entire board.
+the score be based on how fast you solve the entire board. Finish the gameplay with
+a few extra touches (animation and new backside).
 
 <details>
-<summary>Preview gameplay</summary>
+<summary>Preview gameplay (10 fps gif)</summary>
 
 ![Gameplay](assets/android_gameplay.gif)
 
 </details>
+
+:construction: `feature/sound-implementation`
 
 </details>
