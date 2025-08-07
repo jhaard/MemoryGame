@@ -69,7 +69,14 @@ their state and appearance.
 
 </details>
 
-:construction: `feature/score-from-timer-gameplay` Start the game with a timer and let
+:white_check_mark: `feature/score-from-timer-gameplay` Start the game with a timer and let
 the score be based on how fast you solve the entire board.
+
+<details>
+<summary>Preview gameplay</summary>
+
+![Gameplay](assets/android_gameplay.gif)
+
+</details>
 
 </details>
