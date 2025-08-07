@@ -4,7 +4,6 @@ package org.jhaard.memorygame
 import org.jhaard.memorygame.apiServices.ImageApiService
 import org.jhaard.memorygame.gameService.GameService
 import org.jhaard.memorygame.localStorage.SettingsRepository
-import org.jhaard.memorygame.viewModels.GameViewModel
 import org.jhaard.memorygame.viewModels.StartViewModel
 
 /**
@@ -16,14 +15,11 @@ sealed class Modules {
 
         private val imageApiService by lazy { ImageApiService() }
         private val localStorage by lazy { SettingsRepository() }
-        private val gameService by lazy { GameService(localStorage = localStorage) }
+
+        val gameService by lazy { GameService(localStorage = localStorage) }
 
         fun startViewModel() =
             StartViewModel(imageApiService = imageApiService, localStorage = localStorage)
-
-
-        fun gameViewModel() =
-            GameViewModel(gameService = gameService)
 
     }
 
