@@ -41,7 +41,7 @@ fun StartScreen(
     val loading by startViewModel.isLoading.collectAsState(false)
 
     LaunchedEffect(Unit) {
-        //startViewModel.fetchImages("vehicle") Use localStorage during development.
+        startViewModel.fetchImages("animal")
     }
 
     Column(
