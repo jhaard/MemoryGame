@@ -10,12 +10,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 
 @Composable
-fun GameButton(navController: NavController, route: String, buttonText: String) {
+fun GameButton(navController: NavController, navOptions: NavOptions, route: String, buttonText: String) {
     Button(
         onClick = ({
-            navController.navigate(route = route)
+            navController.navigate(route = route, navOptions = navOptions
+           )
         }),
         colors = ButtonColors(
             containerColor = Color.White,

@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import org.jhaard.memorygame.components.GameButton
 import org.jhaard.memorygame.components.LoadingIndicator
 import org.jhaard.memorygame.viewModels.StartViewModel
@@ -33,6 +34,7 @@ import org.jhaard.memorygame.viewModels.StartViewModel
 @Composable
 fun StartScreen(
     navController: NavController,
+    navOptions: NavOptions,
     startViewModel: StartViewModel
 ) {
 
@@ -59,7 +61,9 @@ fun StartScreen(
                 color = Color.White,
                 textAlign = TextAlign.Center
             )
-            GameButton(navController = navController, route = "game_screen", buttonText = "PLAY")
+            GameButton(
+                navController = navController, navOptions = navOptions, route = "game_screen", buttonText = "PLAY"
+            )
         }
     }
 

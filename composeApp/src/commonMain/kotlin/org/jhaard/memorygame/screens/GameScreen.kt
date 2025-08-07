@@ -14,6 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import androidx.navigation.navOptions
 import org.jhaard.memorygame.components.GameOverView
 import org.jhaard.memorygame.components.TileBoard
 import org.jhaard.memorygame.viewModels.GameViewModel
@@ -25,7 +27,7 @@ import org.jhaard.memorygame.viewModels.GameViewModel
  * @param gameViewModel The viewmodel for the game flow to this view.
  */
 @Composable
-fun GameScreen(navController: NavController, gameViewModel: GameViewModel) {
+fun GameScreen(navController: NavController, navOptions: NavOptions, gameViewModel: GameViewModel) {
 
     val score by gameViewModel.score.collectAsState()
     val timer by gameViewModel.timer.collectAsState()
@@ -59,7 +61,7 @@ fun GameScreen(navController: NavController, gameViewModel: GameViewModel) {
             }, tileList = tileList, timer = timer.toString())
 
         } else {
-            GameOverView(navController = navController, score = score)
+            GameOverView(navController = navController, navOptions = navOptions, score = score)
         }
     }
 
