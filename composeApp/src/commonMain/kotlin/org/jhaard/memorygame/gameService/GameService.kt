@@ -64,8 +64,14 @@ class GameService(private val localStorage: SettingsRepository) : ScoreManager, 
     }
 
     // region ScoreSystem implementation
-    override fun updateScore(points: Int) {
-        _score.value += points
+    override fun updateScore(): Int {
+        when (_timer.value) {
+            in 60 downTo 45 -> _score.value += 10
+            in 44 downTo 30 -> _score.value += 8
+            in 29 downTo 20 -> _score.value += 5
+            in 19 downTo 0 -> _score.value += 2
+        }
+        return _score.value
     }
 
     override fun resetScore() {
@@ -88,14 +94,10 @@ class GameService(private val localStorage: SettingsRepository) : ScoreManager, 
 
     }
 
-    override fun stopTimer() {
+    override fun stopGame() {
         _isRunning.value = false
     }
 
-    override fun updateTimer(seconds: Int) {
-        _timer.value += seconds
-
-    }
     // endregion
 
 }

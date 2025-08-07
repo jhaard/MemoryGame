@@ -45,15 +45,14 @@ class GameViewModel(
      * The public game flow function of clicks and states.
      * @param tileId The id of the clicked tile.
      * @param imageUrl The image url of the clicked tile.
-     * @param clickCount Counter of clicks.
      */
-    fun runGameFlow(tileId: Int, imageUrl: String, clickCount: Int) {
+    fun runGameFlow(tileId: Int, imageUrl: String) {
         updateTileList(
             predicate = { it.tileState == TileState.IDLE && it.id == tileId },
             transform = { it.copy(tileState = TileState.FLIP) }
         )
         setConditionsWhenMatched(imageUrl = imageUrl)
-        checkIfMaximumTilesAreFlipped(clickCount = clickCount)
+        checkIfMaximumTilesAreFlipped()
     }
 
     /**
@@ -72,7 +71,7 @@ class GameViewModel(
 
     /**
      * Checks if the image content urls are identical.
-     * @param imageUrl The image url.
+     * @param imageUrl The image url to check.
      * @return Returns true if both flipped tiles have the same urls.
      */
     private fun isMatched(imageUrl: String): Boolean {
@@ -91,21 +90,20 @@ class GameViewModel(
                 predicate = { it.tileState == TileState.FLIP },
                 transform = { it.copy(tileState = TileState.MATCHED) }
             )
-            updateTimer()
             updateScore()
+            checkIfAllTilesAreFlipped()
         }
     }
 
     /**
-     * Counting clicks to determine if two tiles are flipped.
-     * At first I iterated through a list, but changed to click count
-     * to minimize list iterations.
-     * @param clickCount The click counter.
+     * Filter tiles that are flipped and if they are greater than 2, update the tiles.
+     * Changed back to this since the application only have small lists.
      */
-    private fun checkIfMaximumTilesAreFlipped(clickCount: Int) {
-        if (clickCount == 2) {
+    private fun checkIfMaximumTilesAreFlipped() {
+        val newList = _tileList.value.filter { it.tileState == TileState.FLIP }
+        if (newList.size == 2) {
             viewModelScope.launch {
-                delay(500)
+                delay(200)
                 updateTileList(
                     predicate = { it.tileState == TileState.FLIP },
                     transform = { it.copy(tileState = TileState.IDLE) }
@@ -114,16 +112,18 @@ class GameViewModel(
         }
     }
 
-    private fun startTimer() {
-        gameService.startTimer(10, viewModelScope)
+    private fun checkIfAllTilesAreFlipped() {
+        if (_tileList.value.all { it.tileState == TileState.MATCHED }) {
+            gameService.stopGame()
+        }
     }
 
-    private fun updateTimer() {
-        gameService.updateTimer(10)
+    private fun startTimer() {
+        gameService.startTimer(60, viewModelScope)
     }
 
     private fun updateScore() {
-        gameService.updateScore(points = 10)
+        gameService.updateScore()
     }
 
     private fun resetScore() {

@@ -7,15 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import androidx.navigation.navOptions
 import org.jhaard.memorygame.components.GameOverView
 import org.jhaard.memorygame.components.TileBoard
 import org.jhaard.memorygame.viewModels.GameViewModel
@@ -35,8 +31,6 @@ fun GameScreen(navController: NavController, navOptions: NavOptions, gameViewMod
 
     val tileList by gameViewModel.tileList.collectAsState(initial = emptyList())
 
-    var clickCount by remember { mutableStateOf(0) }
-
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -46,17 +40,11 @@ fun GameScreen(navController: NavController, navOptions: NavOptions, gameViewMod
     ) {
         if (isRunning) {
             TileBoard(onClick = { tile ->
-                clickCount++
 
                 gameViewModel.runGameFlow(
                     tileId = tile.id,
                     imageUrl = tile.imageContent,
-                    clickCount = clickCount
                 )
-
-                if (clickCount == 2) {
-                    clickCount = 0
-                }
 
             }, tileList = tileList, timer = timer.toString())
 

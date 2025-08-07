@@ -7,25 +7,16 @@ interface TimeManager {
     // The countdown timer StateFlow variable.
     val timer: StateFlow<Int>
 
-    // isRunning is set to true when game starts.
+    // The game is running.
     val isRunning: StateFlow<Boolean>
 
     /**
      * Start the timer.
-     * @param seconds The time left of the timer.
+     * @param seconds Seconds to set timer with.
      * @param scope The scope to use, in this case viewModelScope.
      */
     fun startTimer(seconds: Int, scope: CoroutineScope)
 
-    /**
-     * Update timer.
-     * @param seconds The amount of seconds to add.
-     */
-    fun updateTimer(seconds: Int)
-
-    /**
-     * Stop the timer.
-     */
-    fun stopTimer()
+    fun stopGame()
 
 }

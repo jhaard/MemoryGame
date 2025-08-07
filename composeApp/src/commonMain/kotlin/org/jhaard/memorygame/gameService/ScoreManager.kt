@@ -9,18 +9,10 @@ import kotlinx.coroutines.flow.StateFlow
  */
 interface ScoreManager {
 
-    // The score StateFlow variable.
     val score: StateFlow<Int>
 
-    /**
-     * Update the score.
-     * @param points The points to update with.
-     */
-    fun updateScore(points: Int)
+    fun updateScore(): Int
 
-    /**
-     * Resetting the score.
-     */
     fun resetScore()
 
 
