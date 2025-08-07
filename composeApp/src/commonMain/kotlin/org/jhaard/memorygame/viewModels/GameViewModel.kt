@@ -12,41 +12,46 @@ import org.jhaard.memorygame.models.TileState
 
 
 /**
- * The viewmodel for the game.
+ * The viewmodel for the GameScreen.
  *
- * @param gameService Inserting a GameService-klass to separate some functions
+ * @param gameService Inserting a GameService class to separate some functions
  * where UI is not involved.
  */
 class GameViewModel(
     private val gameService: GameService
 ) : ViewModel() {
 
+    // Score and Timer
+    val score = gameService.score
+    val timer = gameService.timer
+    val isRunning = gameService.isRunning
+
     // The UI tile list.
     private val _tileList = MutableStateFlow<List<TileData>>(emptyList())
     val tileList: StateFlow<List<TileData>> = _tileList
 
     init {
-        viewModelScope.launch {
-            val listA = gameService.createTileList(0)
-            val lastIndex = listA.lastIndex + 1
-            val listB = gameService.createTileList(lastIndex)
+        val listA = gameService.createTileList(0)
+        val lastIndex = listA.lastIndex + 1
+        val listB = gameService.createTileList(lastIndex)
 
-            _tileList.value = listA + listB
-        }
+        _tileList.value = listA + listB
+
+        resetScore()
+        startTimer()
     }
 
     /**
      * The public game flow function of clicks and states.
      * @param tileId The id of the clicked tile.
      * @param imageUrl The image url of the clicked tile.
-     * @param clickCount Counter of clicks.
      */
     fun runGameFlow(tileId: Int, imageUrl: String, clickCount: Int) {
         updateTileList(
             predicate = { it.tileState == TileState.IDLE && it.id == tileId },
             transform = { it.copy(tileState = TileState.FLIP) }
         )
-        setStateIfMatched(url = imageUrl)
+        setConditionsWhenMatched(imageUrl = imageUrl)
         checkIfMaximumTilesAreFlipped(clickCount = clickCount)
     }
 
@@ -66,42 +71,62 @@ class GameViewModel(
 
     /**
      * Checks if the image content urls are identical.
-     * @param url The image url.
+     * @param imageUrl The image url to check.
      * @return Returns true if both flipped tiles have the same urls.
      */
-    private fun onMatched(url: String): Boolean {
+    private fun isMatched(imageUrl: String): Boolean {
         val newList = _tileList.value.filter { it.tileState == TileState.FLIP }
         val values = newList.map { it.imageContent }
-        return values.all { it == url } && values.size > 1
+        return values.all { it == imageUrl } && values.size > 1
     }
 
     /**
-     * Sets matched state if matched.
-     * @param url The image url to check.
+     * If tiles are matched, update the state, timer and score.
+     * @param imageUrl The image url to check.
      */
-    private fun setStateIfMatched(url: String) {
-        if (onMatched(url)) {
+    private fun setConditionsWhenMatched(imageUrl: String) {
+        if (isMatched(imageUrl = imageUrl)) {
             updateTileList(
                 predicate = { it.tileState == TileState.FLIP },
                 transform = { it.copy(tileState = TileState.MATCHED) }
             )
+            updateScore()
+            checkIfAllTilesAreFlipped()
         }
     }
 
     /**
-     * Counting clicks to determine if two tiles are flipped.
-     * @param clickCount The click counter.
+     * Filter tiles that are flipped and if they are greater than 2, update the tiles.
+     * Changed back to this since the application only have small lists.
      */
     private fun checkIfMaximumTilesAreFlipped(clickCount: Int) {
         if (clickCount == 2) {
             viewModelScope.launch {
-                delay(500)
+                delay(200)
                 updateTileList(
                     predicate = { it.tileState == TileState.FLIP },
                     transform = { it.copy(tileState = TileState.IDLE) }
                 )
             }
         }
+    }
+
+    private fun checkIfAllTilesAreFlipped() {
+        if (_tileList.value.all { it.tileState == TileState.MATCHED }) {
+            gameService.stopGame()
+        }
+    }
+
+    private fun startTimer() {
+        gameService.startTimer(120, viewModelScope)
+    }
+
+    private fun updateScore() {
+        gameService.updateScore()
+    }
+
+    private fun resetScore() {
+        gameService.resetScore()
     }
 
 }
