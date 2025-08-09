@@ -10,9 +10,7 @@ import kotlinx.serialization.json.Json
  *
  * @param settings The default Settings instance.
  */
-class SettingsRepository(
-    private val settings: Settings = Settings()
-) {
+class SettingsRepository(private val settings: Settings) {
     private val json = Json
 
     /**

@@ -18,15 +18,20 @@ import androidx.navigation.NavOptions
 import org.jhaard.memorygame.components.GameOverView
 import org.jhaard.memorygame.components.TileBoard
 import org.jhaard.memorygame.viewModels.GameViewModel
+import org.kodein.di.compose.localDI
+import org.kodein.di.instance
 
 /**
  * The GameScreen with the TileBoard.
  *
  * @param navController For navigation.
- * @param gameViewModel The viewmodel for the game flow to this view.
+ * @param navOptions Navigation options.
  */
 @Composable
-fun GameScreen(navController: NavController, navOptions: NavOptions, gameViewModel: GameViewModel) {
+fun GameScreen(navController: NavController, navOptions: NavOptions) {
+
+    val di = localDI()
+    val gameViewModel: GameViewModel by di.instance()
 
     val score by gameViewModel.score.collectAsState()
     val timer by gameViewModel.timer.collectAsState()

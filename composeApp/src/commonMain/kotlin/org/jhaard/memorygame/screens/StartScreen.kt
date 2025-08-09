@@ -21,12 +21,14 @@ import androidx.navigation.NavOptions
 import org.jhaard.memorygame.components.GameButton
 import org.jhaard.memorygame.components.LoadingIndicator
 import org.jhaard.memorygame.viewModels.StartViewModel
+import org.kodein.di.compose.localDI
+import org.kodein.di.instance
 
 /**
  * Start screen of the game. Load images here.
  *
  * @param navController For navigation.
- * @param startViewModel The viewmodel for the start screen.
+ * @param navOptions Navigation options.
  *
  * TODO Restrict fetches.
  * TODO Adjust composable to custom theme.
@@ -34,14 +36,15 @@ import org.jhaard.memorygame.viewModels.StartViewModel
 @Composable
 fun StartScreen(
     navController: NavController,
-    navOptions: NavOptions,
-    startViewModel: StartViewModel
+    navOptions: NavOptions
 ) {
+    val di = localDI()
+    val startViewModel: StartViewModel by di.instance()
 
     val loading by startViewModel.isLoading.collectAsState(false)
 
     LaunchedEffect(Unit) {
-        startViewModel.fetchImages("vehicle")
+        //startViewModel.fetchImages("vehicle")
     }
 
     Column(
