@@ -8,36 +8,36 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jhaard.memorygame.R
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-actual class AudioManager(private val context: Context) {
+
+class AndroidAudioManager(private val context: Context): AudioManager {
     private val mediaPlayer: MediaPlayer = MediaPlayer.create(context, R.raw.pair)
 
     private val soundPool = SoundPool.Builder().setMaxStreams(5).build()
     private val soundEffects = arrayMapOf<String, Int>()
 
-    actual suspend fun playBackgroundMusic(loop: Boolean) {
+    override suspend fun playBackgroundMusic(loop: Boolean) {
         withContext(Dispatchers.Main) {
             mediaPlayer.isLooping = loop
             mediaPlayer.start()
         }
     }
 
-    actual suspend fun playSoundEffect(name: String) {
+    override suspend fun playSoundEffect(name: String) {
         val soundId = soundEffects.get(key = name)
         soundPool.load(context, soundId!!, 1)
         soundPool.play(soundId, 1f, 1f, 1, 0, 1f)
     }
 
-    actual fun pause() {
+    override fun pause() {
         mediaPlayer.pause()
     }
 
-    actual fun stop() {
+    override fun stop() {
         mediaPlayer.stop()
         mediaPlayer.prepare()
     }
 
-    actual fun setVolume(volume: Float) {
+    override fun setVolume(volume: Float) {
         mediaPlayer.setVolume(volume, volume)
     }
 }

@@ -1,8 +1,8 @@
 package org.jhaard.memorygame.sound
 
 
-@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-expect class AudioManager {
+
+interface AudioManager {
     suspend fun playBackgroundMusic(loop: Boolean = true)
     suspend fun playSoundEffect(name: String)
     fun pause()
