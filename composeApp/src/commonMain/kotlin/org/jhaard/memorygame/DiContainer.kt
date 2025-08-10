@@ -17,7 +17,8 @@ import org.kodein.di.singleton
 /**
  * DI-Container med Kodein.
  */
-val appDI = DI {
+fun createAppDI(platform: DI.Module? = null) = DI {
+    platform?.let { import(it) }
 
     bind<HttpClient>() with singleton { createHttpClient() }
     bind<ImageApiService>() with singleton { ImageApiService(instance()) }
@@ -28,6 +29,6 @@ val appDI = DI {
     bind<GameService>() with singleton { GameService(instance()) }
 
     bind<StartViewModel>() with singleton { StartViewModel(instance(), instance()) }
-    bind<GameViewModel>() with singleton { GameViewModel(instance()) }
+    bind<GameViewModel>() with singleton { GameViewModel(instance(), instance()) }
 
 }

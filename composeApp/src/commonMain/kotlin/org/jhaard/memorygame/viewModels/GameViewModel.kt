@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import org.jhaard.memorygame.gameService.GameService
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
+import org.jhaard.memorygame.sound.AudioManager
 
 
 /**
@@ -18,7 +19,8 @@ import org.jhaard.memorygame.models.TileState
  * where UI is not involved.
  */
 class GameViewModel(
-    private val gameService: GameService
+    private val gameService: GameService,
+    private val audioManager: AudioManager
 ) : ViewModel() {
 
     // Score and Timer
@@ -86,6 +88,9 @@ class GameViewModel(
      */
     private fun setConditionsWhenMatched(imageUrl: String) {
         if (isMatched(imageUrl = imageUrl)) {
+            viewModelScope.launch {
+                audioManager.playSoundEffect(name = "pair")
+            }
             updateTileList(
                 predicate = { it.tileState == TileState.FLIP },
                 transform = { it.copy(tileState = TileState.MATCHED) }
