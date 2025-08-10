@@ -11,13 +11,14 @@ import org.jhaard.memorygame.R
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class AudioManager(private val context: Context) {
-    private val mediaPlayer: MediaPlayer = MediaPlayer.create(context, R.raw.pair)
+    private val mediaPlayer: MediaPlayer = MediaPlayer.create(context, R.raw.match_edited)
 
     private val soundPool = SoundPool.Builder().setMaxStreams(5).build()
     private val soundEffects = arrayMapOf<String, Int>()
 
     init {
-        soundEffects.put("pair", R.raw.pair)
+        soundEffects.put("match_edited", R.raw.match_edited)
+        soundEffects.put("error_edited", R.raw.error_edited)
     }
 
     actual suspend fun playBackgroundMusic(loop: Boolean) {

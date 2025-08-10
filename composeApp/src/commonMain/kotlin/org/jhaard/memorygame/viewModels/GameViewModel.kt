@@ -53,8 +53,8 @@ class GameViewModel(
             predicate = { it.tileState == TileState.IDLE && it.id == tileId },
             transform = { it.copy(tileState = TileState.FLIP) }
         )
+        checkMaximumOpenTiles(clickCount = clickCount)
         setConditionsWhenMatched(imageUrl = imageUrl)
-        checkIfMaximumTilesAreFlipped(clickCount = clickCount)
     }
 
     /**
@@ -88,14 +88,11 @@ class GameViewModel(
      */
     private fun setConditionsWhenMatched(imageUrl: String) {
         if (isMatched(imageUrl = imageUrl)) {
-            viewModelScope.launch {
-                audioManager.playSoundEffect(name = "pair")
-            }
+            updateScore()
             updateTileList(
                 predicate = { it.tileState == TileState.FLIP },
                 transform = { it.copy(tileState = TileState.MATCHED) }
             )
-            updateScore()
             checkIfAllTilesAreFlipped()
         }
     }
@@ -104,9 +101,10 @@ class GameViewModel(
      * Filter tiles that are flipped and if they are greater than 2, update the tiles.
      * Changed back to this since the application only have small lists.
      */
-    private fun checkIfMaximumTilesAreFlipped(clickCount: Int) {
+    private fun checkMaximumOpenTiles(clickCount: Int) {
         if (clickCount == 2) {
             viewModelScope.launch {
+                audioManager.playSoundEffect("error_edited")
                 delay(200)
                 updateTileList(
                     predicate = { it.tileState == TileState.FLIP },
@@ -127,6 +125,9 @@ class GameViewModel(
     }
 
     private fun updateScore() {
+        viewModelScope.launch {
+            audioManager.playSoundEffect(name = "match_edited")
+        }
         gameService.updateScore()
     }
 
