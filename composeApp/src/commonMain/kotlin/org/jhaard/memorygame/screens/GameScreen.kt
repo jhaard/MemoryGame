@@ -19,6 +19,7 @@ import org.jhaard.memorygame.components.GameOverView
 import org.jhaard.memorygame.components.TileBoard
 import org.jhaard.memorygame.viewModels.GameViewModel
 import org.kodein.di.compose.localDI
+import org.kodein.di.direct
 import org.kodein.di.instance
 
 /**
@@ -31,7 +32,7 @@ import org.kodein.di.instance
 fun GameScreen(navController: NavController, navOptions: NavOptions) {
 
     val di = localDI()
-    val gameViewModel: GameViewModel by di.instance()
+    val gameViewModel: GameViewModel = remember { di.direct.instance() }
 
     val score by gameViewModel.score.collectAsState()
     val timer by gameViewModel.timer.collectAsState()

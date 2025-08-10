@@ -53,7 +53,7 @@ class GameViewModel(
             predicate = { it.tileState == TileState.IDLE && it.id == tileId },
             transform = { it.copy(tileState = TileState.FLIP) }
         )
-        checkMaximumOpenTiles(clickCount = clickCount)
+        checkMaximumOpenTiles(clickCount = clickCount, imageUrl = imageUrl)
         setConditionsWhenMatched(imageUrl = imageUrl)
     }
 
@@ -101,8 +101,8 @@ class GameViewModel(
      * Filter tiles that are flipped and if they are greater than 2, update the tiles.
      * Changed back to this since the application only have small lists.
      */
-    private fun checkMaximumOpenTiles(clickCount: Int) {
-        if (clickCount == 2) {
+    private fun checkMaximumOpenTiles(clickCount: Int, imageUrl: String) {
+        if (clickCount == 2 && !isMatched(imageUrl = imageUrl)) {
             viewModelScope.launch {
                 audioManager.playSoundEffect("error_edited")
                 delay(200)

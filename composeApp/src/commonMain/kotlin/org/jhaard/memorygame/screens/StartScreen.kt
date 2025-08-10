@@ -44,7 +44,7 @@ fun StartScreen(
     val loading by startViewModel.isLoading.collectAsState(false)
 
     LaunchedEffect(Unit) {
-        //startViewModel.fetchImages("vehicle")
+        startViewModel.fetchImages("vehicle")
     }
 
     Column(

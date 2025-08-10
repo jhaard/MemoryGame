@@ -11,6 +11,7 @@ import org.jhaard.memorygame.viewModels.GameViewModel
 import org.jhaard.memorygame.viewModels.StartViewModel
 import org.kodein.di.DI
 import org.kodein.di.bind
+import org.kodein.di.factory
 import org.kodein.di.instance
 import org.kodein.di.singleton
 
@@ -29,6 +30,6 @@ fun createAppDI(platform: DI.Module? = null) = DI {
     bind<GameService>() with singleton { GameService(instance()) }
 
     bind<StartViewModel>() with singleton { StartViewModel(instance(), instance()) }
-    bind<GameViewModel>() with singleton { GameViewModel(instance(), instance()) }
+    bind<GameViewModel>() with factory { GameViewModel(instance(), instance()) }
 
 }
