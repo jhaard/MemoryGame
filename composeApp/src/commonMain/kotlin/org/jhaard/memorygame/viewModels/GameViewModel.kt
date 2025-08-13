@@ -136,7 +136,7 @@ class GameViewModel(
         }
     }
 
-    private fun isMaximumClicks(): Boolean {
+    private fun maximumClicks(): Boolean {
         val currentState = _uiState.value
         val clickCount = if (currentState is GameState.Playing) currentState.clickCount else 0
         return clickCount == 2
@@ -147,7 +147,7 @@ class GameViewModel(
      * Changed back to this since the application only have small lists.
      */
     private fun checkMaximumOpenTiles(imageUrl: String) {
-        if (isMaximumClicks() && !gameService.isMatched(
+        if (maximumClicks() && !gameService.isMatched(
                 imageUrl = imageUrl,
                 tileList = _tileList.value
             )

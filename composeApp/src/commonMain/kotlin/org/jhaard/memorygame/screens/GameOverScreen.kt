@@ -38,9 +38,8 @@ fun GameOverScreen(navController: NavController, navOptions: NavOptions, score: 
             navOptions = navOptions,
             route = "start_screen",
             buttonText = "Back to Start",
-            onClick = {
+            onClick = {}
 
-            }
         )
         GameButton(
             navController = navController,
