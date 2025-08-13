@@ -1,7 +1,6 @@
 package org.jhaard.memorygame.screens
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
@@ -9,8 +8,7 @@ import androidx.navigation.NavOptions
 import org.jhaard.memorygame.models.GameState
 import org.jhaard.memorygame.viewModels.GameViewModel
 import org.kodein.di.compose.localDI
-import org.kodein.di.direct
-import org.kodein.di.instance
+import org.kodein.di.compose.viewmodel.rememberViewModel
 
 /**
  * The GameScreen with the TileBoard.
@@ -22,7 +20,7 @@ import org.kodein.di.instance
 fun GameScreen(navController: NavController, navOptions: NavOptions) {
 
     val di = localDI()
-    val gameViewModel: GameViewModel = di.direct.instance()
+    val gameViewModel: GameViewModel by rememberViewModel()
 
     val tileList by gameViewModel.tileList.collectAsState(initial = emptyList())
     val uiState by gameViewModel.uiState.collectAsState(initial = GameState.Initial)
