@@ -5,11 +5,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.jhaard.memorygame.gameService.GameService
+import org.jhaard.memorygame.models.GameState
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
-import org.jhaard.memorygame.sound.AudioManager
 
 
 /**
@@ -19,28 +20,49 @@ import org.jhaard.memorygame.sound.AudioManager
  * where UI is not involved.
  */
 class GameViewModel(
-    private val gameService: GameService,
-    private val audioManager: AudioManager
+    private val gameService: GameService
 ) : ViewModel() {
 
-    // Score and Timer
-    val score = gameService.score
-    val timer = gameService.timer
-    val isRunning = gameService.isRunning
+    // The state of the game
+    private val _uiState = MutableStateFlow<GameState>(GameState.Initial)
+    val uiState: StateFlow<GameState> = _uiState.asStateFlow()
 
     // The UI tile list.
     private val _tileList = MutableStateFlow<List<TileData>>(emptyList())
     val tileList: StateFlow<List<TileData>> = _tileList
 
     init {
-        val listA = gameService.createTileList(0)
-        val lastIndex = listA.lastIndex + 1
-        val listB = gameService.createTileList(lastIndex)
+        startGame()
+    }
 
-        _tileList.value = listA + listB
+     private fun startGame() {
+        _tileList.value = gameService.initializeList()
 
-        resetScore()
-        startTimer()
+        updateState<GameState.Initial> {
+            GameState.Playing(
+                timer = 30,
+                score = 0,
+                clickCount = 0
+            )
+        }
+        updateTime(seconds = (_uiState.value as GameState.Playing).timer)
+    }
+
+     fun resetGame() {
+        updateState<GameState.GameOver> { GameState.Initial }
+        startGame()
+    }
+
+    private fun updateTime(seconds: Int) {
+        viewModelScope.launch {
+            repeat(seconds) {
+                delay(1000)
+                updateState<GameState.Playing> { it.copy(timer = it.timer - 1) }
+            }
+            updateState<GameState.Playing> { playState ->
+                GameState.GameOver(score = playState.score)
+            }
+        }
     }
 
     /**
@@ -48,13 +70,16 @@ class GameViewModel(
      * @param tileId The id of the clicked tile.
      * @param imageUrl The image url of the clicked tile.
      */
-    fun runGameFlow(tileId: Int, imageUrl: String, clickCount: Int) {
+    fun flipTile(tileId: Int, imageUrl: String, timer: Int) {
+        updateState<GameState.Playing> {
+            it.copy(clickCount = it.clickCount + 1)
+        }
         updateTileList(
             predicate = { it.tileState == TileState.IDLE && it.id == tileId },
             transform = { it.copy(tileState = TileState.FLIP) }
         )
-        checkMaximumOpenTiles(clickCount = clickCount, imageUrl = imageUrl)
-        setConditionsWhenMatched(imageUrl = imageUrl)
+        checkMaximumOpenTiles(imageUrl = imageUrl)
+        setConditionsWhenMatched(imageUrl = imageUrl, timer = timer)
     }
 
     /**
@@ -71,24 +96,23 @@ class GameViewModel(
         }
     }
 
-    /**
-     * Checks if the image content urls are identical.
-     * @param imageUrl The image url to check.
-     * @return Returns true if both flipped tiles have the same urls.
-     */
-    private fun isMatched(imageUrl: String): Boolean {
-        val newList = _tileList.value.filter { it.tileState == TileState.FLIP }
-        val values = newList.map { it.imageContent }
-        return values.all { it == imageUrl } && values.size > 1
+    private inline fun <reified T : GameState> updateState(
+        transform: (T) -> GameState
+    ) {
+        val current = _uiState.value
+        if (current is T) {
+            _uiState.value = transform(current)
+        }
     }
 
     /**
      * If tiles are matched, update the state, timer and score.
      * @param imageUrl The image url to check.
      */
-    private fun setConditionsWhenMatched(imageUrl: String) {
-        if (isMatched(imageUrl = imageUrl)) {
-            updateScore()
+    private fun setConditionsWhenMatched(imageUrl: String, timer: Int) {
+        if (gameService.isMatched(tileList = _tileList.value, imageUrl = imageUrl)) {
+            gameService.playMatchingSound(scope = viewModelScope)
+            updateState<GameState.Playing> { it.copy(clickCount = 0, score = it.score + gameService.addScore(timer = timer))  }
             updateTileList(
                 predicate = { it.tileState == TileState.FLIP },
                 transform = { it.copy(tileState = TileState.MATCHED) }
@@ -101,10 +125,13 @@ class GameViewModel(
      * Filter tiles that are flipped and if they are greater than 2, update the tiles.
      * Changed back to this since the application only have small lists.
      */
-    private fun checkMaximumOpenTiles(clickCount: Int, imageUrl: String) {
-        if (clickCount == 2 && !isMatched(imageUrl = imageUrl)) {
+    private fun checkMaximumOpenTiles(imageUrl: String) {
+        val currentState = _uiState.value
+        val clickCount = if(currentState is GameState.Playing) currentState.clickCount else 0
+        if (clickCount == 2 && !gameService.isMatched(tileList = _tileList.value, imageUrl = imageUrl)) {
+            updateState<GameState.Playing> { it.copy(clickCount = 0)  }
             viewModelScope.launch {
-                audioManager.playSoundEffect("error_edited")
+                gameService.playErrorSound(scope = this)
                 delay(200)
                 updateTileList(
                     predicate = { it.tileState == TileState.FLIP },
@@ -116,23 +143,10 @@ class GameViewModel(
 
     private fun checkIfAllTilesAreFlipped() {
         if (_tileList.value.all { it.tileState == TileState.MATCHED }) {
-            gameService.stopGame()
+            updateState<GameState.Playing> { playState ->
+                GameState.GameOver(score = playState.score)
+            }
         }
-    }
-
-    private fun startTimer() {
-        gameService.startTimer(120, viewModelScope)
-    }
-
-    private fun updateScore() {
-        viewModelScope.launch {
-            audioManager.playSoundEffect(name = "match_edited")
-        }
-        gameService.updateScore()
-    }
-
-    private fun resetScore() {
-        gameService.resetScore()
     }
 
 }

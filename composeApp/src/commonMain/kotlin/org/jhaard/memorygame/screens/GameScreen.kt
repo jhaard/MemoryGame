@@ -1,22 +1,11 @@
 package org.jhaard.memorygame.screens
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import org.jhaard.memorygame.components.GameOverView
-import org.jhaard.memorygame.components.TileBoard
+import org.jhaard.memorygame.models.GameState
 import org.jhaard.memorygame.viewModels.GameViewModel
 import org.kodein.di.compose.localDI
 import org.kodein.di.direct
@@ -32,42 +21,33 @@ import org.kodein.di.instance
 fun GameScreen(navController: NavController, navOptions: NavOptions) {
 
     val di = localDI()
-    val gameViewModel: GameViewModel = remember { di.direct.instance() }
-
-    val score by gameViewModel.score.collectAsState()
-    val timer by gameViewModel.timer.collectAsState()
-    val isRunning by gameViewModel.isRunning.collectAsState()
+    val gameViewModel: GameViewModel = di.direct.instance()
 
     val tileList by gameViewModel.tileList.collectAsState(initial = emptyList())
+    val uiState by gameViewModel.uiState.collectAsState(initial = GameState.Initial)
 
-    var clickCount by remember { mutableStateOf(0) }
+    when (uiState) {
+        is GameState.Error -> ErrorScreen()
+        is GameState.GameOver -> GameOverScreen(
+            navController = navController, navOptions = navOptions,
+            score = (uiState as GameState.GameOver).score,
+            onClick = {
+                gameViewModel.resetGame()
+            }
+        )
 
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFF232323))
-    ) {
-        if (isRunning) {
-            TileBoard(onClick = { tile ->
-                clickCount++
-
-                gameViewModel.runGameFlow(
+        is GameState.Initial -> InitialScreen()
+        is GameState.Playing -> PlayScreen(
+            tileList = tileList,
+            timer = (uiState as GameState.Playing).timer.toString(),
+            onClick = { tile ->
+                gameViewModel.flipTile(
                     tileId = tile.id,
                     imageUrl = tile.imageContent,
-                    clickCount = clickCount
+                    timer = (uiState as GameState.Playing).timer
                 )
+            })
 
-                if (clickCount == 2) {
-                    clickCount = 0
-                }
-
-            }, tileList = tileList, timer = timer.toString())
-
-        } else {
-            GameOverView(navController = navController, navOptions = navOptions, score = score)
-        }
     }
 
 }

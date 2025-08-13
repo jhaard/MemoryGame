@@ -27,9 +27,9 @@ fun createAppDI(platform: DI.Module? = null) = DI {
     bind<Settings>() with singleton { Settings() }
     bind<SettingsRepository>() with singleton { SettingsRepository(instance()) }
 
-    bind<GameService>() with singleton { GameService(instance()) }
+    bind<GameService>() with singleton { GameService(instance(), instance()) }
 
     bind<StartViewModel>() with singleton { StartViewModel(instance(), instance()) }
-    bind<GameViewModel>() with factory { GameViewModel(instance(), instance()) }
+    bind<GameViewModel>() with singleton { GameViewModel(instance()) }
 
 }

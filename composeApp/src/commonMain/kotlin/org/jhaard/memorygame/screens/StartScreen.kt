@@ -44,7 +44,7 @@ fun StartScreen(
     val loading by startViewModel.isLoading.collectAsState(false)
 
     LaunchedEffect(Unit) {
-        startViewModel.fetchImages("vehicle")
+        //startViewModel.fetchImages("vehicle")
     }
 
     Column(
@@ -65,7 +65,13 @@ fun StartScreen(
                 textAlign = TextAlign.Center
             )
             GameButton(
-                navController = navController, navOptions = navOptions, route = "game_screen", buttonText = "PLAY"
+                navController = navController,
+                navOptions = navOptions,
+                route = "game_screen",
+                buttonText = "PLAY",
+                onClick = {
+                    navController.navigate(route = "game_screen", navOptions = navOptions)
+                }
             )
         }
     }
