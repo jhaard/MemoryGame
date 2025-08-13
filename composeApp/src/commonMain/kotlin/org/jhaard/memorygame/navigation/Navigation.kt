@@ -9,7 +9,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import org.jhaard.memorygame.screens.GameScreen
 import org.jhaard.memorygame.screens.StartScreen
-import org.kodein.di.compose.localDI
 
 /**
  * Navigation with NavHost to the screen routes of the game.
@@ -32,8 +31,7 @@ fun Navigation() {
         composable(route = Screens.GameScreen.route) {
             GameScreen(
                 navController = navController,
-                navOptions = navOptions(),
-                di = localDI()
+                navOptions = navOptions()
             )
         }
 

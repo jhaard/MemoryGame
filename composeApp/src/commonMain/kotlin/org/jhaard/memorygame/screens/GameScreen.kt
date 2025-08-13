@@ -1,14 +1,13 @@
 package org.jhaard.memorygame.screens
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import org.jhaard.memorygame.models.GameState
 import org.jhaard.memorygame.viewModels.GameViewModel
-import org.kodein.di.DI
 import org.kodein.di.compose.localDI
 import org.kodein.di.direct
 import org.kodein.di.instance
@@ -20,10 +19,10 @@ import org.kodein.di.instance
  * @param navOptions Navigation options.
  */
 @Composable
-fun GameScreen(navController: NavController, navOptions: NavOptions, di: DI) {
+fun GameScreen(navController: NavController, navOptions: NavOptions) {
 
-    //val di = localDI()
-    val gameViewModel: GameViewModel = remember { di.direct.instance() }
+    val di = localDI()
+    val gameViewModel: GameViewModel = di.direct.instance()
 
     val tileList by gameViewModel.tileList.collectAsState(initial = emptyList())
     val uiState by gameViewModel.uiState.collectAsState(initial = GameState.Initial)
