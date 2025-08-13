@@ -44,7 +44,7 @@ class GameViewModel(
 
         updateState<GameState.Initial> {
             GameState.Playing(
-                timer = 30,
+                timer = 120,
                 score = 0,
                 clickCount = 0
             )

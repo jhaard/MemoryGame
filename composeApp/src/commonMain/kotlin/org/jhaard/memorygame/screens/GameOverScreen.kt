@@ -1,7 +1,9 @@
 package org.jhaard.memorygame.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +27,8 @@ fun GameOverScreen(navController: NavController, navOptions: NavOptions, score: 
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF232323))
             .padding(20.dp)
     ) {
         Text(text = "GAME OVER", textAlign = TextAlign.Center, color = Color.Green)

@@ -7,7 +7,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import org.jhaard.memorygame.models.GameState
 import org.jhaard.memorygame.viewModels.GameViewModel
-import org.kodein.di.compose.localDI
 import org.kodein.di.compose.viewmodel.rememberViewModel
 
 /**
@@ -19,7 +18,6 @@ import org.kodein.di.compose.viewmodel.rememberViewModel
 @Composable
 fun GameScreen(navController: NavController, navOptions: NavOptions) {
 
-    val di = localDI()
     val gameViewModel: GameViewModel by rememberViewModel()
 
     val tileList by gameViewModel.tileList.collectAsState(initial = emptyList())
