@@ -1,18 +1,14 @@
-package org.jhaard.memorygame.gameService
+package org.jhaard.memorygame.services
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.jhaard.memorygame.localStorage.SettingsRepository
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
-import org.jhaard.memorygame.sound.AudioManager
 
 
 /**
  * GameService class.
  */
-class GameService(private val audioManager: AudioManager, private val localStorage: SettingsRepository) {
+class GameService(private val localStorage: SettingsRepository) {
 
     // Initialize the tile list.
      fun initializeList(): List<TileData> {
@@ -73,10 +69,10 @@ class GameService(private val audioManager: AudioManager, private val localStora
 
     /**
      * Adds score depending on what the timer currently is.
-     * @param timer The timer in seconds.
+     * @param whereTimerIs The timer in seconds.
      */
-    fun addScore(timer: Int): Int {
-        return when (timer) {
+    fun addScore(whereTimerIs: Int): Int {
+        return when (whereTimerIs) {
             in 120 downTo 100 -> 20
             in 99 downTo 70 -> 12
             in 69 downTo 50 -> 10
@@ -84,19 +80,6 @@ class GameService(private val audioManager: AudioManager, private val localStora
             in 29 downTo 10 -> 5
             in 9 downTo 0 -> 2
             else -> 0
-        }
-    }
-
-    fun playMatchingSound(scope: CoroutineScope) {
-        scope.launch {
-            audioManager.playSoundEffect(name = "match_edited")
-        }
-    }
-
-    fun playErrorSound(scope: CoroutineScope) {
-        scope.launch {
-            audioManager.playSoundEffect(name = "error_edited")
-            delay(200)
         }
     }
 

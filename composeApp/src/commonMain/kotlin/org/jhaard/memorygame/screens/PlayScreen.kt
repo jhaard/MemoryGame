@@ -22,20 +22,6 @@ fun PlayScreen(tileList: List<TileData>, timer: String, onClick: (TileData) -> U
     ) {
 
         TileBoard(tileList = tileList, timer = timer, onClick = onClick)
-//            clickCount++
-//
-//            gameViewModel.runGameFlow(
-//                tileId = tile.id,
-//                imageUrl = tile.imageContent,
-//                clickCount = clickCount
-//            )
-//
-//            if (clickCount == 2) {
-//                clickCount = 0
-//            }
-
-
-
 
     }
 }
