@@ -62,7 +62,7 @@ fun StartScreen(
                 route = "",
                 buttonText = "FETCH IMAGES - DEV",
                 onClick = {
-                    startViewModel.fetchImages("vehicle")
+                    startViewModel.fetchImages("animal")
                 }
 
             )

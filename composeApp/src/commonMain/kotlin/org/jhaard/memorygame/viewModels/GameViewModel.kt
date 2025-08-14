@@ -44,7 +44,7 @@ class GameViewModel(
 
     private fun startGame() {
         _tileList.value = gameService.initializeList()
-        val startTime = 120
+        val startTime = 10
 
         updateState<GameState.Initial> {
             GameState.Playing(
@@ -54,10 +54,11 @@ class GameViewModel(
             )
         }
         updateTime(startTime = startTime)
+        startMusic()
     }
 
     fun resetGame() {
-        //audioService.stopBackgroundMusic(scope = viewModelScope)
+        stopMusic()
         updateState<GameState.GameOver> { GameState.Initial }
         startGame()
     }
