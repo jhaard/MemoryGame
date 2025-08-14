@@ -44,7 +44,7 @@ class GameViewModel(
 
     private fun startGame() {
         _tileList.value = gameService.initializeList()
-        val startTime = 10
+        val startTime = 120
 
         updateState<GameState.Initial> {
             GameState.Playing(
