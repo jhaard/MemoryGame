@@ -46,8 +46,6 @@ class GameViewModel(
         _tileList.value = gameService.initializeList()
         val startTime = 120
 
-        audioService.playBackgroundMusic(viewModelScope)
-
         updateState<GameState.Initial> {
             GameState.Playing(
                 timer = startTime,
@@ -59,7 +57,7 @@ class GameViewModel(
     }
 
     fun resetGame() {
-        audioService.stopBackgroundMusic()
+        //audioService.stopBackgroundMusic(scope = viewModelScope)
         updateState<GameState.GameOver> { GameState.Initial }
         startGame()
     }
@@ -193,6 +191,18 @@ class GameViewModel(
                 GameState.GameOver(score = playState.score)
             }
         }
+    }
+
+    fun startMusic() {
+        audioService.playBackgroundMusic(scope = viewModelScope)
+    }
+
+    fun stopMusic() {
+        audioService.stopBackgroundMusic(scope = viewModelScope)
+    }
+
+    fun pauseMusic() {
+        audioService.pauseBackgroundMusic(scope = viewModelScope)
     }
 
 }

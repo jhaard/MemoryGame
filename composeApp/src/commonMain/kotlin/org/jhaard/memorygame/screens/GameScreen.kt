@@ -1,10 +1,12 @@
 package org.jhaard.memorygame.screens
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import org.jhaard.memorygame.RememberLifecycleObserver
 import org.jhaard.memorygame.models.GameState
 import org.jhaard.memorygame.viewModels.GameViewModel
 import org.kodein.di.compose.viewmodel.rememberViewModel
@@ -23,12 +25,22 @@ fun GameScreen(navController: NavController, navOptions: NavOptions) {
     val tileList by gameViewModel.tileList.collectAsState(initial = emptyList())
     val uiState by gameViewModel.uiState.collectAsState(initial = GameState.Initial)
 
+    LaunchedEffect(Unit) {
+        gameViewModel.startMusic()
+    }
+
+    RememberLifecycleObserver(
+        onStart = { gameViewModel.startMusic() },
+        onStop = { gameViewModel.stopMusic() }
+    )
+
     when (uiState) {
         is GameState.Error -> ErrorScreen()
         is GameState.GameOver -> GameOverScreen(
             navController = navController, navOptions = navOptions,
             score = (uiState as GameState.GameOver).score,
             onClick = {
+                gameViewModel.stopMusic()
                 gameViewModel.resetGame()
             }
         )

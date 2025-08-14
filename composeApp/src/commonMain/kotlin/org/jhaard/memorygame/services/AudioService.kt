@@ -10,11 +10,25 @@ import org.jhaard.memorygame.sound.AudioManager
  */
 class AudioService(private val audioManager: AudioManager) {
 
-    // Background music.
+    // Start background music.
     fun playBackgroundMusic(scope: CoroutineScope) {
         scope.launch {
-            audioManager.setVolume(0.4f)
+            audioManager.setVolume(0.3f)
             audioManager.playBackgroundMusic(loop = true)
+        }
+    }
+
+    // Stop background music.
+    fun stopBackgroundMusic(scope: CoroutineScope) {
+        scope.launch {
+            audioManager.stop()
+        }
+    }
+
+    // Stop background music.
+    fun pauseBackgroundMusic(scope: CoroutineScope) {
+        scope.launch {
+            audioManager.pause()
         }
     }
 
@@ -30,10 +44,6 @@ class AudioService(private val audioManager: AudioManager) {
         scope.launch {
             audioManager.playSoundEffect(name = "error_edited")
         }
-    }
-
-    fun stopBackgroundMusic() {
-        audioManager.stop()
     }
 
 }

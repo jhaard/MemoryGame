@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -21,8 +20,7 @@ import androidx.navigation.NavOptions
 import org.jhaard.memorygame.components.GameButton
 import org.jhaard.memorygame.components.LoadingIndicator
 import org.jhaard.memorygame.viewModels.StartViewModel
-import org.kodein.di.compose.localDI
-import org.kodein.di.instance
+import org.kodein.di.compose.viewmodel.rememberViewModel
 
 /**
  * Start screen of the game. Load images here.
@@ -38,14 +36,9 @@ fun StartScreen(
     navController: NavController,
     navOptions: NavOptions
 ) {
-    val di = localDI()
-    val startViewModel: StartViewModel by di.instance()
+    val startViewModel: StartViewModel by rememberViewModel()
 
     val loading by startViewModel.isLoading.collectAsState(false)
-
-    LaunchedEffect(Unit) {
-        startViewModel.stopMusic()
-    }
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -72,7 +65,7 @@ fun StartScreen(
                     startViewModel.fetchImages("vehicle")
                 }
 
-                )
+            )
             Text(
                 text = "MEMORY GAME",
                 fontSize = 18.sp,

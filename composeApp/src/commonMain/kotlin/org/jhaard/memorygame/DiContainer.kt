@@ -33,7 +33,7 @@ fun createAppDI(platform: DI.Module? = null) = DI {
     bindSingleton<AudioService> { AudioService(instance()) }
     bindSingleton<TimerService> { TimerService() }
 
-    bindSingleton<StartViewModel> { StartViewModel(instance(), instance(), instance()) }
+    bindSingleton<StartViewModel> { StartViewModel(instance(), instance()) }
     bind<GameViewModel>() with factory { GameViewModel(instance(), instance(), instance()) }
 
 }

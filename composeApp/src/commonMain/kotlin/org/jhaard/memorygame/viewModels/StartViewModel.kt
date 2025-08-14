@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.jhaard.memorygame.apiServices.ImageApiService
 import org.jhaard.memorygame.localStorage.SettingsRepository
-import org.jhaard.memorygame.services.AudioService
 
 /**
  * The viewModel for the StartScreen, loading the images from the api.
@@ -17,8 +16,7 @@ import org.jhaard.memorygame.services.AudioService
  */
 class StartViewModel(
     private val imageApiService: ImageApiService,
-    private val localStorage: SettingsRepository,
-    private val audioService: AudioService
+    private val localStorage: SettingsRepository
 ) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)
@@ -52,9 +50,5 @@ class StartViewModel(
             _isLoading.value = false
         }
 
-    }
-
-    fun stopMusic() {
-        audioService.stopBackgroundMusic()
     }
 }
