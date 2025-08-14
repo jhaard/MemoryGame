@@ -42,7 +42,8 @@ fun GameScreen(navController: NavController, navOptions: NavOptions) {
                     tileId = tile.id,
                     imageUrl = tile.imageContent
                 )
-            })
+            }
+        )
 
     }
 
