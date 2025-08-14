@@ -15,7 +15,8 @@ class GameService(private val localStorage: SettingsRepository) {
         val listA = createTileList(0)
         val lastIndex = listA.lastIndex + 1
         val listB = createTileList(lastIndex)
-        return listA + listB
+        val combinedList = listA + listB
+        return randomizedListOfTiles(tileList = combinedList)
     }
 
     /**
@@ -24,7 +25,7 @@ class GameService(private val localStorage: SettingsRepository) {
      */
     private fun createTileList(startIndex: Int): List<TileData> {
         val listOfTiles: MutableList<TileData> = mutableListOf()
-        val listOfUrls = randomizedListOfTiles(imageList = getImageList())
+        val listOfUrls = getImageList()
 
         if (listOfUrls.isNotEmpty()) {
             listOfUrls.forEachIndexed { index, url ->
@@ -44,8 +45,8 @@ class GameService(private val localStorage: SettingsRepository) {
      * Randomized order of image-urls.
      * @return The shuffled list of url strings.
      */
-    private fun randomizedListOfTiles(imageList: List<String>): List<String> {
-        return imageList.shuffled()
+    private fun randomizedListOfTiles(tileList: List<TileData>): List<TileData> {
+        return tileList.shuffled()
     }
 
     /**
@@ -70,6 +71,7 @@ class GameService(private val localStorage: SettingsRepository) {
     /**
      * Adds score depending on what the timer currently is.
      * @param whereTimerIs The timer in seconds.
+     * @return The score.
      */
     fun addScore(whereTimerIs: Int): Int {
         return when (whereTimerIs) {

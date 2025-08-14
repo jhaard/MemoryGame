@@ -8,6 +8,7 @@ import org.jhaard.memorygame.httpClient.createHttpClient
 import org.jhaard.memorygame.localStorage.SettingsRepository
 import org.jhaard.memorygame.services.AudioService
 import org.jhaard.memorygame.services.GameService
+import org.jhaard.memorygame.services.TimerService
 import org.jhaard.memorygame.viewModels.GameViewModel
 import org.jhaard.memorygame.viewModels.StartViewModel
 import org.kodein.di.DI
@@ -28,8 +29,9 @@ fun createAppDI(platform: DI.Module? = null) = DI {
 
     bindSingleton<GameService> { GameService(instance()) }
     bindSingleton<AudioService> { AudioService(instance()) }
+    bindSingleton<TimerService> { TimerService() }
 
     bindSingleton<StartViewModel> { StartViewModel(instance(), instance()) }
-    bindSingleton<GameViewModel> { GameViewModel(instance(), instance()) }
+    bindSingleton<GameViewModel> { GameViewModel(instance(), instance(), instance()) }
 
 }

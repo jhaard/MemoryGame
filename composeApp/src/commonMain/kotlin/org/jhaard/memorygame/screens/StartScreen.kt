@@ -42,10 +42,6 @@ fun StartScreen(
 
     val loading by startViewModel.isLoading.collectAsState(false)
 
-//    LaunchedEffect(Unit) {
-//        startViewModel.fetchImages("vehicle")
-//    }
-
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
