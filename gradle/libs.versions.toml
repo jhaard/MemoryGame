@@ -20,7 +20,7 @@ kotlinxSerializationJson = "1.8.1"
 ktorClientCore = "3.2.1"
 ktorClientDarwin = "3.2.1"
 multiplatformSettings = "1.1.1"
-kodein = "7.25.0"
+kodein = "7.23.0"
 
 [libraries]
 

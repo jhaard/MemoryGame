@@ -16,7 +16,7 @@ actual class AudioManager {
     actual suspend fun playBackgroundMusic(loop: Boolean) {
         withContext(Dispatchers.Main) {
             val url = NSBundle.mainBundle
-                .URLForResource("start_background", withExtension = "ogg") ?: return@withContext
+                .URLForResource("start_background", withExtension = "AAC") ?: return@withContext
 
             backgroundPlayer = AVAudioPlayer(contentsOfURL = url, error = null).apply {
                 numberOfLoops = if (loop) -1 else 0
