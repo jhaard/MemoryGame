@@ -13,7 +13,7 @@ class AudioService(private val audioManager: AudioManager) {
     // Start background music.
     fun playBackgroundMusic(scope: CoroutineScope) {
         scope.launch {
-            audioManager.setVolume(0.3f)
+            audioManager.setVolume(0.1f)
             audioManager.playBackgroundMusic(loop = true)
         }
     }
