@@ -10,6 +10,14 @@ import org.jhaard.memorygame.sound.AudioManager
  */
 class AudioService(private val audioManager: AudioManager) {
 
+    // Background music.
+    fun playBackgroundMusic(scope: CoroutineScope) {
+        scope.launch {
+            audioManager.setVolume(0.4f)
+            audioManager.playBackgroundMusic(loop = true)
+        }
+    }
+
     // Sound effect - Match.
     fun playMatchingSound(scope: CoroutineScope) {
         scope.launch {
@@ -22,6 +30,10 @@ class AudioService(private val audioManager: AudioManager) {
         scope.launch {
             audioManager.playSoundEffect(name = "error_edited")
         }
+    }
+
+    fun stopBackgroundMusic() {
+        audioManager.stop()
     }
 
 }

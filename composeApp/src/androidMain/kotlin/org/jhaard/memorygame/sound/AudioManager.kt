@@ -11,7 +11,7 @@ import org.jhaard.memorygame.R
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class AudioManager(private val context: Context) {
-    private val mediaPlayer: MediaPlayer = MediaPlayer.create(context, R.raw.match_edited)
+    private val mediaPlayer: MediaPlayer = MediaPlayer.create(context, R.raw.start_background)
 
     private val soundPool = SoundPool.Builder().setMaxStreams(5).build()
     private val soundEffects = arrayMapOf<String, Int>()
