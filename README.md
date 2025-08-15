@@ -86,8 +86,9 @@ when tiles match and when they don't.
 :construction: `feature/start-screen-design` Make the start screen more visually appealing. Create
 a global stylesheet.
 
-:warning: 
+:warning:
 ##### Known Issues
+
 - 2025-08-15
 Very subtle race conditions when flipping tiles in a fast pace. Will work on this after deploy.
 

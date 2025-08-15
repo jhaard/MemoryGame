@@ -1,6 +1,10 @@
 package org.jhaard.memorygame.animations
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.runtime.Composable
@@ -44,4 +48,21 @@ fun rotateTile(tile: TileData): Float {
         }
     }
     return rotate
+}
+
+@Composable
+fun spinning(): Float {
+    val infiniteTransition = rememberInfiniteTransition(label = "spin")
+
+    val rotation by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 180f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(3000, easing = LinearEasing), // 2 sekunder per varv
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "spin"
+    )
+    return rotation
+
 }
