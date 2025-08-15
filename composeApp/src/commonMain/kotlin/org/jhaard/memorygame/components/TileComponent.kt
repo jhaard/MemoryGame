@@ -18,8 +18,8 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
-import org.jhaard.memorygame.rotateTile
-import org.jhaard.memorygame.scaleTile
+import org.jhaard.memorygame.animations.rotateTile
+import org.jhaard.memorygame.animations.scaleTile
 
 /**
  * A Memory Tile Component.

@@ -16,7 +16,7 @@
 <details>
 <summary>Branches and Progress</summary><br>
 
-###### Currently working on: `feature/sound-implementaion`
+###### Currently working on: `feature/start-screen-design`
 
 :white_check_mark: `feature/tile-component`. Is focused on creating a component for the tile and at click, the tile
 should change it's state and show the content. It will also involve an animation when changing state.
@@ -80,6 +80,16 @@ a few extra touches (animation and new backside).
 
 </details>
 
-:construction: `feature/sound-implementation`
+:white_check_mark: `feature/sound-implementation` Play background music during gameplay and sound effects
+when tiles match and when they don't.
+
+:construction: `feature/start-screen-design` Make the start screen more visually appealing. Create
+a global stylesheet.
+
+:warning: 
+##### Known Issues
+- 2025-08-15
+Very subtle race conditions when flipping tiles in a fast pace. Will work on this after deploy.
+
 
 </details>

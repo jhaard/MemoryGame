@@ -3,7 +3,6 @@ package org.jhaard.memorygame.apiServices
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
-import org.jhaard.memorygame.httpClient.createHttpClient
 import org.jhaard.memorygame.models.iconImageModels.IconImageResponse
 import org.jhaard.memorygame.models.values.StringValues
 
@@ -12,7 +11,7 @@ import org.jhaard.memorygame.models.values.StringValues
  *
  * @param client The HTTP-client created directly since this project only will use one service class.
  */
-class ImageApiService(private val client: HttpClient = createHttpClient()) {
+class ImageApiService(private val client: HttpClient) {
 
     /**
      * Get the icons from the proxy server and return the response.

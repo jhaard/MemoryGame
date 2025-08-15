@@ -17,3 +17,10 @@ captures
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 /composeApp/src/commonMain/kotlin/org/jhaard/memorygame/models/values/StringValues.kt
+/composeApp/src/androidMain/res/raw/background_music.ogg
+/iosApp/iosApp/Resources/background_music.ogg
+/composeApp/src/androidMain/res/raw/game_background.ogg
+/composeApp/src/androidMain/res/raw/start_background.ogg
+/iosApp/iosApp/Resources/game_background.ogg
+/iosApp/iosApp/Resources/start_background.ogg
+/iosApp/iosApp/Resources/start_background.AAC

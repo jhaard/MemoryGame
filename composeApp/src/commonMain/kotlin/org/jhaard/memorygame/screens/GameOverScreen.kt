@@ -1,7 +1,9 @@
-package org.jhaard.memorygame.components
+package org.jhaard.memorygame.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -12,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import org.jhaard.memorygame.components.GameButton
 
 /**
  * The Game Over view to display.
@@ -19,11 +22,13 @@ import androidx.navigation.NavOptions
  * @param score The score to display.
  */
 @Composable
-fun GameOverView(navController: NavController, navOptions: NavOptions, score: Int) {
+fun GameOverScreen(navController: NavController, navOptions: NavOptions, score: Int, onClick: () -> Unit) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF232323))
             .padding(20.dp)
     ) {
         Text(text = "GAME OVER", textAlign = TextAlign.Center, color = Color.Green)
@@ -32,13 +37,16 @@ fun GameOverView(navController: NavController, navOptions: NavOptions, score: In
             navController = navController,
             navOptions = navOptions,
             route = "start_screen",
-            buttonText = "Back to Start"
+            buttonText = "Back to Start",
+            onClick = {}
+
         )
         GameButton(
             navController = navController,
             navOptions = navOptions,
             route = "game_screen",
-            buttonText = "Retry"
+            buttonText = "Retry",
+            onClick = onClick
         )
 
     }
