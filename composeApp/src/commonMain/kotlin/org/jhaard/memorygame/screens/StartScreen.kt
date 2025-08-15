@@ -126,7 +126,7 @@ fun StartScreen(
                     navController = navController,
                     navOptions = navOptions,
                     route = "",
-                    buttonText = "FETCH IMAGES - DEV",
+                    buttonText = "FETCH - DEV",
                     onClick = {
                         startViewModel.fetchImages("animal")
                     },

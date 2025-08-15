@@ -11,11 +11,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import memorygame.composeapp.generated.resources.Monofett_Regular
+import memorygame.composeapp.generated.resources.Res
+import org.jetbrains.compose.resources.Font
 
 @Composable
 fun GameButton(navController: NavController, navOptions: NavOptions, modifier: Modifier,  route: String, buttonText: String, onClick: () -> Unit) {
@@ -42,7 +47,8 @@ fun GameButton(navController: NavController, navOptions: NavOptions, modifier: M
     ) {
         Text(
             text = buttonText,
-            fontSize = 18.sp,
+            fontSize = 38.sp,
+            fontFamily = FontFamily(Font(Res.font.Monofett_Regular)),
             textAlign = TextAlign.Center,
             style = TextStyle(
                 brush = Brush.horizontalGradient(
@@ -51,7 +57,9 @@ fun GameButton(navController: NavController, navOptions: NavOptions, modifier: M
                         Color.Cyan
                     )
                 )
-            )
+            ),
+            letterSpacing = 2.sp,
+            modifier = Modifier
         )
     }
 }
