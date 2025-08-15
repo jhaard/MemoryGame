@@ -1,4 +1,4 @@
-package org.jhaard.memorygame
+package org.jhaard.memorygame.animations
 
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween

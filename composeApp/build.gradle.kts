@@ -61,6 +61,9 @@ kotlin {
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.no.arg)
 
+            implementation(libs.kodein.di)
+            implementation(libs.kodein.di.framework.compose)
+
         }
 
         iosMain.dependencies {
@@ -77,6 +80,10 @@ kotlin {
 android {
     namespace = "org.jhaard.memorygame"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
+
+    lint {
+        disable += "NullSafeMutableLiveData"
+    }
 
     defaultConfig {
         applicationId = "org.jhaard.memorygame"

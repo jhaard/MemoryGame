@@ -13,12 +13,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 
 @Composable
-fun GameButton(navController: NavController, navOptions: NavOptions, route: String, buttonText: String) {
+fun GameButton(navController: NavController, navOptions: NavOptions, route: String, buttonText: String, onClick: () -> Unit) {
     Button(
-        onClick = ({
-            navController.navigate(route = route, navOptions = navOptions
-           )
-        }),
+        onClick = onClick,
         colors = ButtonColors(
             containerColor = Color.White,
             contentColor = Color.Gray,

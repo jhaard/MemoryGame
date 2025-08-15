@@ -18,8 +18,9 @@ kotlin = "2.2.0"
 kotlinxCoroutinesCore = "1.10.2"
 kotlinxSerializationJson = "1.8.1"
 ktorClientCore = "3.2.1"
-ktorClientDarwin = "3.0.0"
+ktorClientDarwin = "3.2.1"
 multiplatformSettings = "1.1.1"
+kodein = "7.23.0"
 
 [libraries]
 
@@ -46,6 +47,8 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
 multiplatform-settings-no-arg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "jetbrainsNavigationCompose" }
+kodein-di = { module = "org.kodein.di:kodein-di", version.ref = "kodein" }
+kodein-di-framework-compose = { module = "org.kodein.di:kodein-di-framework-compose", version.ref = "kodein" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

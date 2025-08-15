@@ -5,54 +5,62 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.jhaard.memorygame.gameService.GameService
+import org.jhaard.memorygame.services.GameService
+import org.jhaard.memorygame.models.GameState
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
-
+import org.jhaard.memorygame.services.AudioService
+import org.jhaard.memorygame.services.TimerService
 
 /**
  * The viewmodel for the GameScreen.
  *
- * @param gameService Inserting a GameService class to separate some functions
+ * @param gameService Inserting a GameService class to separate some logic functions.
+ * @param audioService The AudioService to play sounds.
+ * @param timerService Manages the timer.
  * where UI is not involved.
  */
 class GameViewModel(
-    private val gameService: GameService
+    private val gameService: GameService,
+    private val audioService: AudioService,
+    private val timerService: TimerService
 ) : ViewModel() {
 
-    // Score and Timer
-    val score = gameService.score
-    val timer = gameService.timer
-    val isRunning = gameService.isRunning
+    // The state of the game
+    private val _uiState = MutableStateFlow<GameState>(GameState.Initial)
+    val uiState: StateFlow<GameState> = _uiState.asStateFlow()
 
     // The UI tile list.
     private val _tileList = MutableStateFlow<List<TileData>>(emptyList())
     val tileList: StateFlow<List<TileData>> = _tileList
 
     init {
-        val listA = gameService.createTileList(0)
-        val lastIndex = listA.lastIndex + 1
-        val listB = gameService.createTileList(lastIndex)
-
-        _tileList.value = listA + listB
-
-        resetScore()
-        startTimer()
+        if (_uiState.value !is GameState.Playing) {
+            startGame()
+        }
     }
 
-    /**
-     * The public game flow function of clicks and states.
-     * @param tileId The id of the clicked tile.
-     * @param imageUrl The image url of the clicked tile.
-     */
-    fun runGameFlow(tileId: Int, imageUrl: String, clickCount: Int) {
-        updateTileList(
-            predicate = { it.tileState == TileState.IDLE && it.id == tileId },
-            transform = { it.copy(tileState = TileState.FLIP) }
-        )
-        setConditionsWhenMatched(imageUrl = imageUrl)
-        checkIfMaximumTilesAreFlipped(clickCount = clickCount)
+    private fun startGame() {
+        _tileList.value = gameService.initializeList()
+        val startTime = 120
+
+        updateState<GameState.Initial> {
+            GameState.Playing(
+                timer = startTime,
+                score = 0,
+                clickCount = 0
+            )
+        }
+        updateTime(startTime = startTime)
+        startMusic()
+    }
+
+    fun resetGame() {
+        stopMusic()
+        updateState<GameState.GameOver> { GameState.Initial }
+        startGame()
     }
 
     /**
@@ -70,38 +78,103 @@ class GameViewModel(
     }
 
     /**
-     * Checks if the image content urls are identical.
-     * @param imageUrl The image url to check.
-     * @return Returns true if both flipped tiles have the same urls.
+     * Function to update the GameState and it's properties.
+     * @param transform to desired GameState or update the current.
      */
-    private fun isMatched(imageUrl: String): Boolean {
-        val newList = _tileList.value.filter { it.tileState == TileState.FLIP }
-        val values = newList.map { it.imageContent }
-        return values.all { it == imageUrl } && values.size > 1
+    private inline fun <reified T : GameState> updateState(
+        transform: (T) -> GameState
+    ) {
+        val current = _uiState.value
+        if (current is T) {
+            _uiState.value = transform(current)
+        }
+    }
+
+    // Update the timer and set it to the game state.
+    private fun updateTime(startTime: Int) {
+        timerService.startTimer(
+            startTime = startTime,
+            scope = viewModelScope,
+            onTick = { timeLeft ->
+                updateState<GameState.Playing> { playing -> playing.copy(timer = timeLeft) }
+            },
+            onComplete = {
+                updateState<GameState.Playing> { GameState.GameOver(score = it.score) }
+            }
+        )
     }
 
     /**
-     * If tiles are matched, update the state, timer and score.
+     * This is the main play function - flip the tile, update the clickCount and run checks.
+     * @param tileId The id of the clicked tile.
+     * @param imageUrl The image url of the clicked tile.
+     */
+    fun flipTile(tileId: Int, imageUrl: String) {
+        updateState<GameState.Playing> {
+            it.copy(clickCount = it.clickCount + 1)
+        }
+        updateTileList(
+            predicate = { it.tileState == TileState.IDLE && it.id == tileId },
+            transform = { it.copy(tileState = TileState.FLIP) }
+        )
+        runChecks(imageUrl = imageUrl)
+    }
+
+    /**
+     * Run the checks when flipping tiles.
+     * @param imageUrl The image url of the tile to check.
+     */
+    private fun runChecks(imageUrl: String) {
+        checkMaximumOpenTiles(imageUrl = imageUrl)
+        setConditionsWhenMatched(imageUrl = imageUrl)
+    }
+
+
+    /**
+     * If tiles are matched, update the state with score and the tile-list.
      * @param imageUrl The image url to check.
      */
     private fun setConditionsWhenMatched(imageUrl: String) {
-        if (isMatched(imageUrl = imageUrl)) {
+        if (gameService.isMatched(tileList = _tileList.value, imageUrl = imageUrl)) {
+            audioService.playMatchingSound(scope = viewModelScope)
+            updateState<GameState.Playing> {
+                it.copy(
+                    clickCount = 0,
+                    score = it.score + gameService.addScore(whereTimerIs = it.timer)
+                )
+            }
             updateTileList(
                 predicate = { it.tileState == TileState.FLIP },
                 transform = { it.copy(tileState = TileState.MATCHED) }
             )
-            updateScore()
-            checkIfAllTilesAreFlipped()
+            isTileBoardComplete()
         }
     }
 
     /**
-     * Filter tiles that are flipped and if they are greater than 2, update the tiles.
-     * Changed back to this since the application only have small lists.
+     * Evaluating maximum clicks.
+     * @return True if two clicks are made.
      */
-    private fun checkIfMaximumTilesAreFlipped(clickCount: Int) {
-        if (clickCount == 2) {
+    private fun maximumClicks(): Boolean {
+        val currentState = _uiState.value
+        val clickCount = if (currentState is GameState.Playing) currentState.clickCount else 0
+        return clickCount == 2
+    }
+
+    /**
+     * Checks for open tiles. Reset clickCount and change back the tiles to IDLE state.
+     * @param imageUrl The image url to check.
+     */
+    private fun checkMaximumOpenTiles(imageUrl: String) {
+        if (maximumClicks() && !gameService.isMatched(
+                imageUrl = imageUrl,
+                tileList = _tileList.value
+            )
+        ) {
+            updateState<GameState.Playing> { it.copy(clickCount = 0) }
+
             viewModelScope.launch {
+                audioService.playErrorSound(scope = this)
                 delay(200)
                 updateTileList(
                     predicate = { it.tileState == TileState.FLIP },
@@ -111,22 +184,26 @@ class GameViewModel(
         }
     }
 
-    private fun checkIfAllTilesAreFlipped() {
+    // When every pair are matched, change the GameState.
+    private fun isTileBoardComplete() {
         if (_tileList.value.all { it.tileState == TileState.MATCHED }) {
-            gameService.stopGame()
+            updateState<GameState.Playing> { playState ->
+                timerService.stopTimer()
+                GameState.GameOver(score = playState.score)
+            }
         }
     }
 
-    private fun startTimer() {
-        gameService.startTimer(120, viewModelScope)
+    fun startMusic() {
+        audioService.playBackgroundMusic(scope = viewModelScope)
     }
 
-    private fun updateScore() {
-        gameService.updateScore()
+    fun stopMusic() {
+        audioService.stopBackgroundMusic(scope = viewModelScope)
     }
 
-    private fun resetScore() {
-        gameService.resetScore()
+    fun pauseMusic() {
+        audioService.pauseBackgroundMusic(scope = viewModelScope)
     }
 
 }

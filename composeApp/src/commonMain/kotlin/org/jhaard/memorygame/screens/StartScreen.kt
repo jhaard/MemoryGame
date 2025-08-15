@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -21,12 +20,13 @@ import androidx.navigation.NavOptions
 import org.jhaard.memorygame.components.GameButton
 import org.jhaard.memorygame.components.LoadingIndicator
 import org.jhaard.memorygame.viewModels.StartViewModel
+import org.kodein.di.compose.viewmodel.rememberViewModel
 
 /**
  * Start screen of the game. Load images here.
  *
  * @param navController For navigation.
- * @param startViewModel The viewmodel for the start screen.
+ * @param navOptions Navigation options.
  *
  * TODO Restrict fetches.
  * TODO Adjust composable to custom theme.
@@ -34,15 +34,11 @@ import org.jhaard.memorygame.viewModels.StartViewModel
 @Composable
 fun StartScreen(
     navController: NavController,
-    navOptions: NavOptions,
-    startViewModel: StartViewModel
+    navOptions: NavOptions
 ) {
+    val startViewModel: StartViewModel by rememberViewModel()
 
     val loading by startViewModel.isLoading.collectAsState(false)
-
-    LaunchedEffect(Unit) {
-        startViewModel.fetchImages("vehicle")
-    }
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -55,6 +51,21 @@ fun StartScreen(
         if (loading) {
             LoadingIndicator()
         } else {
+
+            /*
+            TEMP BUTTON TO LOAD FROM API
+             */
+
+            GameButton(
+                navController = navController,
+                navOptions = navOptions,
+                route = "",
+                buttonText = "FETCH IMAGES - DEV",
+                onClick = {
+                    startViewModel.fetchImages("animal")
+                }
+
+            )
             Text(
                 text = "MEMORY GAME",
                 fontSize = 18.sp,
@@ -62,7 +73,13 @@ fun StartScreen(
                 textAlign = TextAlign.Center
             )
             GameButton(
-                navController = navController, navOptions = navOptions, route = "game_screen", buttonText = "PLAY"
+                navController = navController,
+                navOptions = navOptions,
+                route = "game_screen",
+                buttonText = "PLAY",
+                onClick = {
+                    navController.navigate(route = "game_screen", navOptions = navOptions)
+                }
             )
         }
     }
