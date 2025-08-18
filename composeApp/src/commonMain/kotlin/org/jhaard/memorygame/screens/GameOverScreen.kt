@@ -18,11 +18,10 @@ import org.jhaard.memorygame.components.GameButton
 
 /**
  * The Game Over view to display.
- * @param navController The NavController to navigate.
  * @param score The score to display.
  */
 @Composable
-fun GameOverScreen(navController: NavController, navOptions: NavOptions, score: Int, onClick: () -> Unit) {
+fun GameOverScreen(score: Int, onClick: () -> Unit) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -34,21 +33,14 @@ fun GameOverScreen(navController: NavController, navOptions: NavOptions, score: 
         Text(text = "GAME OVER", textAlign = TextAlign.Center, color = Color.Green)
         Text(text = "Your Score: $score", textAlign = TextAlign.Center, color = Color.LightGray)
         GameButton(
-            navController = navController,
-            navOptions = navOptions,
-            route = "start_screen",
             buttonText = "Back to Start",
+            animate = false,
             onClick = {},
-            modifier = Modifier
-
         )
         GameButton(
-            navController = navController,
-            navOptions = navOptions,
-            route = "game_screen",
             buttonText = "Retry",
             onClick = onClick,
-            modifier = Modifier
+            animate = false,
         )
 
     }

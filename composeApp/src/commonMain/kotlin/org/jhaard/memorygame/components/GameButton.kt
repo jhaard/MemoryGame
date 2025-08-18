@@ -8,22 +8,28 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import memorygame.composeapp.generated.resources.Monofett_Regular
-import memorygame.composeapp.generated.resources.Res
-import org.jetbrains.compose.resources.Font
+import org.jhaard.memorygame.animations.alphaAnimation
+import org.jhaard.memorygame.animations.scaleAnimation
 
 @Composable
-fun GameButton(navController: NavController, navOptions: NavOptions, modifier: Modifier,  route: String, buttonText: String, onClick: () -> Unit) {
+fun GameButton(buttonText: String, animate: Boolean, onClick: () -> Unit) {
+
+    val alphaAnimation = alphaAnimation()
+    val scaleAnimation = scaleAnimation()
+
+    val mintGreen = Color(0xFF73F4A7)
+    val skyBlue = Color(0xFF5FD0EA)
+
     Button(
         onClick = onClick,
         colors = ButtonColors(
@@ -32,29 +38,37 @@ fun GameButton(navController: NavController, navOptions: NavOptions, modifier: M
             disabledContainerColor = Color.LightGray,
             disabledContentColor = Color.Gray
         ),
-        modifier = modifier
-            .fillMaxWidth()
+        modifier = Modifier
+            .graphicsLayer {
+                if (animate) {
+                    scaleX = scaleAnimation
+                    scaleY = scaleAnimation
+                }
+            }
+            .fillMaxWidth(0.6f)
+            .alpha(alphaAnimation)
             .border(
                 brush = Brush.horizontalGradient(
                     colors = listOf(
-                        Color.Green,
-                        Color.Cyan
+                        mintGreen,
+                        skyBlue
                     ),
                 ),
                 width = 4.dp,
                 shape = RoundedCornerShape(size = 20.dp)
             )
+
+
     ) {
         Text(
             text = buttonText,
-            fontSize = 38.sp,
-            fontFamily = FontFamily(Font(Res.font.Monofett_Regular)),
+            fontSize = 20.sp,
             textAlign = TextAlign.Center,
             style = TextStyle(
                 brush = Brush.horizontalGradient(
                     colors = listOf(
-                        Color.Green,
-                        Color.Cyan
+                        mintGreen,
+                        skyBlue
                     )
                 )
             ),

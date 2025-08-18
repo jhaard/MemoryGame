@@ -1,5 +1,7 @@
 package org.jhaard.memorygame.animations
 
+import androidx.compose.animation.core.EaseInOutElastic
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -14,7 +16,7 @@ import org.jhaard.memorygame.models.TileState
 
 
 @Composable
-fun scaleTile(tile: TileData): Float {
+fun scaleTileAnimation(tile: TileData): Float {
     val transition = updateTransition(tile.tileState, label = "transition")
     val scale by transition.animateFloat(
         transitionSpec = {
@@ -32,7 +34,7 @@ fun scaleTile(tile: TileData): Float {
 }
 
 @Composable
-fun rotateTile(tile: TileData): Float {
+fun rotateTileAnimation(tile: TileData): Float {
     val transition = updateTransition(tile.tileState, label = "transition")
 
     val rotate by transition.animateFloat(
@@ -51,14 +53,14 @@ fun rotateTile(tile: TileData): Float {
 }
 
 @Composable
-fun spinning(): Float {
+fun spinningAnimation(): Float {
     val infiniteTransition = rememberInfiniteTransition(label = "spin")
 
     val rotation by infiniteTransition.animateFloat(
         initialValue = 0f,
         targetValue = 180f,
         animationSpec = infiniteRepeatable(
-            animation = tween(3000, easing = LinearEasing), // 2 sekunder per varv
+            animation = tween(5000, easing = EaseInOutElastic),
             repeatMode = RepeatMode.Reverse
         ),
         label = "spin"
@@ -66,3 +68,37 @@ fun spinning(): Float {
     return rotation
 
 }
+
+@Composable
+fun alphaAnimation(): Float {
+    val infiniteTransition = rememberInfiniteTransition(label = "alpha")
+
+    val alpha by infiniteTransition.animateFloat(
+        initialValue = 1f,
+        targetValue = 0.8f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1000, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "alpha"
+    )
+    return alpha
+
+}
+@Composable
+fun scaleAnimation(): Float {
+    val infiniteTransition = rememberInfiniteTransition(label = "general_scale")
+
+    val alpha by infiniteTransition.animateFloat(
+        initialValue = 1f,
+        targetValue = 1.02f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(300, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "general_scale"
+    )
+    return alpha
+
+}
+

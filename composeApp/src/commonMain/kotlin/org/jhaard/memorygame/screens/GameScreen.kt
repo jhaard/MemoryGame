@@ -37,7 +37,6 @@ fun GameScreen(navController: NavController, navOptions: NavOptions) {
     when (uiState) {
         is GameState.Error -> ErrorScreen()
         is GameState.GameOver -> GameOverScreen(
-            navController = navController, navOptions = navOptions,
             score = (uiState as GameState.GameOver).score,
             onClick = {
                 gameViewModel.stopMusic()

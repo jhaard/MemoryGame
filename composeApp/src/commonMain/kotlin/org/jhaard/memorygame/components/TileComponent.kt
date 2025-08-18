@@ -13,13 +13,14 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
-import org.jhaard.memorygame.animations.rotateTile
-import org.jhaard.memorygame.animations.scaleTile
+import org.jhaard.memorygame.animations.rotateTileAnimation
+import org.jhaard.memorygame.animations.scaleTileAnimation
 
 /**
  * A Memory Tile Component.
@@ -33,9 +34,8 @@ fun TileComponent(
     onClick: () -> Unit,
     enabled: Boolean
 ) {
-
-    val scaleAnimation = scaleTile(tile)
-    val rotateAnimation = rotateTile(tile)
+    val scaleAnimation = scaleTileAnimation(tile)
+    val rotateAnimation = rotateTileAnimation(tile)
 
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
         Card(
@@ -55,7 +55,7 @@ fun TileComponent(
                 disabledContainerColor = Color.LightGray,
                 disabledContentColor = Color.LightGray
             ),
-            elevation = CardDefaults.cardElevation(7.dp),
+            elevation = CardDefaults.cardElevation(2.dp),
             border = getBorder(tile.tileState)
         ) {
             TileContent(
@@ -67,10 +67,18 @@ fun TileComponent(
 }
 
 fun getBorder(tileState: TileState): BorderStroke {
+    val mintGreen = Color(0xFF73F4A7)
+    val skyBlue = Color(0xFF5FD0EA)
+
     return when (tileState) {
         TileState.IDLE -> BorderStroke(
-            width = 4.dp,
-            color = Color.White
+            brush = Brush.horizontalGradient(
+                colors = listOf(
+                    mintGreen,
+                    skyBlue
+                ),
+            ),
+            width = 2.dp,
         )
 
         TileState.FLIP -> BorderStroke(

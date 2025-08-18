@@ -18,6 +18,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 import androidx.compose.ui.unit.dp
+import memorygame.composeapp.generated.resources.diamond_shape_backside
 
 /**
  * The image contents of a tile.
@@ -36,7 +37,7 @@ fun TileContent(
 
     ) {
         val painterFront = asyncPainterResource(tile.imageContent)
-        val painterBack = painterResource(Res.drawable.tile_backside)
+        val painterBack = painterResource(Res.drawable.diamond_shape_backside)
 
         if (tile.tileState == TileState.FLIP || tile.tileState == TileState.MATCHED) {
             KamelImage({ painterFront },
