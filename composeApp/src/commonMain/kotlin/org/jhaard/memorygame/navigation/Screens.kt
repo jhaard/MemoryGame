@@ -9,4 +9,14 @@ package org.jhaard.memorygame.navigation
 sealed class Screens(val route: String) {
     data object StartScreen: Screens("start_screen")
     data object GameScreen: Screens("game_screen")
+
+    fun withArguments(vararg args: String): String {
+        val argRoute = buildString {
+            append(route)
+            args.forEach {
+                append("/$it")
+            }
+        }
+        return argRoute
+    }
 }

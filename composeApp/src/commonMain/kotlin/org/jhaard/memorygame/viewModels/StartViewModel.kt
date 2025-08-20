@@ -27,27 +27,29 @@ class StartViewModel(
      * @param key The key to search for.
      */
     fun fetchImages(key: String) {
-        viewModelScope.launch {
-            _isLoading.value = true
+        if(localStorage.getUrlList(key).isEmpty()) {
+            viewModelScope.launch {
+                _isLoading.value = true
 
-            val imageResponse = imageApiService.getImageIcons(key = key)
+                val imageResponse = imageApiService.getImageIcons(key = key)
 
-            if (imageResponse.icons != null) {
+                if (imageResponse.icons != null) {
 
-                val sizeFormats = imageResponse.icons
-                    .flatMap { it.rasterSizes!! }
+                    val sizeFormats = imageResponse.icons
+                        .flatMap { it.rasterSizes!! }
 
-                val sizes = sizeFormats.filter { it.size == 64 }
+                    val sizes = sizeFormats.filter { it.size == 64 }
 
-                val previews = sizes
-                    .flatMap { it.formats!! }
+                    val previews = sizes
+                        .flatMap { it.formats!! }
 
-                val imageUrls = previews.map { it.previewUrl }
+                    val imageUrls = previews.map { it.previewUrl }
 
-                localStorage.saveUrlList(imageUrls)
+                    localStorage.saveUrlList(key, imageUrls)
 
+                }
+                _isLoading.value = false
             }
-            _isLoading.value = false
         }
 
     }

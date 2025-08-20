@@ -18,7 +18,7 @@ import org.kodein.di.compose.viewmodel.rememberViewModel
  * @param navOptions Navigation options.
  */
 @Composable
-fun GameScreen(navController: NavController, navOptions: NavOptions) {
+fun GameScreen(set: String, navController: NavController, navOptions: NavOptions) {
 
     val gameViewModel: GameViewModel by rememberViewModel()
 
@@ -27,6 +27,7 @@ fun GameScreen(navController: NavController, navOptions: NavOptions) {
 
     LaunchedEffect(Unit) {
         gameViewModel.startMusic()
+        gameViewModel.startGame(key = set)
     }
 
     RememberLifecycleObserver(
@@ -40,7 +41,7 @@ fun GameScreen(navController: NavController, navOptions: NavOptions) {
             score = (uiState as GameState.GameOver).score,
             onClick = {
                 gameViewModel.stopMusic()
-                gameViewModel.resetGame()
+                gameViewModel.resetGame(key = set)
             }
         )
 

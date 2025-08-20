@@ -36,14 +36,8 @@ class GameViewModel(
     private val _tileList = MutableStateFlow<List<TileData>>(emptyList())
     val tileList: StateFlow<List<TileData>> = _tileList
 
-    init {
-        if (_uiState.value !is GameState.Playing) {
-            startGame()
-        }
-    }
-
-    private fun startGame() {
-        _tileList.value = gameService.initializeList()
+     fun startGame(key: String) {
+        _tileList.value = gameService.initializeList(key = key)
         val startTime = 120
 
         updateState<GameState.Initial> {
@@ -57,10 +51,10 @@ class GameViewModel(
         startMusic()
     }
 
-    fun resetGame() {
+    fun resetGame(key: String) {
         stopMusic()
         updateState<GameState.GameOver> { GameState.Initial }
-        startGame()
+        startGame(key = key)
     }
 
     /**
