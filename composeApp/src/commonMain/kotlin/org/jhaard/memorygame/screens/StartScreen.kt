@@ -1,5 +1,7 @@
 package org.jhaard.memorygame.screens
 
+import androidx.compose.animation.core.EaseInOutElastic
+import androidx.compose.animation.core.RepeatMode
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -61,7 +63,7 @@ fun StartScreen(
     val startViewModel: StartViewModel by rememberViewModel()
     val loading by startViewModel.isLoading.collectAsState(false)
 
-    val spinning = spinningAnimation()
+    val spinning = spinningAnimation(target = 180f, easing = EaseInOutElastic, repeatMode = RepeatMode.Reverse)
 
     var showSets by remember { mutableStateOf(false) }
 
