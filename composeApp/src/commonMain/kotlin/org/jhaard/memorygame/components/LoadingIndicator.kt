@@ -10,7 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -20,6 +22,9 @@ import androidx.compose.ui.unit.sp
  */
 @Composable
 fun LoadingIndicator() {
+    val mintGreen = Color(0xFF73F4A7)
+    val skyBlue = Color(0xFF5FD0EA)
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -35,10 +40,18 @@ fun LoadingIndicator() {
             strokeWidth = 8.dp
         )
         Text(
-            text = "Service may be inactive.\nFetching new images...",
+            text = "Activating service...\nThis might take up to 50 seconds.\n(Only the first time starting the app)",
             fontSize = 18.sp,
-            color = Color.Gray,
-            textAlign = TextAlign.Center
+            color = Color.Green,
+            textAlign = TextAlign.Center,
+            style = TextStyle(
+                brush = Brush.horizontalGradient(
+                    colors = listOf(
+                        mintGreen,
+                        skyBlue
+                    )
+                )
+            )
         )
     }
 }
