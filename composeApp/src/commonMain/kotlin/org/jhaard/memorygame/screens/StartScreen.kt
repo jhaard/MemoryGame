@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,27 +22,24 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import memorygame.composeapp.generated.resources.Monofett_Regular
 import memorygame.composeapp.generated.resources.Res
 import memorygame.composeapp.generated.resources.diamond_shape_backside
-import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 import org.jhaard.memorygame.animations.spinningAnimation
 import org.jhaard.memorygame.components.ChooseTiles
 import org.jhaard.memorygame.components.GameButton
 import org.jhaard.memorygame.components.LoadingIndicator
 import org.jhaard.memorygame.navigation.Screens
+import org.jhaard.memorygame.uiTheme.AppBorderSizing
+import org.jhaard.memorygame.uiTheme.AppImageSizing
+import org.jhaard.memorygame.uiTheme.AppShapes
+import org.jhaard.memorygame.uiTheme.AppSpacing
+import org.jhaard.memorygame.uiTheme.BackgroundColor
+import org.jhaard.memorygame.uiTheme.PrimaryGradient
 import org.jhaard.memorygame.viewModels.StartViewModel
 import org.kodein.di.compose.viewmodel.rememberViewModel
 
@@ -63,7 +60,8 @@ fun StartScreen(
     val startViewModel: StartViewModel by rememberViewModel()
     val loading by startViewModel.isLoading.collectAsState(false)
 
-    val spinning = spinningAnimation(target = 180f, easing = EaseInOutElastic, repeatMode = RepeatMode.Reverse)
+    val spinning =
+        spinningAnimation(target = 180f, easing = EaseInOutElastic, repeatMode = RepeatMode.Reverse)
 
     var showSets by remember { mutableStateOf(false) }
 
@@ -72,9 +70,6 @@ fun StartScreen(
         "Animal",
         "Plant"
     )
-
-    val mintGreen = Color(0xFF73F4A7)
-    val skyBlue = Color(0xFF5FD0EA)
 
     LaunchedEffect(Unit) {
         listOfKeys.forEach {
@@ -87,8 +82,8 @@ fun StartScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF232323))
-            .padding(top = 20.dp)
+            .background(BackgroundColor)
+            .padding(top = AppSpacing.medium)
     ) {
         when (loading) {
             true -> LoadingIndicator()
@@ -111,18 +106,7 @@ fun StartScreen(
 
                         Text(
                             text = "MEMORY GAME",
-                            fontFamily = FontFamily(Font(Res.font.Monofett_Regular)),
-                            letterSpacing = 4.sp,
-                            fontSize = 72.sp,
-                            textAlign = TextAlign.Center,
-                            style = TextStyle(
-                                brush = Brush.horizontalGradient(
-                                    colors = listOf(
-                                        mintGreen,
-                                        skyBlue
-                                    )
-                                )
-                            ),
+                            style = MaterialTheme.typography.displayLarge
                         )
 
                         Image(
@@ -131,21 +115,16 @@ fun StartScreen(
                             alignment = Alignment.Center,
                             contentDescription = "Tile at start",
                             modifier = Modifier
-                                .size(width = 100.dp, height = 100.dp)
+                                .size(AppImageSizing.largeImageSize)
                                 .graphicsLayer {
                                     rotationY = spinning
                                     cameraDistance = 30f
                                 }
-                                .clip(shape = RoundedCornerShape(20.dp))
+                                .clip(shape = AppShapes.large)
                                 .border(
-                                    brush = Brush.horizontalGradient(
-                                        colors = listOf(
-                                            mintGreen,
-                                            skyBlue
-                                        ),
-                                    ),
-                                    width = 4.dp,
-                                    shape = RoundedCornerShape(size = 20.dp)
+                                    brush = PrimaryGradient,
+                                    width = AppBorderSizing.large,
+                                    shape = AppShapes.large
                                 )
                         )
 

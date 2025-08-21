@@ -6,21 +6,26 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.unit.dp
-import org.jhaard.memorygame.models.TileData
-import org.jhaard.memorygame.models.TileState
 import org.jhaard.memorygame.animations.rotateTileAnimation
 import org.jhaard.memorygame.animations.scaleTileAnimation
+import org.jhaard.memorygame.models.TileData
+import org.jhaard.memorygame.models.TileState
+import org.jhaard.memorygame.uiTheme.AppBorderSizing
+import org.jhaard.memorygame.uiTheme.AppCardElevation
+import org.jhaard.memorygame.uiTheme.AppImageSizing
+import org.jhaard.memorygame.uiTheme.AppShapes
+import org.jhaard.memorygame.uiTheme.AppSpacing
+import org.jhaard.memorygame.uiTheme.PrimaryGradient
+import org.jhaard.memorygame.uiTheme.TileFlipBorderColor
+import org.jhaard.memorygame.uiTheme.TileMatchBorderColor
 
 /**
  * A Memory Tile Component.
@@ -40,23 +45,23 @@ fun TileComponent(
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
         Card(
             modifier = Modifier
-                .size(70.dp)
+                .size(AppImageSizing.tileSize)
                 .clickable(onClick = onClick, enabled = enabled)
                 .graphicsLayer {
                     scaleX = scaleAnimation
                     scaleY = scaleAnimation
                     rotationZ = rotateAnimation
                 }
-                .padding(10.dp),
-            shape = RoundedCornerShape(10.dp),
+                .padding(AppSpacing.small),
+            shape = AppShapes.medium,
             colors = CardColors(
                 containerColor = if (tile.tileState == TileState.FLIP) Color.White else Color.Gray,
                 contentColor = if (tile.tileState == TileState.FLIP) Color.White else Color.Gray,
                 disabledContainerColor = Color.LightGray,
                 disabledContentColor = Color.LightGray
             ),
-            elevation = CardDefaults.cardElevation(2.dp),
-            border = getBorder(tile.tileState)
+            elevation = CardDefaults.cardElevation(AppCardElevation.small),
+            border = getTileBorder(tile.tileState)
         ) {
             TileContent(
                 tile = tile
@@ -66,29 +71,19 @@ fun TileComponent(
 
 }
 
-fun getBorder(tileState: TileState): BorderStroke {
-    val mintGreen = Color(0xFF73F4A7)
-    val skyBlue = Color(0xFF5FD0EA)
-
+fun getTileBorder(tileState: TileState): BorderStroke {
     return when (tileState) {
         TileState.IDLE -> BorderStroke(
-            brush = Brush.horizontalGradient(
-                colors = listOf(
-                    mintGreen,
-                    skyBlue
-                ),
-            ),
-            width = 2.dp,
+            brush = PrimaryGradient,
+            width = AppBorderSizing.small,
         )
-
         TileState.FLIP -> BorderStroke(
-            width = 4.dp,
-            color = Color.Blue
+            width = AppBorderSizing.large,
+            color = TileFlipBorderColor
         )
-
         TileState.MATCHED -> BorderStroke(
-            width = 4.dp,
-            color = Color.Green
+            width = AppBorderSizing.large,
+            color = TileMatchBorderColor
         )
     }
 }

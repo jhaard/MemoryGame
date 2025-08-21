@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,6 +29,8 @@ val BackgroundColor = Color(0xFF232323)
 val PrimaryColor = Color(0xFFFEFEFE)
 val GradientGreen = Color(0xFF73F4A7)
 val GradientBlue = Color(0xFF5FD0EA)
+val TileFlipBorderColor = Color.Blue
+val TileMatchBorderColor = Color.Green
 
 // Gradient
 val PrimaryGradient = Brush.linearGradient(
@@ -52,11 +55,30 @@ val AppShapes = Shapes(
     large = RoundedCornerShape(20.dp)
 )
 
+// Border width
+object AppBorderSizing {
+    val small = 2.dp
+    val large = 4.dp
+    val xlarge = 10.dp
+}
+
 // Paddings and spaces
 object AppSpacing {
+    val xSmall = 5.dp
     val small = 10.dp
     val medium = 20.dp
     val large = 30.dp
+}
+
+object AppCardElevation {
+    val small = 2.dp
+}
+
+// Image size
+object AppImageSizing {
+    val smallImageSize = 50.dp
+    val largeImageSize = 100.dp
+    val tileSize = 70.dp
 }
 
 // Game theme
@@ -74,7 +96,8 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             fontSize = 72.sp,
             letterSpacing = 4.sp,
             textAlign = TextAlign.Center,
-            fontStyle = FontStyle.Normal
+            fontStyle = FontStyle.Normal,
+            brush = PrimaryGradient
         ),
 
         // Small headline - MONOFETT
@@ -83,7 +106,30 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             fontSize = 48.sp,
             letterSpacing = 4.sp,
             textAlign = TextAlign.Center,
-            fontStyle = FontStyle.Normal
+            fontStyle = FontStyle.Normal,
+            brush = PrimaryGradient
+        ),
+
+        // Timer text - NUNITO
+        headlineSmall = TextStyle(
+            fontFamily = plainFont,
+            fontSize = 22.sp,
+            letterSpacing = 2.sp,
+            textAlign = TextAlign.End,
+            fontStyle = FontStyle.Normal,
+            fontWeight = FontWeight.Bold,
+            brush = PrimaryGradient
+        ),
+
+        // timer number - NUNITO
+        titleLarge = TextStyle(
+            fontFamily = plainFont,
+            fontSize = 22.sp,
+            letterSpacing = 2.sp,
+            textAlign = TextAlign.End,
+            fontStyle = FontStyle.Normal,
+            fontWeight = FontWeight.Bold,
+            color = PrimaryColor
         ),
 
         // Button text - NUNITO
@@ -93,6 +139,8 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             letterSpacing = 2.sp,
             textAlign = TextAlign.Center,
             fontStyle = FontStyle.Normal,
+            fontWeight = FontWeight.Bold,
+            brush = PrimaryGradient
         ),
 
         // Info text - NUNITO
@@ -102,6 +150,7 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             letterSpacing = 2.sp,
             textAlign = TextAlign.Center,
             fontStyle = FontStyle.Normal,
+            color = PrimaryColor
         ),
 
     )

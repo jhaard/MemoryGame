@@ -9,17 +9,14 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
+import org.jhaard.memorygame.uiTheme.AppSpacing
 
 /**
  * The TileBoard composable.
@@ -39,7 +36,7 @@ fun TileBoard(onClick: (TileData) -> Unit, tileList: List<TileData>, timer: Stri
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxSize()
-            .padding(5.dp)
+            .padding(AppSpacing.xSmall)
     ) {
 
         item(span = { GridItemSpan(this.maxLineSpan) }) {
@@ -47,24 +44,15 @@ fun TileBoard(onClick: (TileData) -> Unit, tileList: List<TileData>, timer: Stri
             Row(
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.padding(horizontal = 20.dp)
+                modifier = Modifier.padding(horizontal = AppSpacing.medium)
             ) {
                 Text(
                     text = "Time left:",
-                    textAlign = TextAlign.End,
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color.LightGray,
-                    modifier = Modifier
-
+                    style = MaterialTheme.typography.headlineSmall
                 )
                 Text(
                     text = timer,
-                    textAlign = TextAlign.End,
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color.Red,
-                    modifier = Modifier
+                    style = MaterialTheme.typography.titleLarge
                 )
             }
         }
