@@ -23,7 +23,7 @@ import org.jhaard.memorygame.services.TimerService
  * where UI is not involved.
  */
 class GameViewModel(
-    private val key: String,
+    key: String,
     private val gameService: GameService,
     private val audioService: AudioService,
     private val timerService: TimerService
