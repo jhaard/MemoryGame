@@ -23,6 +23,7 @@ import org.jhaard.memorygame.services.TimerService
  * where UI is not involved.
  */
 class GameViewModel(
+    private val key: String,
     private val gameService: GameService,
     private val audioService: AudioService,
     private val timerService: TimerService
@@ -36,7 +37,11 @@ class GameViewModel(
     private val _tileList = MutableStateFlow<List<TileData>>(emptyList())
     val tileList: StateFlow<List<TileData>> = _tileList
 
-     fun startGame(key: String) {
+    init {
+        startGame(key = key)
+    }
+
+     private fun startGame(key: String) {
         _tileList.value = gameService.initializeList(key = key)
         val startTime = 120
 

@@ -20,14 +20,13 @@ import org.kodein.di.compose.viewmodel.rememberViewModel
 @Composable
 fun GameScreen(set: String, navController: NavController, navOptions: NavOptions) {
 
-    val gameViewModel: GameViewModel by rememberViewModel()
+    val gameViewModel: GameViewModel by rememberViewModel(arg = set)
 
     val tileList by gameViewModel.tileList.collectAsState(initial = emptyList())
     val uiState by gameViewModel.uiState.collectAsState(initial = GameState.Initial)
 
     LaunchedEffect(Unit) {
         gameViewModel.startMusic()
-        gameViewModel.startGame(key = set)
     }
 
     RememberLifecycleObserver(

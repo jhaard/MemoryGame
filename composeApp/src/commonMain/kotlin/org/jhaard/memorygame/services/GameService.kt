@@ -20,7 +20,7 @@ class GameService(private val localStorage: SettingsRepository) {
     }
 
     /**
-     * Creating the list of randomized tiles with the fetched image-urls.
+     * Creating the list of tiles with the fetched image-urls.
      * @param startIndex The starting index if using multiple lists. (Test)
      */
     private fun createTileList(key: String, startIndex: Int): List<TileData> {
