@@ -60,7 +60,7 @@ fun spinningAnimation(target: Float, easing: Easing, repeatMode: RepeatMode): Fl
         initialValue = 0f,
         targetValue = target,
         animationSpec = infiniteRepeatable(
-            animation = tween(5000, easing = easing),
+            animation = tween(6000, easing = easing),
             repeatMode = repeatMode
         ),
         label = "spin"
@@ -91,7 +91,7 @@ fun scaleAnimation(): Float {
 
     val alpha by infiniteTransition.animateFloat(
         initialValue = 1f,
-        targetValue = 1.02f,
+        targetValue = 1.04f,
         animationSpec = infiniteRepeatable(
             animation = tween(300, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse

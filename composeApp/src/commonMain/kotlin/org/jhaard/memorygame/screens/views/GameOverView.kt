@@ -30,7 +30,7 @@ fun GameOverView(score: Int, onRetry: () -> Unit, onBack: () -> Unit) {
     ) {
         Text(
             text = "GAME OVER",
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.titleLarge
         )
 
         Spacer(modifier = Modifier.padding(AppSpacing.xSmall))

@@ -4,23 +4,20 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import org.jhaard.memorygame.animations.alphaAnimation
 import org.jhaard.memorygame.animations.scaleAnimation
 import org.jhaard.memorygame.uiTheme.AppBorderSizing
-import org.jhaard.memorygame.uiTheme.AppShapes
-import org.jhaard.memorygame.uiTheme.PrimaryGradient
+import org.jhaard.memorygame.uiTheme.AppButtonElevation
 
 @Composable
 fun GameButton(buttonText: String, animate: Boolean, onClick: () -> Unit) {
 
-    val alphaAnimation = alphaAnimation()
     val scaleAnimation = scaleAnimation()
 
     Button(
@@ -31,6 +28,14 @@ fun GameButton(buttonText: String, animate: Boolean, onClick: () -> Unit) {
             disabledContainerColor = Color.LightGray,
             disabledContentColor = Color.Gray
         ),
+        elevation = ButtonDefaults.buttonElevation(
+            defaultElevation = AppButtonElevation.unPressed,
+            pressedElevation = AppButtonElevation.pressed,
+            focusedElevation = AppButtonElevation.unPressed,
+            hoveredElevation = AppButtonElevation.unPressed,
+            disabledElevation = AppButtonElevation.unPressed
+        ),
+        shape = MaterialTheme.shapes.large,
         modifier = Modifier
             .graphicsLayer {
                 if (animate) {
@@ -39,13 +44,11 @@ fun GameButton(buttonText: String, animate: Boolean, onClick: () -> Unit) {
                 }
             }
             .fillMaxWidth(0.6f)
-            .alpha(alphaAnimation)
             .border(
-                brush = PrimaryGradient,
-                width = AppBorderSizing.large,
-                shape = AppShapes.large
+                color = MaterialTheme.colorScheme.primary,
+                width = AppBorderSizing.small,
+                shape = MaterialTheme.shapes.large
             )
-
 
     ) {
         Text(

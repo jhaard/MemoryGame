@@ -39,7 +39,10 @@ fun GameScreen(set: String, navController: NavController, navOptions: NavOptions
     )
 
     when (uiState) {
-        is GameState.Error -> ErrorView()
+        is GameState.Error -> ErrorView(onBack = {
+            navController.navigate("start_screen", navOptions)
+        })
+
         is GameState.GameOver -> GameOverView(
             score = (uiState as GameState.GameOver).score,
             onRetry = {

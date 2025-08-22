@@ -9,27 +9,32 @@ import androidx.compose.ui.unit.dp
 
 
 // Colors
-val BackgroundColor = Color(0xFF232323)
+val BackgroundColor = Color(0xFF404040)
 val PrimaryColor = Color(0xFFFEFEFE)
-val GradientGreen = Color(0xFF73F4A7)
 val GradientBlue = Color(0xFF5FD0EA)
-val TileFlipBorderColor = Color.Blue
-val TileMatchBorderColor = Color.Green
+val ComplementaryRed = Color(0xFFEA795F)
+val TileFlipBorderColor = Color(0xFF1c5de6)
+val TileMatchBorderColor = Color(0xFF11D962)
 
 // Gradient
 val PrimaryGradient = Brush.linearGradient(
     colors = listOf(
-        GradientGreen,
-        GradientBlue
+        PrimaryColor,
+        GradientBlue,
+        GradientBlue,
+        GradientBlue,
+        GradientBlue,
     )
 )
 
 // Color scheme
 val AppColors = lightColorScheme(
-    primary = GradientGreen,
-    secondary = GradientBlue,
+    primary = GradientBlue,
+    secondary = ComplementaryRed,
     background = BackgroundColor,
     onPrimary = PrimaryColor,
+    onSecondary = TileFlipBorderColor,
+    onTertiary = TileMatchBorderColor
 )
 
 // Shapes
@@ -56,6 +61,12 @@ object AppSpacing {
 // Elevation
 object AppCardElevation {
     val small = 2.dp
+}
+
+// Elevation
+object AppButtonElevation {
+    val pressed = 0.dp
+    val unPressed = 10.dp
 }
 
 // Image size

@@ -33,7 +33,7 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             letterSpacing = 4.sp,
             textAlign = TextAlign.Center,
             fontStyle = FontStyle.Normal,
-            brush = PrimaryGradient
+            color = GradientBlue
         ),
 
         // Small headline - MONOFETT
@@ -43,7 +43,7 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             letterSpacing = 4.sp,
             textAlign = TextAlign.Center,
             fontStyle = FontStyle.Normal,
-            brush = PrimaryGradient
+            color = GradientBlue
         ),
 
         // Timer text - NUNITO
@@ -54,7 +54,7 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             textAlign = TextAlign.End,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.Bold,
-            brush = PrimaryGradient
+            color = PrimaryColor
         ),
 
         // timer number - NUNITO
@@ -65,18 +65,18 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             textAlign = TextAlign.End,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.Bold,
-            color = PrimaryColor
+            color = ComplementaryRed
         ),
 
         // Button text - NUNITO
         titleMedium = TextStyle(
             fontFamily = plainFont,
             fontSize = 20.sp,
-            letterSpacing = 2.sp,
+            letterSpacing = 4.sp,
             textAlign = TextAlign.Center,
             fontStyle = FontStyle.Normal,
-            fontWeight = FontWeight.Bold,
-            brush = PrimaryGradient
+            fontWeight = FontWeight.SemiBold,
+            color = PrimaryColor
         ),
 
         // Info text - NUNITO
