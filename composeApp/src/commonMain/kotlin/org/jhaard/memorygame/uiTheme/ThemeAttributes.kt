@@ -73,5 +73,6 @@ object AppButtonElevation {
 object AppImageSizing {
     val smallImageSize = 50.dp
     val largeImageSize = 100.dp
-    val tileSize = 70.dp
+    val largeTileSize = 80.dp
+    val smallTileSize = 55.dp
 }

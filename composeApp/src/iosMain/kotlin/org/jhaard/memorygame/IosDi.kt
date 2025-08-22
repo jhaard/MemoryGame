@@ -7,5 +7,7 @@ import org.kodein.di.bind
 import org.kodein.di.singleton
 
 fun createIosModule() = DI.Module("ios") {
+    bind<Orientation>() with singleton { Orientation() }
     bind<AudioManager>() with singleton { AudioManager() }
+
 }
