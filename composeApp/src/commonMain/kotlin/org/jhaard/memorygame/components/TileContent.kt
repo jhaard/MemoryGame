@@ -13,12 +13,11 @@ import androidx.compose.ui.layout.ContentScale
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import memorygame.composeapp.generated.resources.Res
-import memorygame.composeapp.generated.resources.tile_backside
+import memorygame.composeapp.generated.resources.diamond_shape_backside
 import org.jetbrains.compose.resources.painterResource
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
-import androidx.compose.ui.unit.dp
-import memorygame.composeapp.generated.resources.diamond_shape_backside
+import org.jhaard.memorygame.uiTheme.AppSpacing
 
 /**
  * The image contents of a tile.
@@ -43,7 +42,7 @@ fun TileContent(
             KamelImage({ painterFront },
                 contentDescription = "Tile Content",
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.padding(5.dp),
+                modifier = Modifier.padding(AppSpacing.xSmall),
                 onFailure = {
                     DefaultImage(painterBack)
                 }

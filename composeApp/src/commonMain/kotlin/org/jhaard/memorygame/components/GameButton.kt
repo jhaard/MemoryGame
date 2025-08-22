@@ -15,8 +15,6 @@ import org.jhaard.memorygame.animations.alphaAnimation
 import org.jhaard.memorygame.animations.scaleAnimation
 import org.jhaard.memorygame.uiTheme.AppBorderSizing
 import org.jhaard.memorygame.uiTheme.AppShapes
-import org.jhaard.memorygame.uiTheme.BackgroundColor
-import org.jhaard.memorygame.uiTheme.PrimaryColor
 import org.jhaard.memorygame.uiTheme.PrimaryGradient
 
 @Composable
@@ -28,8 +26,8 @@ fun GameButton(buttonText: String, animate: Boolean, onClick: () -> Unit) {
     Button(
         onClick = onClick,
         colors = ButtonColors(
-            containerColor = BackgroundColor,
-            contentColor = PrimaryColor,
+            containerColor = MaterialTheme.colorScheme.background,
+            contentColor = MaterialTheme.colorScheme.onPrimary,
             disabledContainerColor = Color.LightGray,
             disabledContentColor = Color.Gray
         ),

@@ -1,6 +1,5 @@
 package org.jhaard.memorygame.animations
 
-import androidx.compose.animation.core.EaseInOutElastic
 import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing

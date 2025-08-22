@@ -15,7 +15,6 @@ import androidx.compose.ui.draw.clip
 import org.jhaard.memorygame.uiTheme.AppBorderSizing
 import org.jhaard.memorygame.uiTheme.AppShapes
 import org.jhaard.memorygame.uiTheme.AppSpacing
-import org.jhaard.memorygame.uiTheme.BackgroundColor
 import org.jhaard.memorygame.uiTheme.PrimaryGradient
 
 @Composable
@@ -28,7 +27,7 @@ fun ChooseTiles(listOfKeys: List<String>, onClick: (String) -> Unit) {
             .fillMaxSize(0.9f)
             .padding(AppSpacing.small)
             .clip(shape = AppShapes.large)
-            .background(BackgroundColor)
+            .background(MaterialTheme.colorScheme.background)
             .border(
                 brush = PrimaryGradient,
                 width = AppBorderSizing.xlarge,

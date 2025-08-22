@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,8 +56,8 @@ fun TileComponent(
                 .padding(AppSpacing.small),
             shape = AppShapes.medium,
             colors = CardColors(
-                containerColor = if (tile.tileState == TileState.FLIP) Color.White else Color.Gray,
-                contentColor = if (tile.tileState == TileState.FLIP) Color.White else Color.Gray,
+                containerColor = if (tile.tileState == TileState.FLIP) MaterialTheme.colorScheme.onPrimary else Color.Gray,
+                contentColor = if (tile.tileState == TileState.FLIP) MaterialTheme.colorScheme.onPrimary else Color.Gray,
                 disabledContainerColor = Color.LightGray,
                 disabledContentColor = Color.LightGray
             ),
@@ -77,10 +78,12 @@ fun getTileBorder(tileState: TileState): BorderStroke {
             brush = PrimaryGradient,
             width = AppBorderSizing.small,
         )
+
         TileState.FLIP -> BorderStroke(
             width = AppBorderSizing.large,
             color = TileFlipBorderColor
         )
+
         TileState.MATCHED -> BorderStroke(
             width = AppBorderSizing.large,
             color = TileMatchBorderColor

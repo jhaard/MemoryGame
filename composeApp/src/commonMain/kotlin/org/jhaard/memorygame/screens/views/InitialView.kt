@@ -1,27 +1,31 @@
-package org.jhaard.memorygame.screens
+package org.jhaard.memorygame.screens.views
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import org.jhaard.memorygame.components.TileBoard
-import org.jhaard.memorygame.models.TileData
+import org.jhaard.memorygame.uiTheme.AppSpacing
 
 @Composable
-fun PlayScreen(tileList: List<TileData>, timer: String, onClick: (TileData) -> Unit) {
+fun InitialView() {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF232323))
+            .background(MaterialTheme.colorScheme.background)
+            .padding(AppSpacing.medium)
     ) {
 
-        TileBoard(tileList = tileList, timer = timer, onClick = onClick)
-
+        Text(
+            text = "INITIAL SCREEN",
+            style = MaterialTheme.typography.bodyLarge
+        )
     }
 }

@@ -82,7 +82,7 @@ fun StartScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .background(BackgroundColor)
+            .background(MaterialTheme.colorScheme.background)
             .padding(top = AppSpacing.medium)
     ) {
         when (loading) {
