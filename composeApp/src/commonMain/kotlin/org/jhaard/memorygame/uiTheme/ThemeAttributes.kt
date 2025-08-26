@@ -3,36 +3,27 @@ package org.jhaard.memorygame.uiTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.lightColorScheme
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 
-// Colors
-val BackgroundColor = Color(0xFF404040)
-val PrimaryColor = Color(0xFFFEFEFE)
-val GradientBlue = Color(0xFF5FD0EA)
-val ComplementaryRed = Color(0xFFEA795F)
-val TileFlipBorderColor = Color(0xFF1c5de6)
-val TileMatchBorderColor = Color(0xFF11D962)
-
-// Gradient
-val PrimaryGradient = Brush.linearGradient(
-    colors = listOf(
-        PrimaryColor,
-        GradientBlue,
-        GradientBlue,
-        GradientBlue,
-        GradientBlue,
-    )
-)
+val BackgroundColor = Color(0xFFEFEFEF)
+val PrimaryColor = Color(0xFF232323)
+val AppBlue = Color(0xFF69b6d9)
+val AppGreen = Color(0xFF256f60)
+val AppPink = Color(0xFFde92d0)
+val AppYellow = Color(0xFF3fd7c5)
+val TileFlipBorderColor = AppBlue
+val TileMatchBorderColor = AppGreen
 
 // Color scheme
 val AppColors = lightColorScheme(
-    primary = GradientBlue,
-    secondary = ComplementaryRed,
+    primary = AppYellow,
+    secondary = AppPink,
     background = BackgroundColor,
     onPrimary = PrimaryColor,
+    tertiary = AppYellow,
+    surface = AppGreen,
     onSecondary = TileFlipBorderColor,
     onTertiary = TileMatchBorderColor
 )

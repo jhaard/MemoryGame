@@ -12,9 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import org.jhaard.memorygame.display.Orientation
 import org.jhaard.memorygame.animations.rotateTileAnimation
 import org.jhaard.memorygame.animations.scaleTileAnimation
+import org.jhaard.memorygame.display.Orientation
 import org.jhaard.memorygame.display.getTileSize
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
@@ -22,7 +22,7 @@ import org.jhaard.memorygame.uiTheme.AppBorderSizing
 import org.jhaard.memorygame.uiTheme.AppCardElevation
 import org.jhaard.memorygame.uiTheme.AppShapes
 import org.jhaard.memorygame.uiTheme.AppSpacing
-import org.jhaard.memorygame.uiTheme.PrimaryGradient
+import org.jhaard.memorygame.uiTheme.AppYellow
 import org.jhaard.memorygame.uiTheme.TileFlipBorderColor
 import org.jhaard.memorygame.uiTheme.TileMatchBorderColor
 import org.kodein.di.compose.localDI
@@ -60,8 +60,10 @@ fun TileComponent(
             .padding(AppSpacing.small),
         shape = AppShapes.small,
         colors = CardColors(
-            containerColor = if (tile.tileState == TileState.FLIP) MaterialTheme.colorScheme.onPrimary else Color.Gray,
-            contentColor = if (tile.tileState == TileState.FLIP) MaterialTheme.colorScheme.onPrimary else Color.Gray,
+            containerColor = if (tile.tileState == TileState.FLIP) MaterialTheme.colorScheme.background
+            else MaterialTheme.colorScheme.tertiary,
+            contentColor = if (tile.tileState == TileState.FLIP) MaterialTheme.colorScheme.background
+            else MaterialTheme.colorScheme.tertiary,
             disabledContainerColor = Color.LightGray,
             disabledContentColor = Color.LightGray
         ),
@@ -78,7 +80,7 @@ fun TileComponent(
 fun getTileBorder(tileState: TileState): BorderStroke {
     return when (tileState) {
         TileState.IDLE -> BorderStroke(
-            brush = PrimaryGradient,
+            color = AppYellow,
             width = AppBorderSizing.small,
         )
 

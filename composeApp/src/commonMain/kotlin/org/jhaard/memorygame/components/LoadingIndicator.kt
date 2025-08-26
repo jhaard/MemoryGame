@@ -19,7 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import memorygame.composeapp.generated.resources.Res
-import memorygame.composeapp.generated.resources.neon_backside
+import memorygame.composeapp.generated.resources.diamond_shape_backside
 import org.jetbrains.compose.resources.painterResource
 import org.jhaard.memorygame.animations.spinningAnimation
 import org.jhaard.memorygame.models.values.StringValues
@@ -27,7 +27,6 @@ import org.jhaard.memorygame.uiTheme.AppBorderSizing
 import org.jhaard.memorygame.uiTheme.AppImageSizing
 import org.jhaard.memorygame.uiTheme.AppShapes
 import org.jhaard.memorygame.uiTheme.AppSpacing
-import org.jhaard.memorygame.uiTheme.PrimaryGradient
 
 /**
  * Custom Loading indicator with text.
@@ -45,7 +44,7 @@ fun LoadingIndicator() {
             .fillMaxSize()
     ) {
         Image(
-            painter = painterResource(Res.drawable.neon_backside),
+            painter = painterResource(Res.drawable.diamond_shape_backside),
             contentScale = ContentScale.Crop,
             alignment = Alignment.Center,
             contentDescription = "Tile at start",
@@ -56,7 +55,7 @@ fun LoadingIndicator() {
                 }
                 .clip(AppShapes.small)
                 .border(
-                    brush = PrimaryGradient,
+                    color = MaterialTheme.colorScheme.tertiary,
                     width = AppBorderSizing.small,
                     shape = AppShapes.small
                 )

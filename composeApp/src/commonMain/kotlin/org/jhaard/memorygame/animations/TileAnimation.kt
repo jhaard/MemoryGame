@@ -75,9 +75,9 @@ fun alphaAnimation(): Float {
 
     val alpha by infiniteTransition.animateFloat(
         initialValue = 1f,
-        targetValue = 0.8f,
+        targetValue = 0.6f,
         animationSpec = infiniteRepeatable(
-            animation = tween(1000, easing = LinearEasing),
+            animation = tween(2000, easing = LinearEasing),
             repeatMode = RepeatMode.Reverse
         ),
         label = "alpha"

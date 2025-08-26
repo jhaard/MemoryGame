@@ -3,15 +3,17 @@ package org.jhaard.memorygame.uiTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import memorygame.composeapp.generated.resources.Monofett_Regular
 import memorygame.composeapp.generated.resources.Nunito_Regular
 import memorygame.composeapp.generated.resources.Res
+import memorygame.composeapp.generated.resources.RubikDoodleShadow_Regular
 import org.jetbrains.compose.resources.Font
 
 /**
@@ -21,34 +23,35 @@ import org.jetbrains.compose.resources.Font
 @Composable
 fun MemoryGameTheme(content: @Composable () -> Unit) {
 
-    val mainFont = FontFamily(Font(Res.font.Monofett_Regular))
+    val mainFont = FontFamily(Font(Res.font.RubikDoodleShadow_Regular))
     val plainFont = FontFamily(Font(Res.font.Nunito_Regular))
 
     val appTypography = Typography(
 
-        // App title - MONOFETT
+        // App title
         displayLarge = TextStyle(
             fontFamily = mainFont,
-            fontSize = 72.sp,
+            fontSize = 62.sp,
             letterSpacing = 4.sp,
             textAlign = TextAlign.Center,
             fontStyle = FontStyle.Normal,
-            color = GradientBlue
+            color = AppPink,
+            shadow = Shadow(color = AppPink, offset = Offset.Zero, blurRadius = 1f)
         ),
 
-        // Small headline - MONOFETT
+        // Small headline
         headlineLarge = TextStyle(
             fontFamily = mainFont,
             fontSize = 48.sp,
             letterSpacing = 4.sp,
             textAlign = TextAlign.Center,
             fontStyle = FontStyle.Normal,
-            color = GradientBlue
+            color = AppPink
         ),
 
-        // Timer text - NUNITO
+        // Timer text
         headlineSmall = TextStyle(
-            fontFamily = plainFont,
+            fontFamily = mainFont,
             fontSize = 22.sp,
             letterSpacing = 2.sp,
             textAlign = TextAlign.End,
@@ -57,20 +60,20 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             color = PrimaryColor
         ),
 
-        // timer number - NUNITO
+        // timer number
         titleLarge = TextStyle(
-            fontFamily = plainFont,
+            fontFamily = mainFont,
             fontSize = 22.sp,
             letterSpacing = 2.sp,
             textAlign = TextAlign.End,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.Bold,
-            color = ComplementaryRed
+            color = AppPink
         ),
 
-        // Button text - NUNITO
+        // Button text
         titleMedium = TextStyle(
-            fontFamily = plainFont,
+            fontFamily = mainFont,
             fontSize = 20.sp,
             letterSpacing = 4.sp,
             textAlign = TextAlign.Center,

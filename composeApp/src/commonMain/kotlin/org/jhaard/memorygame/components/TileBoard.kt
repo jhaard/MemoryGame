@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.jhaard.memorygame.display.Orientation
@@ -38,12 +37,6 @@ fun TileBoard(onClick: (TileData) -> Unit, tileList: List<TileData>, timer: Stri
     val count = when (orientation.getScreenOrientation()) {
         ScreenOrientation.PORTRAIT -> 4
         ScreenOrientation.LANDSCAPE -> 10
-    }
-
-    val screenSize = orientation.getScreenSize()
-
-    LaunchedEffect(Unit) {
-        println(screenSize)
     }
 
     Column(
