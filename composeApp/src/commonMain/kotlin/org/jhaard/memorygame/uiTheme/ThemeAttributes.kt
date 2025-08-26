@@ -74,6 +74,7 @@ object AppImageSizing {
     val smallImageSize = 50.dp
     val largeImageSize = 100.dp
     val largeTileSize = 70.dp
+    val mediumTileSize = 60.dp
     val smallTileSize = 55.dp
     val defaultTileSize = 50.dp
 }
