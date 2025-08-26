@@ -12,14 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import org.jhaard.memorygame.Orientation
+import org.jhaard.memorygame.display.Orientation
 import org.jhaard.memorygame.animations.rotateTileAnimation
 import org.jhaard.memorygame.animations.scaleTileAnimation
+import org.jhaard.memorygame.display.getTileSize
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 import org.jhaard.memorygame.uiTheme.AppBorderSizing
 import org.jhaard.memorygame.uiTheme.AppCardElevation
-import org.jhaard.memorygame.uiTheme.AppImageSizing
 import org.jhaard.memorygame.uiTheme.AppShapes
 import org.jhaard.memorygame.uiTheme.AppSpacing
 import org.jhaard.memorygame.uiTheme.PrimaryGradient
@@ -46,11 +46,11 @@ fun TileComponent(
     val scaleAnimation = scaleTileAnimation(tile)
     val rotateAnimation = rotateTileAnimation(tile)
 
-    val screenHeight = orientation.getScreenHeight()
+    val screenSize = orientation.getScreenSize()
 
     Card(
         modifier = Modifier
-            .size( if (screenHeight < 2000) AppImageSizing.smallTileSize else AppImageSizing.largeTileSize)
+            .size(getTileSize(screenSize = screenSize))
             .clickable(onClick = onClick, enabled = enabled)
             .graphicsLayer {
                 scaleX = scaleAnimation

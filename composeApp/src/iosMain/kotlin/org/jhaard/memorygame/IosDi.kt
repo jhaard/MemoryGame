@@ -1,6 +1,7 @@
 package org.jhaard.memorygame
 
 
+import org.jhaard.memorygame.display.Orientation
 import org.jhaard.memorygame.sound.AudioManager
 import org.kodein.di.DI
 import org.kodein.di.bind

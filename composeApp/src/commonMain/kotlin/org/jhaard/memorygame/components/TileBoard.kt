@@ -13,8 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.jhaard.memorygame.Orientation
-import org.jhaard.memorygame.ScreenOrientation
+import org.jhaard.memorygame.display.Orientation
+import org.jhaard.memorygame.display.ScreenOrientation
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 import org.jhaard.memorygame.uiTheme.AppSpacing
@@ -38,6 +38,12 @@ fun TileBoard(onClick: (TileData) -> Unit, tileList: List<TileData>, timer: Stri
     val count = when (orientation.getScreenOrientation()) {
         ScreenOrientation.PORTRAIT -> 4
         ScreenOrientation.LANDSCAPE -> 10
+    }
+
+    val screenSize = orientation.getScreenSize()
+
+    LaunchedEffect(Unit) {
+        println(screenSize)
     }
 
     Column(

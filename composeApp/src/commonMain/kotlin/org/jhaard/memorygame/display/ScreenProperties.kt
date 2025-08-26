@@ -1,4 +1,4 @@
-package org.jhaard.memorygame
+package org.jhaard.memorygame.display
 
 enum class ScreenOrientation {
     PORTRAIT, LANDSCAPE

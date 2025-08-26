@@ -1,4 +1,4 @@
-package org.jhaard.memorygame
+package org.jhaard.memorygame.display
 
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.useContents

@@ -1,4 +1,4 @@
-package org.jhaard.memorygame
+package org.jhaard.memorygame.display
 
 import android.content.Context
 import android.content.res.Configuration
