@@ -16,7 +16,7 @@
 <details>
 <summary>Branches and Progress</summary><br>
 
-###### Currently working on: `feature/start-screen-design`
+###### Currently working on: `feature/ui-improvements`
 
 :white_check_mark: `feature/tile-component`. Is focused on creating a component for the tile and at click, the tile
 should change it's state and show the content. It will also involve an animation when changing state.
@@ -83,8 +83,12 @@ a few extra touches (animation and new backside).
 :white_check_mark: `feature/sound-implementation` Play background music during gameplay and sound effects
 when tiles match and when they don't.
 
-:construction: `feature/start-screen-design` Make the start screen more visually appealing. Create
-a global stylesheet.
+:white_check_mark: `feature/start-screen-design` Make the start screen more visually appealing. Create
+a global stylesheet. Also make the UI screen more responsive with tile sizes.
+
+:construction: `feature/ui-improvements` Create an Error-popup for features that won't be ready with first release.
+Also use this to reload fetch if it is incomplete. Inform the user to turn of energy save mode. 
+Add a score animation to finish gameplay if time is given.
 
 :warning:
 ##### Known Issues

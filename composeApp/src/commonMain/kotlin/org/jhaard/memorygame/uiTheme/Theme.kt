@@ -68,7 +68,7 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             textAlign = TextAlign.End,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.Bold,
-            color = AppBlue
+            color = AppPink
         ),
 
         // Button text

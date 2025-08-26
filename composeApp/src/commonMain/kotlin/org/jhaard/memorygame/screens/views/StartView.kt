@@ -9,11 +9,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import memorygame.composeapp.generated.resources.Res
-import memorygame.composeapp.generated.resources.diamond_shape_backside
+import memorygame.composeapp.generated.resources.tile_pink
 import org.jetbrains.compose.resources.painterResource
 import org.jhaard.memorygame.components.GameButton
 import org.jhaard.memorygame.uiTheme.AppImageSizing
@@ -43,7 +44,7 @@ fun StartView(animations: Array<Float>, onPlay: () -> Unit, onHighScore: () -> U
             )
 
             Image(
-                painter = painterResource(Res.drawable.diamond_shape_backside),
+                painter = painterResource(Res.drawable.tile_pink),
                 contentScale = ContentScale.Crop,
                 alignment = Alignment.Center,
                 contentDescription = "Tile at start",
@@ -54,7 +55,7 @@ fun StartView(animations: Array<Float>, onPlay: () -> Unit, onHighScore: () -> U
                         cameraDistance = 30f
                     }
                     .clip(shape = AppShapes.large)
-
+                    .alpha(0.8f)
             )
 
         }
