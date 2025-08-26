@@ -1,6 +1,5 @@
 package org.jhaard.memorygame.components
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -9,10 +8,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import org.jhaard.memorygame.animations.scaleAnimation
-import org.jhaard.memorygame.uiTheme.AppBorderSizing
 import org.jhaard.memorygame.uiTheme.AppButtonElevation
 
 @Composable
@@ -23,32 +20,28 @@ fun GameButton(buttonText: String, animate: Boolean, onClick: () -> Unit) {
     Button(
         onClick = onClick,
         colors = ButtonColors(
-            containerColor = MaterialTheme.colorScheme.background,
+            containerColor = MaterialTheme.colorScheme.tertiary,
             contentColor = MaterialTheme.colorScheme.onPrimary,
-            disabledContainerColor = Color.LightGray,
-            disabledContentColor = Color.Gray
+            disabledContainerColor = MaterialTheme.colorScheme.background,
+            disabledContentColor = MaterialTheme.colorScheme.background
         ),
         elevation = ButtonDefaults.buttonElevation(
             defaultElevation = AppButtonElevation.unPressed,
             pressedElevation = AppButtonElevation.pressed,
-            focusedElevation = AppButtonElevation.unPressed,
-            hoveredElevation = AppButtonElevation.unPressed,
-            disabledElevation = AppButtonElevation.unPressed
+            focusedElevation = AppButtonElevation.pressed,
+            hoveredElevation = AppButtonElevation.pressed,
+            disabledElevation = AppButtonElevation.pressed
         ),
         shape = MaterialTheme.shapes.large,
         modifier = Modifier
+            .fillMaxWidth(0.6f)
+
             .graphicsLayer {
                 if (animate) {
                     scaleX = scaleAnimation
                     scaleY = scaleAnimation
                 }
             }
-            .fillMaxWidth(0.6f)
-            .border(
-                color = MaterialTheme.colorScheme.primary,
-                width = AppBorderSizing.small,
-                shape = MaterialTheme.shapes.large
-            )
 
     ) {
         Text(

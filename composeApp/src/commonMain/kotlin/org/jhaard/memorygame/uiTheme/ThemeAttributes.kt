@@ -8,21 +8,21 @@ import androidx.compose.ui.unit.dp
 
 
 val BackgroundColor = Color(0xFFEFEFEF)
-val PrimaryColor = Color(0xFF232323)
+val ForegroundColor = Color(0xFF232323)
 val AppBlue = Color(0xFF69b6d9)
 val AppGreen = Color(0xFF256f60)
 val AppPink = Color(0xFFde92d0)
-val AppYellow = Color(0xFF3fd7c5)
-val TileFlipBorderColor = AppBlue
+val AppAqua = Color(0xFF3fd7c5)
+val TileFlipBorderColor = AppPink
 val TileMatchBorderColor = AppGreen
 
 // Color scheme
 val AppColors = lightColorScheme(
-    primary = AppYellow,
+    primary = AppBlue,
     secondary = AppPink,
     background = BackgroundColor,
-    onPrimary = PrimaryColor,
-    tertiary = AppYellow,
+    onPrimary = ForegroundColor,
+    tertiary = AppAqua,
     surface = AppGreen,
     onSecondary = TileFlipBorderColor,
     onTertiary = TileMatchBorderColor
@@ -57,7 +57,7 @@ object AppCardElevation {
 // Elevation
 object AppButtonElevation {
     val pressed = 0.dp
-    val unPressed = 10.dp
+    val unPressed = 8.dp
 }
 
 // Image size

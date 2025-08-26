@@ -22,7 +22,7 @@ import org.jhaard.memorygame.uiTheme.AppBorderSizing
 import org.jhaard.memorygame.uiTheme.AppCardElevation
 import org.jhaard.memorygame.uiTheme.AppShapes
 import org.jhaard.memorygame.uiTheme.AppSpacing
-import org.jhaard.memorygame.uiTheme.AppYellow
+import org.jhaard.memorygame.uiTheme.ForegroundColor
 import org.jhaard.memorygame.uiTheme.TileFlipBorderColor
 import org.jhaard.memorygame.uiTheme.TileMatchBorderColor
 import org.kodein.di.compose.localDI
@@ -80,8 +80,8 @@ fun TileComponent(
 fun getTileBorder(tileState: TileState): BorderStroke {
     return when (tileState) {
         TileState.IDLE -> BorderStroke(
-            color = AppYellow,
             width = AppBorderSizing.small,
+            color = ForegroundColor,
         )
 
         TileState.FLIP -> BorderStroke(
