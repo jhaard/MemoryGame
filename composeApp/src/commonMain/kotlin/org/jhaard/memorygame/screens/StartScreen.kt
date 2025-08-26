@@ -1,24 +1,31 @@
 package org.jhaard.memorygame.screens
 
-import androidx.compose.foundation.background
+import androidx.compose.animation.core.EaseInOutElastic
+import androidx.compose.animation.core.RepeatMode
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import org.jhaard.memorygame.components.GameButton
+import org.jhaard.memorygame.animations.alphaAnimation
+import org.jhaard.memorygame.animations.spinningAnimation
+import org.jhaard.memorygame.components.ChooseTiles
 import org.jhaard.memorygame.components.LoadingIndicator
+import org.jhaard.memorygame.navigation.Screens
+import org.jhaard.memorygame.screens.views.StartView
+import org.jhaard.memorygame.uiTheme.AppSpacing
 import org.jhaard.memorygame.viewModels.StartViewModel
 import org.kodein.di.compose.viewmodel.rememberViewModel
 
@@ -37,50 +44,62 @@ fun StartScreen(
     navOptions: NavOptions
 ) {
     val startViewModel: StartViewModel by rememberViewModel()
-
     val loading by startViewModel.isLoading.collectAsState(false)
 
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+    val spinning =
+        spinningAnimation(target = 180f, easing = EaseInOutElastic, repeatMode = RepeatMode.Reverse)
+
+    val alphaAnimation = alphaAnimation()
+
+    var showSets by remember { mutableStateOf(false) }
+
+    val listOfKeys = listOf(
+        "Vehicle",
+        "Animal",
+        "Plant"
+    )
+
+    LaunchedEffect(Unit) {
+        listOfKeys.forEach {
+            startViewModel.fetchImages(key = it)
+        }
+    }
+
+    Surface(
+        color = MaterialTheme.colorScheme.background,
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF232323))
-            .padding(20.dp)
     ) {
-        if (loading) {
-            LoadingIndicator()
-        } else {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .padding(top = AppSpacing.small)
+        ) {
+            when (loading) {
+                true -> LoadingIndicator()
+                false ->
+                    if (showSets) {
+                        ChooseTiles(
+                            listOfKeys = listOfKeys,
+                            onClick = {
+                                val route = Screens.GameScreen.withArguments(it)
+                                navController.navigate(route = route, navOptions = navOptions)
+                            }
+                        )
+                    } else {
+                        StartView(
+                            animations = arrayOf(alphaAnimation, spinning),
+                            onPlay = {
+                                showSets = true
+                            },
+                            onHighScore = {
+                                // Navigate
+                            },
+                        )
 
-            /*
-            TEMP BUTTON TO LOAD FROM API
-             */
-
-            GameButton(
-                navController = navController,
-                navOptions = navOptions,
-                route = "",
-                buttonText = "FETCH IMAGES - DEV",
-                onClick = {
-                    startViewModel.fetchImages("animal")
-                }
-
-            )
-            Text(
-                text = "MEMORY GAME",
-                fontSize = 18.sp,
-                color = Color.White,
-                textAlign = TextAlign.Center
-            )
-            GameButton(
-                navController = navController,
-                navOptions = navOptions,
-                route = "game_screen",
-                buttonText = "PLAY",
-                onClick = {
-                    navController.navigate(route = "game_screen", navOptions = navOptions)
-                }
-            )
+                    }
+            }
         }
     }
 

@@ -17,7 +17,7 @@ import memorygame.composeapp.generated.resources.tile_backside
 import org.jetbrains.compose.resources.painterResource
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
-import androidx.compose.ui.unit.dp
+import org.jhaard.memorygame.uiTheme.AppSpacing
 
 /**
  * The image contents of a tile.
@@ -42,7 +42,7 @@ fun TileContent(
             KamelImage({ painterFront },
                 contentDescription = "Tile Content",
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.padding(5.dp),
+                modifier = Modifier.padding(AppSpacing.xSmall),
                 onFailure = {
                     DefaultImage(painterBack)
                 }
