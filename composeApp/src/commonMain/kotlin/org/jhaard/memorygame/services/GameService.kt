@@ -11,21 +11,21 @@ import org.jhaard.memorygame.models.TileState
 class GameService(private val localStorage: SettingsRepository) {
 
     // Initialize the tile list.
-     fun initializeList(): List<TileData> {
-        val listA = createTileList(0)
+     fun initializeList(key: String): List<TileData> {
+        val listA = createTileList(key = key, startIndex = 0)
         val lastIndex = listA.lastIndex + 1
-        val listB = createTileList(lastIndex)
+        val listB = createTileList(key = key, startIndex = lastIndex)
         val combinedList = listA + listB
         return randomizedListOfTiles(tileList = combinedList)
     }
 
     /**
-     * Creating the list of randomized tiles with the fetched image-urls.
+     * Creating the list of tiles with the fetched image-urls.
      * @param startIndex The starting index if using multiple lists. (Test)
      */
-    private fun createTileList(startIndex: Int): List<TileData> {
+    private fun createTileList(key: String, startIndex: Int): List<TileData> {
         val listOfTiles: MutableList<TileData> = mutableListOf()
-        val listOfUrls = getImageList()
+        val listOfUrls = getImageList(key = key)
 
         if (listOfUrls.isNotEmpty()) {
             listOfUrls.forEachIndexed { index, url ->
@@ -53,8 +53,8 @@ class GameService(private val localStorage: SettingsRepository) {
      * Fetch the locally saved image urls.
      * @return The list of url strings.
      */
-    private fun getImageList(): List<String> {
-        return localStorage.getUrlList()
+    private fun getImageList(key: String): List<String> {
+        return localStorage.getUrlList(key = key)
     }
 
     /**

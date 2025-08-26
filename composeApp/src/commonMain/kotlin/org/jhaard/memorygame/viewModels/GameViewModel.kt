@@ -23,6 +23,7 @@ import org.jhaard.memorygame.services.TimerService
  * where UI is not involved.
  */
 class GameViewModel(
+    key: String,
     private val gameService: GameService,
     private val audioService: AudioService,
     private val timerService: TimerService
@@ -37,13 +38,11 @@ class GameViewModel(
     val tileList: StateFlow<List<TileData>> = _tileList
 
     init {
-        if (_uiState.value !is GameState.Playing) {
-            startGame()
-        }
+        startGame(key = key)
     }
 
-    private fun startGame() {
-        _tileList.value = gameService.initializeList()
+     private fun startGame(key: String) {
+        _tileList.value = gameService.initializeList(key = key)
         val startTime = 120
 
         updateState<GameState.Initial> {
@@ -57,10 +56,10 @@ class GameViewModel(
         startMusic()
     }
 
-    fun resetGame() {
+    fun resetGame(key: String) {
         stopMusic()
         updateState<GameState.GameOver> { GameState.Initial }
-        startGame()
+        startGame(key = key)
     }
 
     /**

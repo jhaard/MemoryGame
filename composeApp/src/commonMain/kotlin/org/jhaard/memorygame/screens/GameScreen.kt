@@ -8,6 +8,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import org.jhaard.memorygame.RememberLifecycleObserver
 import org.jhaard.memorygame.models.GameState
+import org.jhaard.memorygame.screens.views.ErrorView
+import org.jhaard.memorygame.screens.views.GameOverView
+import org.jhaard.memorygame.screens.views.InitialView
+import org.jhaard.memorygame.screens.views.PlayView
 import org.jhaard.memorygame.viewModels.GameViewModel
 import org.kodein.di.compose.viewmodel.rememberViewModel
 
@@ -18,9 +22,9 @@ import org.kodein.di.compose.viewmodel.rememberViewModel
  * @param navOptions Navigation options.
  */
 @Composable
-fun GameScreen(navController: NavController, navOptions: NavOptions) {
+fun GameScreen(set: String, navController: NavController, navOptions: NavOptions) {
 
-    val gameViewModel: GameViewModel by rememberViewModel()
+    val gameViewModel: GameViewModel by rememberViewModel(arg = set)
 
     val tileList by gameViewModel.tileList.collectAsState(initial = emptyList())
     val uiState by gameViewModel.uiState.collectAsState(initial = GameState.Initial)
@@ -35,18 +39,23 @@ fun GameScreen(navController: NavController, navOptions: NavOptions) {
     )
 
     when (uiState) {
-        is GameState.Error -> ErrorScreen()
-        is GameState.GameOver -> GameOverScreen(
-            navController = navController, navOptions = navOptions,
+        is GameState.Error -> ErrorView(onBack = {
+            navController.navigate("start_screen", navOptions)
+        })
+
+        is GameState.GameOver -> GameOverView(
             score = (uiState as GameState.GameOver).score,
-            onClick = {
+            onRetry = {
                 gameViewModel.stopMusic()
-                gameViewModel.resetGame()
+                gameViewModel.resetGame(key = set)
+            },
+            onBack = {
+                navController.navigate("start_screen", navOptions)
             }
         )
 
-        is GameState.Initial -> InitialScreen()
-        is GameState.Playing -> PlayScreen(
+        is GameState.Initial -> InitialView()
+        is GameState.Playing -> PlayView(
             tileList = tileList,
             timer = (uiState as GameState.Playing).timer.toString(),
             onClick = { tile ->

@@ -1,9 +1,9 @@
 package org.jhaard.memorygame
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.jhaard.memorygame.navigation.Navigation
+import org.jhaard.memorygame.uiTheme.MemoryGameTheme
 
 /**
  * Starting composable function for the applications.
@@ -12,7 +12,7 @@ import org.jhaard.memorygame.navigation.Navigation
 @Preview
 fun App() {
 
-    MaterialTheme {
+    MemoryGameTheme {
         Navigation()
     }
 

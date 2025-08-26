@@ -17,24 +17,24 @@ class SettingsRepository(private val settings: Settings) {
      * Save url list locally.
      * @param icons The icon list.
      */
-    fun saveUrlList(icons: List<String?>) {
+    fun saveUrlList(key: String, icons: List<String?>) {
         val jsonString = json.encodeToString(icons)
-        settings.putString("icon_list", jsonString)
+        settings.putString(key, jsonString)
     }
 
     /**
      * Save url list locally.
      * @return List of icons.
      */
-    fun getUrlList(): List<String> {
-        val jsonString = settings.getStringOrNull("icon_list") ?: return emptyList()
+    fun getUrlList(key: String): List<String> {
+        val jsonString = settings.getStringOrNull(key) ?: return emptyList()
         return json.decodeFromString(jsonString)
     }
 
     /**
      * Delete icon list from local storage.
      */
-    fun clear() {
-        settings.remove("icon_list")
+    fun clear(key: String) {
+        settings.remove(key)
     }
 }

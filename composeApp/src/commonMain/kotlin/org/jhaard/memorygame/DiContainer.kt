@@ -34,6 +34,7 @@ fun createAppDI(platform: DI.Module? = null) = DI {
     bindSingleton<TimerService> { TimerService() }
 
     bindSingleton<StartViewModel> { StartViewModel(instance(), instance()) }
-    bind<GameViewModel>() with factory { GameViewModel(instance(), instance(), instance()) }
+    bind<GameViewModel>() with factory { key: String ->
+        GameViewModel(key, instance(), instance(), instance()) }
 
 }
