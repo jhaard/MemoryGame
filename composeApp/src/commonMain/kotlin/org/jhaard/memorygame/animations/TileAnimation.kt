@@ -70,15 +70,15 @@ fun spinningAnimation(target: Float, easing: Easing, repeatMode: RepeatMode): Fl
 }
 
 @Composable
-fun alphaAnimation(): Float {
+fun alphaAnimation(initial: Float, target: Float, duration: Int, repeatMode: RepeatMode): Float {
     val infiniteTransition = rememberInfiniteTransition(label = "alpha")
 
     val alpha by infiniteTransition.animateFloat(
-        initialValue = 1f,
-        targetValue = 0.6f,
+        initialValue = initial,
+        targetValue = target,
         animationSpec = infiniteRepeatable(
-            animation = tween(2000, easing = LinearEasing),
-            repeatMode = RepeatMode.Reverse
+            animation = tween(durationMillis = duration, easing = LinearEasing),
+            repeatMode = repeatMode
         ),
         label = "alpha"
     )
@@ -89,7 +89,7 @@ fun alphaAnimation(): Float {
 fun scaleAnimation(): Float {
     val infiniteTransition = rememberInfiniteTransition(label = "general_scale")
 
-    val alpha by infiniteTransition.animateFloat(
+    val scale by infiniteTransition.animateFloat(
         initialValue = 1f,
         targetValue = 1.04f,
         animationSpec = infiniteRepeatable(
@@ -98,7 +98,7 @@ fun scaleAnimation(): Float {
         ),
         label = "general_scale"
     )
-    return alpha
+    return scale
 
 }
 

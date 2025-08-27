@@ -11,7 +11,7 @@ import org.jhaard.memorygame.models.TileState
 class GameService(private val localStorage: SettingsRepository) {
 
     // Initialize the tile list.
-     fun initializeList(key: String): List<TileData> {
+    fun initializeList(key: String): List<TileData> {
         val listA = createTileList(key = key, startIndex = 0)
         val lastIndex = listA.lastIndex + 1
         val listB = createTileList(key = key, startIndex = lastIndex)
@@ -62,7 +62,7 @@ class GameService(private val localStorage: SettingsRepository) {
      * @param imageUrl The image url to check.
      * @return Returns true if both flipped tiles have the same urls.
      */
-     fun isMatched(tileList: List<TileData>, imageUrl: String): Boolean {
+    fun isMatched(tileList: List<TileData>, imageUrl: String): Boolean {
         val flippedList = tileList.filter { it.tileState == TileState.FLIP }
         val values = flippedList.map { it.imageContent }
         return values.all { it == imageUrl } && values.size > 1
@@ -73,7 +73,7 @@ class GameService(private val localStorage: SettingsRepository) {
      * @param whereTimerIs The timer in seconds.
      * @return The score.
      */
-    fun addScore(whereTimerIs: Int): Int {
+    fun setCurrentScore(whereTimerIs: Int): Int {
         return when (whereTimerIs) {
             in 120 downTo 100 -> 20
             in 99 downTo 70 -> 12
@@ -84,5 +84,10 @@ class GameService(private val localStorage: SettingsRepository) {
             else -> 0
         }
     }
+
+    fun getCurrentScore(currentTime: Int): Int {
+        return setCurrentScore(whereTimerIs = currentTime)
+    }
+
 
 }

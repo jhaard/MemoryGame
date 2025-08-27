@@ -29,6 +29,8 @@ fun GameScreen(set: String, navController: NavController, navOptions: NavOptions
     val tileList by gameViewModel.tileList.collectAsState(initial = emptyList())
     val uiState by gameViewModel.uiState.collectAsState(initial = GameState.Initial)
 
+    val isAnimating = gameViewModel.animationFlag
+
     LaunchedEffect(Unit) {
         gameViewModel.startMusic()
     }
@@ -55,16 +57,21 @@ fun GameScreen(set: String, navController: NavController, navOptions: NavOptions
         )
 
         is GameState.Initial -> InitialView()
-        is GameState.Playing -> PlayView(
-            tileList = tileList,
-            timer = (uiState as GameState.Playing).timer.toString(),
-            onClick = { tile ->
-                gameViewModel.flipTile(
-                    tileId = tile.id,
-                    imageUrl = tile.imageContent
-                )
-            }
-        )
+        is GameState.Playing -> {
+            PlayView(
+                tileList = tileList,
+                timer = (uiState as GameState.Playing).timer.toString(),
+                isAnimating = isAnimating,
+                score = (uiState as GameState.Playing).currentScore.toString(),
+                onClick = { tile ->
+                    gameViewModel.flipTile(
+                        tileId = tile.id,
+                        imageUrl = tile.imageContent
+                    )
+                }
+            )
+
+        }
 
     }
 

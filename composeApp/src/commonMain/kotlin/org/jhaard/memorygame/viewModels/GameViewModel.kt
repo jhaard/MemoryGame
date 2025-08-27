@@ -1,5 +1,8 @@
 package org.jhaard.memorygame.viewModels
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
@@ -7,11 +10,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.jhaard.memorygame.services.GameService
 import org.jhaard.memorygame.models.GameState
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 import org.jhaard.memorygame.services.AudioService
+import org.jhaard.memorygame.services.GameService
 import org.jhaard.memorygame.services.TimerService
 
 /**
@@ -37,6 +40,9 @@ class GameViewModel(
     private val _tileList = MutableStateFlow<List<TileData>>(emptyList())
     val tileList: StateFlow<List<TileData>> = _tileList
 
+    var animationFlag by mutableStateOf(false)
+        private set
+
     init {
         startGame(key = key)
     }
@@ -49,6 +55,7 @@ class GameViewModel(
             GameState.Playing(
                 timer = startTime,
                 score = 0,
+                currentScore = 0,
                 clickCount = 0
             )
         }
@@ -139,13 +146,15 @@ class GameViewModel(
             updateState<GameState.Playing> {
                 it.copy(
                     clickCount = 0,
-                    score = it.score + gameService.addScore(whereTimerIs = it.timer)
+                    currentScore = gameService.getCurrentScore(currentTime = it.timer),
+                    score = it.score + gameService.setCurrentScore(whereTimerIs = it.timer)
                 )
             }
             updateTileList(
                 predicate = { it.tileState == TileState.FLIP },
                 transform = { it.copy(tileState = TileState.MATCHED) }
             )
+            animateScore()
             isTileBoardComplete()
         }
     }
@@ -201,8 +210,12 @@ class GameViewModel(
         audioService.stopBackgroundMusic(scope = viewModelScope)
     }
 
-    fun pauseMusic() {
-        audioService.pauseBackgroundMusic(scope = viewModelScope)
+    private fun animateScore() {
+        viewModelScope.launch {
+            animationFlag = true
+            delay(1000)
+            animationFlag = false
+        }
     }
 
 }

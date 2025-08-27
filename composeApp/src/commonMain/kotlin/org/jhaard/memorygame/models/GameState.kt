@@ -6,6 +6,7 @@ sealed class GameState {
     data class Playing(
         val timer: Int,
         val score: Int,
+        val currentScore: Int,
         val clickCount: Int
     ) : GameState()
 

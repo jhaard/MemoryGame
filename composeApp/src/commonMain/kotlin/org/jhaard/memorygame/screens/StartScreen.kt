@@ -49,7 +49,11 @@ fun StartScreen(
     val spinning =
         spinningAnimation(target = 180f, easing = EaseInOutElastic, repeatMode = RepeatMode.Reverse)
 
-    val alphaAnimation = alphaAnimation()
+    val alphaAnimation = alphaAnimation(
+        initial = 1f, target = 0.6f,
+        duration = 2000,
+        repeatMode = RepeatMode.Reverse,
+    )
 
     var showSets by remember { mutableStateOf(false) }
 
