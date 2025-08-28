@@ -147,7 +147,7 @@ class GameViewModel(
                 it.copy(
                     clickCount = 0,
                     currentScore = gameService.getCurrentScore(currentTime = it.timer),
-                    score = it.score + gameService.setCurrentScore(whereTimerIs = it.timer)
+                    score = it.score + gameService.determineScore(whereTimerIs = it.timer)
                 )
             }
             updateTileList(

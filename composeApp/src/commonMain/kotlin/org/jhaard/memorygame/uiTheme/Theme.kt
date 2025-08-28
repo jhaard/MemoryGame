@@ -49,6 +49,18 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             color = AppPink
         ),
 
+        // Score animation
+        headlineMedium = TextStyle(
+            fontFamily = mainFont,
+            fontSize = 28.sp,
+            letterSpacing = 4.sp,
+            textAlign = TextAlign.Center,
+            fontStyle = FontStyle.Normal,
+            fontWeight = FontWeight.ExtraBold,
+            color = AppGreen,
+            shadow = Shadow(color = ForegroundColor, offset = Offset.Zero, blurRadius = 1f)
+        ),
+
         // Timer text
         headlineSmall = TextStyle(
             fontFamily = mainFont,

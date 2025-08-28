@@ -7,9 +7,9 @@ import androidx.compose.runtime.getValue
 
 
 @Composable
-fun moveAnimation(visible: Boolean): Float {
+fun moveAnimation(startY: Float, visible: Boolean): Float {
     val offsetY by animateFloatAsState(
-        targetValue = if (visible) 0f else +200f,
+        targetValue = if (visible) startY else 200f,
         animationSpec = tween(1000),
         label = "offsetY"
     )

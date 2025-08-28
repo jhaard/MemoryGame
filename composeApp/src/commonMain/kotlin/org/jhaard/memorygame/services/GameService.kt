@@ -73,7 +73,7 @@ class GameService(private val localStorage: SettingsRepository) {
      * @param whereTimerIs The timer in seconds.
      * @return The score.
      */
-    fun setCurrentScore(whereTimerIs: Int): Int {
+    fun determineScore(whereTimerIs: Int): Int {
         return when (whereTimerIs) {
             in 120 downTo 100 -> 20
             in 99 downTo 70 -> 12
@@ -86,7 +86,7 @@ class GameService(private val localStorage: SettingsRepository) {
     }
 
     fun getCurrentScore(currentTime: Int): Int {
-        return setCurrentScore(whereTimerIs = currentTime)
+        return determineScore(whereTimerIs = currentTime)
     }
 
 
