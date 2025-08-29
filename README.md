@@ -14,6 +14,7 @@
 
 ![Landscape adaptation](assets/landscape.png)
 
+<p>
 <img src="assets/record_1.gif" width="270" height="660" alt="record1">
 <img src="assets/record_2.gif" width="270" height="660" alt="record2">
-
+</p>
