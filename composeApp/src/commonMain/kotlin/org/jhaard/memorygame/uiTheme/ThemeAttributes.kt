@@ -9,10 +9,11 @@ import androidx.compose.ui.unit.dp
 
 val BackgroundColor = Color(0xFFfdfdea)
 val ForegroundColor = Color(0xFF232323)
-val AppBlue = Color(0xFF69b6d9)
-val AppGreen = Color(0xFF256f60)
-val AppPink = Color(0xFFde92d0)
-val AppAqua = Color(0xFF3fd7c5)
+val ButtonTextColor = Color(0xFFFEFEFE)
+val AppBlue = Color(0xFF3b5ba7)
+val AppGreen = Color(0xFF2F6D6D)
+val AppPink = Color(0xFFca3e1b)
+val AppAqua = Color(0xFFc8f1e7)
 val TileFlipBorderColor = AppPink
 val TileMatchBorderColor = AppBlue
 
@@ -24,6 +25,7 @@ val AppColors = lightColorScheme(
     onPrimary = ForegroundColor,
     tertiary = AppAqua,
     surface = AppGreen,
+    onSurface = ButtonTextColor,
     onSecondary = TileFlipBorderColor,
     onTertiary = TileMatchBorderColor
 )

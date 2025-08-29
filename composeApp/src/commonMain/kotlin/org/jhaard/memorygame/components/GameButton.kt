@@ -20,7 +20,7 @@ fun GameButton(buttonText: String, animate: Boolean, onClick: () -> Unit) {
     Button(
         onClick = onClick,
         colors = ButtonColors(
-            containerColor = MaterialTheme.colorScheme.tertiary,
+            containerColor = MaterialTheme.colorScheme.surface,
             contentColor = MaterialTheme.colorScheme.onPrimary,
             disabledContainerColor = MaterialTheme.colorScheme.background,
             disabledContentColor = MaterialTheme.colorScheme.background

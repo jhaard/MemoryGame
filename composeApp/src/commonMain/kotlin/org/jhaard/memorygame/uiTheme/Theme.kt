@@ -11,6 +11,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import memorygame.composeapp.generated.resources.CherryBombOne_Regular
 import memorygame.composeapp.generated.resources.Nunito_Regular
 import memorygame.composeapp.generated.resources.Res
 import memorygame.composeapp.generated.resources.RubikDoodleShadow_Regular
@@ -23,7 +24,7 @@ import org.jetbrains.compose.resources.Font
 @Composable
 fun MemoryGameTheme(content: @Composable () -> Unit) {
 
-    val mainFont = FontFamily(Font(Res.font.RubikDoodleShadow_Regular))
+    val mainFont = FontFamily(Font(Res.font.CherryBombOne_Regular))
     val plainFont = FontFamily(Font(Res.font.Nunito_Regular))
 
     val appTypography = Typography(
@@ -62,33 +63,33 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
         // Score
         headlineMedium = TextStyle(
             fontFamily = mainFont,
-            fontSize = 16.sp,
+            fontSize = 20.sp,
             letterSpacing = 2.sp,
             textAlign = TextAlign.End,
             fontStyle = FontStyle.Normal,
-            fontWeight = FontWeight.Bold,
-            color = AppAqua
+            fontWeight = FontWeight.SemiBold,
+            color = AppBlue
         ),
 
-        // Timer text
+        // Timer and Score text
         headlineSmall = TextStyle(
             fontFamily = mainFont,
-            fontSize = 16.sp,
+            fontSize = 20.sp,
             letterSpacing = 2.sp,
             textAlign = TextAlign.End,
             fontStyle = FontStyle.Normal,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Normal,
             color = ForegroundColor
         ),
 
         // timer number
         titleLarge = TextStyle(
             fontFamily = mainFont,
-            fontSize = 16.sp,
+            fontSize = 20.sp,
             letterSpacing = 2.sp,
             textAlign = TextAlign.End,
             fontStyle = FontStyle.Normal,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.SemiBold,
             color = AppPink
         ),
 
@@ -100,7 +101,7 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             textAlign = TextAlign.Center,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.SemiBold,
-            color = ForegroundColor,
+            color = ButtonTextColor,
             shadow = Shadow(color = BackgroundColor, offset = Offset.Zero, blurRadius = 1f)
 
     ),

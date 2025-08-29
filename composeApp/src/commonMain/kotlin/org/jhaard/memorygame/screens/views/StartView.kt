@@ -1,6 +1,7 @@
 package org.jhaard.memorygame.screens.views
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
@@ -14,11 +15,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import memorygame.composeapp.generated.resources.Res
+import memorygame.composeapp.generated.resources.tile_backside
 import memorygame.composeapp.generated.resources.tile_pink
 import org.jetbrains.compose.resources.painterResource
 import org.jhaard.memorygame.components.GameButton
+import org.jhaard.memorygame.uiTheme.AppBorderSizing
 import org.jhaard.memorygame.uiTheme.AppImageSizing
 import org.jhaard.memorygame.uiTheme.AppShapes
+import org.jhaard.memorygame.uiTheme.ForegroundColor
 
 
 @Composable
@@ -44,7 +48,7 @@ fun StartView(animations: Array<Float>, onPlay: () -> Unit, onHighScore: () -> U
             )
 
             Image(
-                painter = painterResource(Res.drawable.tile_pink),
+                painter = painterResource(Res.drawable.tile_backside),
                 contentScale = ContentScale.Crop,
                 alignment = Alignment.Center,
                 contentDescription = "Tile at start",
@@ -56,6 +60,7 @@ fun StartView(animations: Array<Float>, onPlay: () -> Unit, onHighScore: () -> U
                     }
                     .clip(shape = AppShapes.large)
                     .alpha(0.8f)
+                    //.border(width = AppBorderSizing.small, color = MaterialTheme.colorScheme.secondary, shape = AppShapes.large)
             )
 
         }

@@ -75,7 +75,7 @@ fun alphaAnimation(): Float {
 
     val alpha by infiniteTransition.animateFloat(
         initialValue = 1f,
-        targetValue = 0.6f,
+        targetValue = 0.8f,
         animationSpec = infiniteRepeatable(
             animation = tween(2000, easing = LinearEasing),
             repeatMode = RepeatMode.Reverse
@@ -89,7 +89,7 @@ fun alphaAnimation(): Float {
 fun scaleAnimation(): Float {
     val infiniteTransition = rememberInfiniteTransition(label = "general_scale")
 
-    val alpha by infiniteTransition.animateFloat(
+    val scale by infiniteTransition.animateFloat(
         initialValue = 1f,
         targetValue = 1.04f,
         animationSpec = infiniteRepeatable(
@@ -98,7 +98,7 @@ fun scaleAnimation(): Float {
         ),
         label = "general_scale"
     )
-    return alpha
+    return scale
 
 }
 
