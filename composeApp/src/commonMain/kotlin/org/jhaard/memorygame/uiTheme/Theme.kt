@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.sp
 import memorygame.composeapp.generated.resources.CherryBombOne_Regular
 import memorygame.composeapp.generated.resources.Nunito_Regular
 import memorygame.composeapp.generated.resources.Res
-import memorygame.composeapp.generated.resources.RubikDoodleShadow_Regular
 import org.jetbrains.compose.resources.Font
 
 /**
