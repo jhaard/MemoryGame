@@ -25,7 +25,7 @@ fun ChooseTiles(listOfKeys: List<String>, onClick: (String) -> Unit) {
     ) {
 
         Text(
-            text = "TILES",
+            text = "THEME",
             style = MaterialTheme.typography.headlineLarge,
         )
 
