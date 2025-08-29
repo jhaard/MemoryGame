@@ -58,6 +58,7 @@ fun GameScreen(set: String, navController: NavController, navOptions: NavOptions
         is GameState.Playing -> PlayView(
             tileList = tileList,
             timer = (uiState as GameState.Playing).timer.toString(),
+            score = (uiState as GameState.Playing).score.toString(),
             onClick = { tile ->
                 gameViewModel.flipTile(
                     tileId = tile.id,
