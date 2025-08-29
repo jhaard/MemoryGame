@@ -14,7 +14,7 @@ import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.uiTheme.AppSpacing
 
 @Composable
-fun PlayView(tileList: List<TileData>, timer: String, onClick: (TileData) -> Unit) {
+fun PlayView(tileList: List<TileData>, timer: String, score: String, onClick: (TileData) -> Unit) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -24,7 +24,7 @@ fun PlayView(tileList: List<TileData>, timer: String, onClick: (TileData) -> Uni
             .padding(AppSpacing.medium)
     ) {
 
-        TileBoard(tileList = tileList, timer = timer, onClick = onClick)
+        TileBoard(tileList = tileList, timer = timer, score = score, onClick = onClick)
 
     }
 }

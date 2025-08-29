@@ -4,14 +4,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import org.jhaard.memorygame.display.Orientation
 import org.jhaard.memorygame.display.ScreenOrientation
 import org.jhaard.memorygame.models.TileData
@@ -29,7 +32,7 @@ import org.kodein.di.instance
 
 
 @Composable
-fun TileBoard(onClick: (TileData) -> Unit, tileList: List<TileData>, timer: String) {
+fun TileBoard(onClick: (TileData) -> Unit, tileList: List<TileData>, timer: String, score: String) {
 
     val di = localDI()
     val orientation by di.instance<Orientation>()
@@ -50,15 +53,26 @@ fun TileBoard(onClick: (TileData) -> Unit, tileList: List<TileData>, timer: Stri
                 .fillMaxWidth()
                 .padding(horizontal = AppSpacing.medium),
             verticalAlignment = Alignment.Top,
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.Center,
         ) {
             Text(
-                text = "Time left:",
+                text = "SCORE",
+                style = MaterialTheme.typography.headlineSmall,
+            )
+            Text(
+                text = score,
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.width(50.dp)
+            )
+            Spacer(modifier = Modifier.weight(2f))
+            Text(
+                text = "TIME",
                 style = MaterialTheme.typography.headlineSmall
             )
             Text(
                 text = timer,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.width(50.dp)
             )
         }
         FlowRow(
