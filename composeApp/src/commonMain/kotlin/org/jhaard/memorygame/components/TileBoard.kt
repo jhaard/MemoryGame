@@ -56,7 +56,7 @@ fun TileBoard(onClick: (TileData) -> Unit, tileList: List<TileData>, timer: Stri
             horizontalArrangement = Arrangement.Center,
         ) {
             Text(
-                text = "Score:",
+                text = "SCORE",
                 style = MaterialTheme.typography.headlineSmall,
             )
             Text(
@@ -66,7 +66,7 @@ fun TileBoard(onClick: (TileData) -> Unit, tileList: List<TileData>, timer: Stri
             )
             Spacer(modifier = Modifier.weight(2f))
             Text(
-                text = "Time left:",
+                text = "TIME",
                 style = MaterialTheme.typography.headlineSmall
             )
             Text(
