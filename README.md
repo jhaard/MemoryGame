@@ -14,6 +14,9 @@
 
 ![Landscape adaptation](assets/landscape.png)
 
+<img src="assets/record_1.gif" width="540" height="1320" alt="record1">
+
+
 ![Gameplay](assets/record_1.gif)
 
 ![Start Screen](assets/record_2.gif)
