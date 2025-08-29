@@ -39,6 +39,16 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             shadow = Shadow(color = AppPink, offset = Offset.Zero, blurRadius = 1f)
         ),
 
+        displaySmall = TextStyle(
+            fontFamily = mainFont,
+            fontSize = 28.sp,
+            letterSpacing = 2.sp,
+            textAlign = TextAlign.Center,
+            fontStyle = FontStyle.Normal,
+            fontWeight = FontWeight.Bold,
+            color = AppPink
+        ),
+
         // Small headline
         headlineLarge = TextStyle(
             fontFamily = mainFont,
@@ -49,10 +59,21 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             color = AppPink
         ),
 
+        // Score
+        headlineMedium = TextStyle(
+            fontFamily = mainFont,
+            fontSize = 16.sp,
+            letterSpacing = 2.sp,
+            textAlign = TextAlign.End,
+            fontStyle = FontStyle.Normal,
+            fontWeight = FontWeight.Bold,
+            color = AppAqua
+        ),
+
         // Timer text
         headlineSmall = TextStyle(
             fontFamily = mainFont,
-            fontSize = 22.sp,
+            fontSize = 16.sp,
             letterSpacing = 2.sp,
             textAlign = TextAlign.End,
             fontStyle = FontStyle.Normal,
@@ -63,7 +84,7 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
         // timer number
         titleLarge = TextStyle(
             fontFamily = mainFont,
-            fontSize = 22.sp,
+            fontSize = 16.sp,
             letterSpacing = 2.sp,
             textAlign = TextAlign.End,
             fontStyle = FontStyle.Normal,

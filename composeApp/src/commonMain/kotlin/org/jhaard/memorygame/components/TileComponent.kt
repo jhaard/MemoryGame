@@ -1,7 +1,7 @@
 package org.jhaard.memorygame.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
 import org.jhaard.memorygame.animations.rotateTileAnimation
 import org.jhaard.memorygame.animations.scaleTileAnimation
 import org.jhaard.memorygame.display.Orientation
@@ -51,7 +52,13 @@ fun TileComponent(
     Card(
         modifier = Modifier
             .size(getTileSize(screenSize = screenSize))
-            .clickable(onClick = onClick, enabled = enabled)
+            .pointerInput(enabled){
+                if (enabled) {
+                    detectTapGestures(
+                        onPress = { onClick() }
+                    )
+                }
+            }
             .graphicsLayer {
                 scaleX = scaleAnimation
                 scaleY = scaleAnimation
