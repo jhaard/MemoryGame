@@ -6,6 +6,7 @@ import io.ktor.client.HttpClient
 import org.jhaard.memorygame.apiServices.ImageApiService
 import org.jhaard.memorygame.httpClient.createHttpClient
 import org.jhaard.memorygame.localStorage.SettingsRepository
+import org.jhaard.memorygame.repositories.StartRepository
 import org.jhaard.memorygame.services.AudioService
 import org.jhaard.memorygame.services.GameService
 import org.jhaard.memorygame.services.TimerService
@@ -33,7 +34,9 @@ fun createAppDI(platform: DI.Module? = null) = DI {
     bindSingleton<AudioService> { AudioService(instance()) }
     bindSingleton<TimerService> { TimerService() }
 
-    bindSingleton<StartViewModel> { StartViewModel(instance(), instance()) }
+    bindSingleton<StartRepository> { StartRepository(instance(), instance()) }
+
+    bindSingleton<StartViewModel> { StartViewModel(instance()) }
     bind<GameViewModel>() with factory { key: String ->
         GameViewModel(key, instance(), instance(), instance()) }
 
