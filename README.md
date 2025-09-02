@@ -11,7 +11,7 @@
 * ##### Game logic, design and responsive UI.
 
 #### GAME SCREENS
-![Game screens](assets/game_screens_preview.png)
+![Game screens](assets/all_screens.png)
 
 #### LANDSCAPE ADAPTATION
 ![Landscape adaptation](assets/landscape.png)
@@ -19,6 +19,7 @@
 
 #### GIF GAMEPLAY
 <p>
-<img src="assets/record_1.gif" width="270" height="660" alt="record1">
-<img src="assets/record_2.gif" width="270" height="660" alt="record2">
+<img src="assets/loading.gif" width="270" height="660" alt="loading">
+<img src="assets/start.gif" width="270" height="660" alt="start">
+<img src="assets/gameplay.gif" width="270" height="660" alt="gameplay">
 </p>
