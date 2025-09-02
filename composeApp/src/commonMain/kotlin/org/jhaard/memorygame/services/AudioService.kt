@@ -11,25 +11,23 @@ import org.jhaard.memorygame.sound.AudioManager
 class AudioService(private val audioManager: AudioManager) {
 
     // Start background music.
-    fun playBackgroundMusic(scope: CoroutineScope) {
-        scope.launch {
-            audioManager.setVolume(0.1f)
-            audioManager.playBackgroundMusic(loop = true)
-        }
+    suspend fun playBackgroundMusic() {
+        audioManager.setVolume(0.1f)
+        audioManager.playBackgroundMusic(loop = true)
+
     }
 
     // Stop background music.
-    fun stopBackgroundMusic(scope: CoroutineScope) {
-        scope.launch {
-            audioManager.stop()
-        }
+    fun stopBackgroundMusic() {
+        audioManager.stop()
+
     }
 
     // Stop background music.
-    fun pauseBackgroundMusic(scope: CoroutineScope) {
-        scope.launch {
-            audioManager.pause()
-        }
+    fun pauseBackgroundMusic() {
+
+        audioManager.pause()
+
     }
 
     // Sound effect - Match.

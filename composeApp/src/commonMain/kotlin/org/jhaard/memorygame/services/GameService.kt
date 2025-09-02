@@ -1,6 +1,7 @@
 package org.jhaard.memorygame.services
 
 import org.jhaard.memorygame.localStorage.SettingsRepository
+import org.jhaard.memorygame.models.GameState
 import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 
@@ -83,6 +84,15 @@ class GameService(private val localStorage: SettingsRepository) {
             in 9 downTo 0 -> 2
             else -> 0
         }
+    }
+
+    /**
+     * Evaluating maximum clicks.
+     * @return True if two clicks are made.
+     */
+    fun maximumClicks(currentState: GameState): Boolean {
+        val clickCount = if (currentState is GameState.Playing) currentState.clickCount else 0
+        return clickCount == 2
     }
 
 }

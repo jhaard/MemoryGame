@@ -1,6 +1,7 @@
 package org.jhaard.memorygame.screens.views
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
@@ -9,14 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import memorygame.composeapp.generated.resources.Res
-import memorygame.composeapp.generated.resources.tile_pink
+import memorygame.composeapp.generated.resources.gradient_backside
 import org.jetbrains.compose.resources.painterResource
 import org.jhaard.memorygame.components.GameButton
+import org.jhaard.memorygame.uiTheme.AppBorderSizing
 import org.jhaard.memorygame.uiTheme.AppImageSizing
 import org.jhaard.memorygame.uiTheme.AppShapes
 
@@ -44,7 +45,7 @@ fun StartView(animations: Array<Float>, onPlay: () -> Unit, onHighScore: () -> U
             )
 
             Image(
-                painter = painterResource(Res.drawable.tile_pink),
+                painter = painterResource(Res.drawable.gradient_backside),
                 contentScale = ContentScale.Crop,
                 alignment = Alignment.Center,
                 contentDescription = "Tile at start",
@@ -54,8 +55,10 @@ fun StartView(animations: Array<Float>, onPlay: () -> Unit, onHighScore: () -> U
                         rotationY = animations[1]
                         cameraDistance = 30f
                     }
+                    .border(width = AppBorderSizing.small, color = MaterialTheme.colorScheme.onPrimary, shape = MaterialTheme.shapes.large)
+
                     .clip(shape = AppShapes.large)
-                    .alpha(0.8f)
+
             )
 
         }

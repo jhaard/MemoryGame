@@ -10,11 +10,14 @@ import platform.Foundation.NSBundle
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 @OptIn(ExperimentalForeignApi::class)
 actual class AudioManager {
+    private var isPlaying = false
     private var backgroundPlayer: AVAudioPlayer? = null
     private val effectPlayers = mutableListOf<AVAudioPlayer>()
 
     actual suspend fun playBackgroundMusic(loop: Boolean) {
         withContext(Dispatchers.Main) {
+            if (isPlaying) return@withContext
+            isPlaying = true
             val url = NSBundle.mainBundle
                 .URLForResource("start_background", withExtension = "AAC") ?: return@withContext
 
@@ -50,12 +53,16 @@ actual class AudioManager {
     }
 
     actual fun stop() {
+        if (!isPlaying) return
+        isPlaying = false
         backgroundPlayer?.stop()
         effectPlayers.forEach { it.stop() }
         effectPlayers.clear()
+
     }
 
     actual fun setVolume(volume: Float) {
+        if (isPlaying) return
         backgroundPlayer?.volume = volume
     }
 

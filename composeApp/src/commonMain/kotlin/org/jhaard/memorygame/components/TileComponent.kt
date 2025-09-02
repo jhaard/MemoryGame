@@ -9,7 +9,9 @@ import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
@@ -21,13 +23,14 @@ import org.jhaard.memorygame.models.TileData
 import org.jhaard.memorygame.models.TileState
 import org.jhaard.memorygame.uiTheme.AppBorderSizing
 import org.jhaard.memorygame.uiTheme.AppCardElevation
-import org.jhaard.memorygame.uiTheme.AppGreen
 import org.jhaard.memorygame.uiTheme.AppShapes
 import org.jhaard.memorygame.uiTheme.AppSpacing
+import org.jhaard.memorygame.uiTheme.ForegroundColor
 import org.jhaard.memorygame.uiTheme.TileFlipBorderColor
 import org.jhaard.memorygame.uiTheme.TileMatchBorderColor
 import org.kodein.di.compose.localDI
 import org.kodein.di.instance
+import kotlin.random.Random
 
 /**
  * A Memory Tile Component.
@@ -44,6 +47,8 @@ fun TileComponent(
     val di = localDI()
     val orientation by di.instance<Orientation>()
 
+    val randomRotation = remember { randomCardRotation() }
+
     val scaleAnimation = scaleTileAnimation(tile)
     val rotateAnimation = rotateTileAnimation(tile)
 
@@ -52,6 +57,7 @@ fun TileComponent(
     Card(
         modifier = Modifier
             .size(getTileSize(screenSize = screenSize))
+            .rotate(randomRotation)
             .pointerInput(enabled){
                 if (enabled) {
                     detectTapGestures(
@@ -67,10 +73,10 @@ fun TileComponent(
             .padding(AppSpacing.small),
         shape = AppShapes.small,
         colors = CardColors(
-            containerColor = if (tile.tileState == TileState.FLIP) MaterialTheme.colorScheme.background
-            else MaterialTheme.colorScheme.tertiary,
-            contentColor = if (tile.tileState == TileState.FLIP) MaterialTheme.colorScheme.background
-            else MaterialTheme.colorScheme.tertiary,
+            containerColor = if (tile.tileState == TileState.FLIP) MaterialTheme.colorScheme.onPrimary
+            else MaterialTheme.colorScheme.primary,
+            contentColor = if (tile.tileState == TileState.FLIP) MaterialTheme.colorScheme.onPrimary
+            else MaterialTheme.colorScheme.primary,
             disabledContainerColor = Color.LightGray,
             disabledContentColor = Color.LightGray
         ),
@@ -88,7 +94,7 @@ fun getTileBorder(tileState: TileState): BorderStroke {
     return when (tileState) {
         TileState.IDLE -> BorderStroke(
             width = AppBorderSizing.small,
-            color = AppGreen,
+            color = ForegroundColor,
         )
 
         TileState.FLIP -> BorderStroke(
@@ -100,5 +106,14 @@ fun getTileBorder(tileState: TileState): BorderStroke {
             width = AppBorderSizing.large,
             color = TileMatchBorderColor
         )
+    }
+}
+
+
+fun randomCardRotation(): Float {
+    return if (Random.nextBoolean()) {
+        Random.nextDouble(345.0, 360.0).toFloat()
+    } else {
+        Random.nextDouble(0.0, 15.0).toFloat()
     }
 }
