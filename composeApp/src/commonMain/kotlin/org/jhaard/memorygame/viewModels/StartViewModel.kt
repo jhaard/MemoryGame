@@ -5,18 +5,15 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.jhaard.memorygame.apiServices.ImageApiService
-import org.jhaard.memorygame.localStorage.SettingsRepository
+import org.jhaard.memorygame.repositories.StartRepository
 
 /**
  * The viewModel for the StartScreen, loading the images from the api.
  *
- * @param imageApiService The class for fetching images.
- * @param localStorage Saving the image urls locally.
+ * @param startRepository The repository for fetching images.
  */
 class StartViewModel(
-    private val imageApiService: ImageApiService,
-    private val localStorage: SettingsRepository
+    private val startRepository: StartRepository
 ) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)
@@ -27,30 +24,15 @@ class StartViewModel(
      * @param key The key to search for.
      */
     fun fetchImages(key: String) {
-        if(localStorage.getUrlList(key).isEmpty()) {
-            viewModelScope.launch {
-                _isLoading.value = true
 
-                val imageResponse = imageApiService.getImageIcons(key = key)
+        viewModelScope.launch {
+            _isLoading.value = true
 
-                if (imageResponse.icons != null) {
+            startRepository.fetchImages(key = key)
 
-                    val sizeFormats = imageResponse.icons
-                        .flatMap { it.rasterSizes!! }
-
-                    val sizes = sizeFormats.filter { it.size == 64 }
-
-                    val previews = sizes
-                        .flatMap { it.formats!! }
-
-                    val imageUrls = previews.map { it.previewUrl }
-
-                    localStorage.saveUrlList(key, imageUrls)
-
-                }
-                _isLoading.value = false
-            }
+            _isLoading.value = false
         }
-
     }
+
+
 }

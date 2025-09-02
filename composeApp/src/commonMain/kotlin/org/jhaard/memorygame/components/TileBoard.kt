@@ -77,8 +77,7 @@ fun TileBoard(onClick: (TileData) -> Unit, tileList: List<TileData>, timer: Stri
         }
         FlowRow(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(AppSpacing.xSmall),
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalArrangement = Arrangement.Center,
             maxItemsInEachRow = count

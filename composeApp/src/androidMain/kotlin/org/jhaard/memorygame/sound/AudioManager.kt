@@ -11,6 +11,7 @@ import org.jhaard.memorygame.R
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class AudioManager(private val context: Context) {
+    private var isPlaying = false
     private val mediaPlayer: MediaPlayer = MediaPlayer.create(context, R.raw.start_background)
 
     private val soundPool = SoundPool.Builder().setMaxStreams(5).build()
@@ -23,8 +24,11 @@ actual class AudioManager(private val context: Context) {
 
     actual suspend fun playBackgroundMusic(loop: Boolean) {
         withContext(Dispatchers.Main) {
+            if (isPlaying) return@withContext
+            isPlaying = true
             mediaPlayer.isLooping = loop
             mediaPlayer.start()
+
         }
     }
 
@@ -47,11 +51,14 @@ actual class AudioManager(private val context: Context) {
     }
 
     actual fun stop() {
+        if (!isPlaying) return
         mediaPlayer.stop()
         mediaPlayer.prepare()
+        isPlaying = false
     }
 
     actual fun setVolume(volume: Float) {
+        if (isPlaying) return
         mediaPlayer.setVolume(volume, volume)
     }
 }
