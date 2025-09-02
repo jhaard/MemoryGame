@@ -58,6 +58,7 @@ actual class AudioManager(private val context: Context) {
     }
 
     actual fun setVolume(volume: Float) {
+        if (isPlaying) return
         mediaPlayer.setVolume(volume, volume)
     }
 }

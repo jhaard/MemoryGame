@@ -14,7 +14,6 @@ class StartRepository(
      */
     suspend fun fetchImages(key: String) {
         if (localStorage.getUrlList(key).isEmpty()) {
-            println("HEEEEEEJ")
 
             val imageResponse = imageApiService.getImageIcons(key = key)
 
