@@ -21,7 +21,7 @@ fun PlayView(tileList: List<TileData>, timer: String, score: String, onClick: (T
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(AppSpacing.medium)
+            .padding(AppSpacing.large)
     ) {
 
         TileBoard(tileList = tileList, timer = timer, score = score, onClick = onClick)

@@ -35,8 +35,8 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             letterSpacing = 4.sp,
             textAlign = TextAlign.Center,
             fontStyle = FontStyle.Normal,
-            color = AppPink,
-            shadow = Shadow(color = AppPink, offset = Offset.Zero, blurRadius = 1f)
+            brush = GradientBrush,
+            shadow = Shadow(color = AppRed, offset = Offset.Zero, blurRadius = 1f)
         ),
 
         displaySmall = TextStyle(
@@ -46,7 +46,7 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             textAlign = TextAlign.Center,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.Bold,
-            color = AppPink
+            color = AppRed
         ),
 
         // Small headline
@@ -56,7 +56,7 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             letterSpacing = 4.sp,
             textAlign = TextAlign.Center,
             fontStyle = FontStyle.Normal,
-            color = AppPink
+            brush = GradientBrush
         ),
 
         // Score
@@ -67,7 +67,7 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             textAlign = TextAlign.End,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.SemiBold,
-            color = AppBlue
+            color = AppGreen
         ),
 
         // Timer and Score text
@@ -89,7 +89,7 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             textAlign = TextAlign.End,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.SemiBold,
-            color = AppPink
+            color = AppRed
         ),
 
         // Button text

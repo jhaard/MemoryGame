@@ -1,5 +1,6 @@
 package org.jhaard.memorygame.components
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -10,7 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import org.jhaard.memorygame.animations.scaleAnimation
+import org.jhaard.memorygame.uiTheme.AppBorderSizing
 import org.jhaard.memorygame.uiTheme.AppButtonElevation
+import org.jhaard.memorygame.uiTheme.GradientBrush
 
 @Composable
 fun GameButton(buttonText: String, animate: Boolean, onClick: () -> Unit) {
@@ -20,7 +23,7 @@ fun GameButton(buttonText: String, animate: Boolean, onClick: () -> Unit) {
     Button(
         onClick = onClick,
         colors = ButtonColors(
-            containerColor = MaterialTheme.colorScheme.surface,
+            containerColor = MaterialTheme.colorScheme.background,
             contentColor = MaterialTheme.colorScheme.onPrimary,
             disabledContainerColor = MaterialTheme.colorScheme.background,
             disabledContentColor = MaterialTheme.colorScheme.background
@@ -35,13 +38,13 @@ fun GameButton(buttonText: String, animate: Boolean, onClick: () -> Unit) {
         shape = MaterialTheme.shapes.large,
         modifier = Modifier
             .fillMaxWidth(0.6f)
-
             .graphicsLayer {
                 if (animate) {
                     scaleX = scaleAnimation
                     scaleY = scaleAnimation
                 }
             }
+            .border(width = AppBorderSizing.small, brush = GradientBrush, shape = MaterialTheme.shapes.large)
 
     ) {
         Text(

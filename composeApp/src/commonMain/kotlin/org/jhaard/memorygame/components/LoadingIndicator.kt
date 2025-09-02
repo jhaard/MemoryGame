@@ -19,7 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import memorygame.composeapp.generated.resources.Res
-import memorygame.composeapp.generated.resources.diamond_shape_backside
+import memorygame.composeapp.generated.resources.tile_pink
 import org.jetbrains.compose.resources.painterResource
 import org.jhaard.memorygame.animations.spinningAnimation
 import org.jhaard.memorygame.models.values.StringValues
@@ -44,7 +44,7 @@ fun LoadingIndicator() {
             .fillMaxSize()
     ) {
         Image(
-            painter = painterResource(Res.drawable.diamond_shape_backside),
+            painter = painterResource(Res.drawable.tile_pink),
             contentScale = ContentScale.Crop,
             alignment = Alignment.Center,
             contentDescription = "Tile at start",

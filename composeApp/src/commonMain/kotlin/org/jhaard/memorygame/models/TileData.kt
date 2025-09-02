@@ -1,10 +1,5 @@
 package org.jhaard.memorygame.models
 
-import androidx.compose.ui.graphics.painter.BitmapPainter
-import memorygame.composeapp.generated.resources.Res
-import memorygame.composeapp.generated.resources.tile_backside
-import org.jetbrains.compose.resources.Resource
-
 /**
  * Model of the tile data.
  *

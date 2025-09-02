@@ -3,28 +3,35 @@ package org.jhaard.memorygame.uiTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 
-val BackgroundColor = Color(0xFFfdfdea)
-val ForegroundColor = Color(0xFF232323)
-val ButtonTextColor = Color(0xFFFEFEFE)
-val AppBlue = Color(0xFF3b5ba7)
-val AppGreen = Color(0xFF2F6D6D)
-val AppPink = Color(0xFFca3e1b)
-val AppAqua = Color(0xFFc8f1e7)
-val TileFlipBorderColor = AppPink
-val TileMatchBorderColor = AppBlue
+val BackgroundColor = Color(0xFF424242)
+val ForegroundColor = Color(0xFFfafafa)
+val ButtonTextColor = Color(0xFFfafafa)
+
+val AppLightGreen = Color(0xFF82E895)
+val AppRed = Color(0xFFED1216)
+val AppGreen = Color(0xFF1D9F35)
+val AppPink = Color(0xFFf361ff)
+val AppPurple = Color(0xFFa271ff)
+val TileFlipBorderColor = AppRed
+val TileMatchBorderColor = AppGreen
+
+val GradientBrush = Brush.linearGradient(
+    colors = listOf(AppPink, AppPurple, AppPink)
+)
 
 // Color scheme
 val AppColors = lightColorScheme(
-    primary = AppBlue,
-    secondary = AppPink,
+    primary = AppLightGreen,
+    secondary = AppRed,
     background = BackgroundColor,
     onPrimary = ForegroundColor,
-    tertiary = AppAqua,
-    surface = AppGreen,
+    tertiary = AppGreen,
+    surface = AppPurple,
     onSurface = ButtonTextColor,
     onSecondary = TileFlipBorderColor,
     onTertiary = TileMatchBorderColor
@@ -49,6 +56,7 @@ object AppSpacing {
     val xSmall = 5.dp
     val small = 10.dp
     val medium = 20.dp
+    val large = 25.dp
 }
 
 // Elevation
