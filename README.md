@@ -16,7 +16,7 @@
 
 
 #### LANDSCAPE ADAPTATION
-![Landscape adaptation](assets/landscape.png)
+![Landscape adaptation](assets/landscape2.png)
 
 
 #### GIF GAMEPLAY
