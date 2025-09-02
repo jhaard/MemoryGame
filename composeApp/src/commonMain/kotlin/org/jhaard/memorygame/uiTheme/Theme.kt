@@ -46,7 +46,7 @@ fun MemoryGameTheme(content: @Composable () -> Unit) {
             textAlign = TextAlign.Center,
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.Bold,
-            color = AppRed
+            brush = GradientBrush
         ),
 
         // Small headline
