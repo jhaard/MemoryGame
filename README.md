@@ -12,7 +12,7 @@
 
 
 #### GAME SCREENS
-![Game screens](assets/all_screens.png)
+![Game screens](assets/all_screens2.png)
 
 
 #### LANDSCAPE ADAPTATION
