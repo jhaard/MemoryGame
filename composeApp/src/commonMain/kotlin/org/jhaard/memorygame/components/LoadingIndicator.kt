@@ -55,7 +55,7 @@ fun LoadingIndicator() {
                 }
                 .clip(AppShapes.small)
                 .border(
-                    color = MaterialTheme.colorScheme.tertiary,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     width = AppBorderSizing.small,
                     shape = AppShapes.small
                 )
